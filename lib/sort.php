@@ -14,6 +14,8 @@ class Sort
 	 * may be faster than MergeSort or QuickSort when sorting very small vectors consisting of
 	 * around less than 10 elements. If you're sorting larger arrays, consider QuickSort or MergeSort.
 	 * 
+	 * Learn more @link https://en.wikipedia.org/wiki/Selection_sort
+	 * 
 	 * @param Vector<int> $vector The integer vector to sort from lowest to highest value
 	 * 
 	 * @return Vector<int> The sorted integer vector
@@ -22,15 +24,15 @@ class Sort
 	{
 		$vectorLen = count($vector);
 		
+		// Loop through the vector
 		for ($i = 0; $i < $vectorLen; $i++) {
 			
+			// Loop through the sub-vector to find any values less than $i, and swap them.
 			for ($j = $i+1; $j < $vectorLen; $j++) {
 				
 				if ($vector[$i] > $vector[$j]) {
 					
-					$oldi = $vector[$i];
-					$vector[$i] = $vector[$j];
-					$vector[$j] = $oldi;
+					$vector = static::swapValues($vector, $i, $j);
 					
 				}
 				
@@ -38,13 +40,45 @@ class Sort
 			
 		}
 		
-		// https://en.wikipedia.org/wiki/Selection_sort
 		return $vector;
 	}
 	
+	/**
+	 * InsertSort sorts an integer vector in quadratic time (Theta(n^2)), though it improves on
+	 * SelectionSort. InsertSort is only useful for very small vectors. If you have a larger
+	 * vector greater than around 10 elements, then try MergeSort or QuickSort.
+	 * 
+	 * Learn more @link https://en.wikipedia.org/wiki/Insertion_sort
+	 * 
+	 * @param Vector<int> $vector The integer vector to sort
+	 * 
+	 * @return Vector<int> The sorted integer vector
+	 */
 	public static function insertSort(Vector<int> $vector) : Vector<int>
 	{
-		// https://en.wikipedia.org/wiki/Insertion_sort
+		$vectorLen = count($vector);
+		for ($i = 1; $i < $vectorLen; $i++) {
+			
+			$key = $vector[$i];
+			$j = $i;
+			
+			while ($j > 0 && $vector[$j-1] > $key) {
+				
+				$vector[$j] = $vector[$j-1];
+				$j--;
+				
+			}
+			
+			$vector[$j] = $key;
+			
+		}
+		
+		return $vector;
+	}
+	
+	public static function bubbleSort(Vector<int> $vector) : Vector<int>
+	{
+		// https://en.wikipedia.org/wiki/Bubble_sort
 	}
 	
 	public static function mergeSort(Vector<int> $vector, int &$numSplitEnv = 0) : Vector<int>
@@ -99,5 +133,23 @@ class Sort
 	{
 		// https://en.wikipedia.org/wiki/Radix_sort
 		// https://www.codingbot.net/2013/02/radix-sort-algorithm-and-c-code.html
+	}
+	
+	/**
+	 * Quickly swap array values
+	 * 
+	 * @param Vector<int> $vector	The vector on which to swap the keys
+	 * @param int $indexA			The first index to swap
+	 * @param int $indexB			The second index to swap
+	 * 
+	 * @return Vector<int> The integer vector object with the elements swapped
+	 */
+	protected static function swapValues(Vector<int> $vector, int $indexA, int $indexB) : Vector<int>
+	{
+		$oldA = $vector[$indexA];
+		$vector[$indexA] = $vector[$indexB];
+		$vector[$indexB] = $oldA;
+
+		return $vector;
 	}
 }

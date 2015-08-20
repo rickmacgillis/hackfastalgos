@@ -24,15 +24,11 @@ List of Algorithms
 ------------------
 
 Every algorithm is grouped into a class of similar algorithms. Below is a list of classes, followed by the list of
-algorithm methods in that class. For simplicity, the list below does not include the Hack Fast Algos project namespace
+algorithm methods in that class. For simplicity, the list below does not include the HackFastAlgos project namespace
 of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to use
 `\HackFastAlgos\Search\binarySearchInt()`
 
 **Algos**
-
-`solveHanoi(int $numDisks = 5) : Map<int,Vector<int>>`
-
-`isPalindrome(?string $text) : bool`
 
 **Geometry**
 
@@ -43,6 +39,10 @@ of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to us
 **Select**
 
 **Sort**
+
+`selectionSort(Vector<int> $vector) : Vector<int>`
+
+`insertSort(Vector<int> $vector) : Vector<int>`
 
 Contributing
 ------------
