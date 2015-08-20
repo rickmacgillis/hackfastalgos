@@ -9,8 +9,35 @@ namespace HackFastAlgos;
 
 class Sort
 {
+	/**
+	 * SelectionSort sorts an integer vector in Theta(n^2) time (Quadratic time). This algorithm
+	 * may be faster than MergeSort or QuickSort when sorting very small vectors consisting of
+	 * around less than 10 elements. If you're sorting larger arrays, consider QuickSort or MergeSort.
+	 * 
+	 * @param Vector<int> $vector The integer vector to sort from lowest to highest value
+	 * 
+	 * @return Vector<int> The sorted integer vector
+	 */
 	public static function selectionSort(Vector<int> $vector) : Vector<int>
 	{
+		$vectorLen = count($vector);
+		
+		for ($i = 0; $i < $vectorLen; $i++) {
+			
+			for ($j = $i+1; $j < $vectorLen; $j++) {
+				
+				if ($vector[$i] > $vector[$j]) {
+					
+					$oldi = $vector[$i];
+					$vector[$i] = $vector[$j];
+					$vector[$j] = $oldi;
+					
+				}
+				
+			}
+			
+		}
+		
 		// https://en.wikipedia.org/wiki/Selection_sort
 		return $vector;
 	}

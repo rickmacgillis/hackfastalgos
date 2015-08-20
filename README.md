@@ -29,7 +29,9 @@ of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to us
 `\HackFastAlgos\Search\binarySearchInt()`
 
 **Algos**
+
 `solveHanoi(int $numDisks = 5) : Map<int,Vector<int>>`
+
 `isPalindrome(?string $text) : bool`
 
 **Geometry**
