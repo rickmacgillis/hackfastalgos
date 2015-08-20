@@ -44,6 +44,29 @@ of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to us
 
 `insertSort(Vector<int> $vector) : Vector<int>`
 
+Notes on Slower Algorithms
+--------------------------
+
+There are a number of "slower" algorithms included in this library, so let me explain why I've chosen to include them.
+First, I'll define what I mean when I'm discussing the speed of the algorithms.
+
+When measuring the speed of an algorithm, computer scientists talk in [asymptotic notation](https://www.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/asymptotic-notation). There
+are three types of asymptotic notation: Big-O, Big-Omega, and Big-Theta.
+
+Big-O is the most popular, as it signifies the upper-bound of the running time, meaning that in the worst-case
+situation, the algorithm will not run any slower than the Big-O time. Big-Omega signifies the opposite of Big-O. It
+states that even in the best-case situation, the algorithm cannot run any faster than Big-Omega. Lastly, we have
+Big-Theta which signifies that no matter what data you shove through the algorithm, the algorithm will always run in
+Big-Theta time.
+
+When calculating asymptotic notation, you drop the lower order terms (coefficients and constants) as they do not
+contribute largely to the running time. Therefore, asymptotic notation is more correct when defining the running time
+of large data sets, and less correct when defining smaller datasets. Therefore, if you have a four element vector
+you're ordering with SelectionSort, you could find it to be faster than using MergeSort or QuickSort.
+
+The other reason I'm including "slower" algorithms is because they're still popular as a way to benchmark one algorithm
+against another algorithm.
+
 Contributing
 ------------
 

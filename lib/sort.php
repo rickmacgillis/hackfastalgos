@@ -44,6 +44,43 @@ class Sort
 	}
 	
 	/**
+	 * BubbleSort sorts an integer vector in quadratic time (Theta(n^2), and is less-efficient than
+	 * InsertSort. It's still a well-known algorithm, though WikiPedia claims
+	 * (@link https://en.wikipedia.org/wiki/Bubble_sort) that some researchers do not wish to have BubbleSort
+	 * as part of the Computer Science curriculum. BubbleSort is part of this library as a benchmark.
+	 * 
+	 * Learn more @link https://en.wikipedia.org/wiki/Bubble_sort
+	 * 
+	 * @param Vector<int> $vector The integer vector to sort
+	 * 
+	 * @return Vector<int> The sorted integer vector
+	 */
+	public static function bubbleSort(Vector<int> $vector) : Vector<int>
+	{
+		$sortLen = count($vector);
+		while ($sortLen > 0) {
+			
+			$newLen = 0;
+			
+			for ($i = 1; $i < $sortLen; $i++) {
+				
+				if ($vector[$i-1] > $vector[$i]) {
+					
+					static::swapValues($vector, $i-1, $i);
+					$newLen = $i;
+					
+				}
+				
+			}
+			
+			$sortLen = $newLen;
+			
+		}
+		
+		return $vector;
+	}
+	
+	/**
 	 * InsertSort sorts an integer vector in quadratic time (Theta(n^2)), though it improves on
 	 * SelectionSort. InsertSort is only useful for very small vectors. If you have a larger
 	 * vector greater than around 10 elements, then try MergeSort or QuickSort.
@@ -76,19 +113,14 @@ class Sort
 		return $vector;
 	}
 	
-	public static function bubbleSort(Vector<int> $vector) : Vector<int>
-	{
-		// https://en.wikipedia.org/wiki/Bubble_sort
-	}
-	
 	public static function mergeSort(Vector<int> $vector, int &$numSplitEnv = 0) : Vector<int>
 	{
 		// https://en.wikipedia.org/wiki/Merge_sort
 	}
 	
 	/**
-	 * Quick Sort works in big-theta(n log n) time on average, though in the worst case, it
-	 * will operate in big-theta(n^2) time. This method aims for a 3 to 1 split by taking
+	 * Quick Sort works in big-O(n log n) time on average, though in the worst case, it
+	 * will operate in big-Omega(n^2) time. This method aims for a 3 to 1 split by taking
 	 * the median value of a random sampling of values from $array. As the sampling period
 	 * takes extra work, set the $minArraySize to the smallest array to take a sampling from.
 	 * Anything less than the specified array width will not using sampling.
@@ -103,6 +135,8 @@ class Sort
 	 * @param integer $pivot		The index to use as the pivot (Or leave at null)
 	 * @param integer $numRandom	The number of random elements to sample for each iteration (See above notes)
 	 * @param integer $minArraySize	The minimum array width to pull samples from
+	 * 
+	 * @return Vector<int> The sorted integer vector
 	 */
 	public static function quickSort(Vector<int> $vector, ?int $pivot = null, int $numRandom = -1, int $minArraySize = null) : Vector<int>
 	{
