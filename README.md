@@ -1,7 +1,7 @@
 Hack Fast Algos
 ==============
 
-**STATUS:** IN DEVELOPMENT 
+**STATUS:** IN DEVELOPMENT
 
 Hack Fast Algos brings all of the most popular speed and space-efficient algorithms together in one library. The files
 are completely written in Hack, so they'll work with your HHVM installation with Hack enabled.
