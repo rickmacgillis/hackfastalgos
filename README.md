@@ -25,8 +25,8 @@ List of Algorithms
 
 Every algorithm is grouped into a class of similar algorithms. Below is a list of classes, followed by the list of
 algorithm methods in that class. For simplicity, the list below does not include the HackFastAlgos project namespace
-of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to use
-`\HackFastAlgos\Search\binarySearchInt()`
+of `HackFastAlgos.` So, if you wish to use `mergeSort` then you need to use
+`\HackFastAlgos\Sort\mergeSort()`
 
 **Algos**
 
@@ -40,13 +40,16 @@ of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to us
 
 **Sort**
 
-`selectionSort(Vector<int> $vector) : Vector<int>`
+The callback function must operate the same way as the comparative function for
+[usort](http://php.net/manual/en/function.usort.php). It allows for sorting arbitrary data in $vector.
 
-`bubbleSort(Vector<int> $vector) : Vector<int>`
+`selectionSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
 
-`insertSort(Vector<int> $vector) : Vector<int>`
+`bubbleSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
 
-`mergeSort<T>(Vector<int> $vector, bool $returnWaitHandler = false) : T`
+`insertSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
+
+`mergeSort<T>(Vector<T> $vector, Callable $callback, bool $returnWaitHandler = false) : T`
 
 Notes on Slower Algorithms
 --------------------------

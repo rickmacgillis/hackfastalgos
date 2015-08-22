@@ -10,17 +10,18 @@ namespace HackFastAlgos;
 class Sort
 {
 	/**
-	 * SelectionSort sorts an integer vector in Theta(n^2) time (Quadratic time). This algorithm
+	 * SelectionSort sorts a vector in Theta(n^2) time (Quadratic time). This algorithm
 	 * may be faster than MergeSort or QuickSort when sorting very small vectors consisting of
 	 * around less than 10 elements. If you're sorting larger arrays, consider QuickSort or MergeSort.
 	 * 
 	 * Learn more @link https://en.wikipedia.org/wiki/Selection_sort
 	 * 
-	 * @param Vector<int> $vector The integer vector to sort from lowest to highest value
+	 * @param Vector<T> $vector		The vector to sort from lowest to highest value
+	 * @param Callable $callback	The callback to compare the values (@See usort())
 	 * 
-	 * @return Vector<int> The sorted integer vector
+	 * @return Vector<T> The sorted vector
 	 */
-	public static function selectionSort(Vector<int> $vector) : Vector<int>
+	public static function selectionSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>
 	{
 		$vectorLen = $vector->count();
 		
@@ -30,7 +31,7 @@ class Sort
 			// Loop through the sub-vector to find any values less than $i, and swap them.
 			for ($j = $i+1; $j < $vectorLen; $j++) {
 				
-				if ($vector[$i] > $vector[$j]) {
+				if ($callback($vector[$i], $vector[$j]) > 0) {
 					
 					$vector = static::swapValues($vector, $i, $j);
 					
@@ -44,18 +45,19 @@ class Sort
 	}
 	
 	/**
-	 * BubbleSort sorts an integer vector in quadratic time (Theta(n^2), and is less-efficient than
+	 * BubbleSort sorts a vector in quadratic time (Theta(n^2), and is less-efficient than
 	 * InsertSort. It's still a well-known algorithm, though WikiPedia claims
 	 * (@link https://en.wikipedia.org/wiki/Bubble_sort) that some researchers do not wish to have BubbleSort
 	 * as part of the Computer Science curriculum. BubbleSort is part of this library as a benchmark.
 	 * 
 	 * Learn more @link https://en.wikipedia.org/wiki/Bubble_sort
 	 * 
-	 * @param Vector<int> $vector The integer vector to sort
+	 * @param Vector<T> $vector		The vector to sort
+	 * @param Callable $callback	The callback to compare the values (@See usort())
 	 * 
-	 * @return Vector<int> The sorted integer vector
+	 * @return Vector<T> The sorted vector
 	 */
-	public static function bubbleSort(Vector<int> $vector) : Vector<int>
+	public static function bubbleSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>
 	{
 		$sortLen = $vector->count();
 		while ($sortLen > 0) {
@@ -64,7 +66,7 @@ class Sort
 			
 			for ($i = 1; $i < $sortLen; $i++) {
 				
-				if ($vector[$i-1] > $vector[$i]) {
+				if ($callback($vector[$i-1], $vector[$i]) > 0) {
 					
 					static::swapValues($vector, $i-1, $i);
 					$newLen = $i;
@@ -81,17 +83,18 @@ class Sort
 	}
 	
 	/**
-	 * InsertSort sorts an integer vector in quadratic time (Theta(n^2)), though it improves on
+	 * InsertSort sorts a vector in quadratic time (Theta(n^2)), though it improves on
 	 * SelectionSort. InsertSort is only useful for very small vectors. If you have a larger
 	 * vector greater than around 10 elements, then try MergeSort or QuickSort.
 	 * 
 	 * Learn more @link https://en.wikipedia.org/wiki/Insertion_sort
 	 * 
-	 * @param Vector<int> $vector The integer vector to sort
+	 * @param Vector<T> $vector		The vector to sort
+	 * @param Callable $callback	The callback to compare the values (@See usort())
 	 * 
-	 * @return Vector<int> The sorted integer vector
+	 * @return Vector<T> The sorted vector
 	 */
-	public static function insertSort(Vector<int> $vector) : Vector<int>
+	public static function insertSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>
 	{
 		$vectorLen = $vector->count();
 		for ($i = 1; $i < $vectorLen; $i++) {
@@ -99,7 +102,11 @@ class Sort
 			$key = $vector[$i];
 			$j = $i;
 			
-			while ($j > 0 && $vector[$j-1] > $key) {
+			while ($j > 0) {
+				
+				if ($callback($vector[$j-1], $key) <= 0) {
+					break;
+				}
 				
 				$vector[$j] = $vector[$j-1];
 				$j--;
@@ -121,17 +128,18 @@ class Sort
 	 * 
 	 * Learn more @link https://en.wikipedia.org/wiki/Merge_sort
 	 * 
-	 * @param Vector<int> $vector		The integer vector to sort numerically
+	 * @param Vector<T> $vector			The vector to sort numerically
+	 * @param Callable $callback		The callback to compare the values (@See usort())
 	 * @param bool $returnWaitHandler	Set this param to true to return the wait handle for the
 	 * 									full MergeSort process. If you're not running other processes
 	 * 									asynchronously, then leave the value at false to return the
 	 * 									sorted Vector<int>.
 	 * 
-	 * @return T The numerically sorted Vector<int> or the Awaitable wait handle (See $returnWaitHandler)
+	 * @return T The numerically sorted vector or the Awaitable wait handle (See $returnWaitHandler)
 	 */
-	public static function mergeSort<T>(Vector<int> $vector, bool $returnWaitHandler = false) : T
+	public static function mergeSort<T>(Vector<T> $vector, Callable $callback, bool $returnWaitHandler = false) : T
 	{
-		$sorted = static::mergeSortAsync($vector);
+		$sorted = static::mergeSortAsync($vector, $callback);
 		
 		if (true === $returnWaitHandler) {
 			return $sorted;
@@ -144,13 +152,14 @@ class Sort
 	 * Async handler for MergeSort
 	 * 
 	 * @access protected
-	 * @param Vector<int> $vector	The vector to sort
+	 * @param Vector<T> $vector		The vector to sort
+	 * @param Callable $callback	The callback to compare the values (@See usort())
 	 * @param ?int $start			The key to start sorting at (Set by the recursion)
 	 * @param ?int $end				The key to stop sorting at (Set by the recursion)
 	 * 
-	 * @return Awaitable<Vector<int>> The wait handler containing the sorted integer vector
+	 * @return Awaitable<Vector<T>> The wait handler containing the sorted vector
 	 */
-	protected static async function mergeSortAsync(Vector<int> $vector, ?int $start = null, ?int $end = null) : Awaitable<Vector<int>>
+	protected static async function mergeSortAsync<T>(Vector<T> $vector, Callable $callback, ?int $start = null, ?int $end = null) : Awaitable<Vector<T>>
 	{
 		$start	= (null === $start) ? 0 : $start;
 		$end	= (null === $end) ? $vector->count()-1 : $end;
@@ -161,8 +170,8 @@ class Sort
 			 * We need to wait for any children to do the splits so merge() will have everything it
 			 * needs at this recursion level.
 			 */
-			$halves = await static::mergeSortHalves($vector, $start, $end);
-			return static::merge($vector, $halves[0], $halves[1], $halves[2]);
+			$halves = await static::mergeSortHalves($vector, $callback, $start, $end);
+			return static::merge($vector, $callback, $halves[0], $halves[1], $halves[2]);
 				
 		}
 		
@@ -173,17 +182,18 @@ class Sort
 	 * Run the binary split asynchronously (awaited in mergeSortAsync)
 	 * 
 	 * @access protected
-	 * @param Vector<int> $vector	The vector to sort
+	 * @param Vector<T> $vector		The vector to sort
+	 * @param Callable $callback	The callback to compare the values (@See usort())
 	 * @param int $start			The key for the start of the parent sub-vector
 	 * @param int $end				The key for the end of the parent sub-vector
 	 * 
 	 * @return Awaitable<Vector<int>> The vector containing the positions of start, mid, end for the child sub-vectors
 	 */
-	protected static async function mergeSortHalves(Vector<int> $vector, int $start, int $end) : Awaitable<Vector<int>>
+	protected static async function mergeSortHalves<T>(Vector<T> $vector, Callable $callback, int $start, int $end) : Awaitable<Vector<int>>
 	{
 		$mid = (int) floor(($start+$end)/2);
-		static::mergeSortAsync($vector, $start, $mid);
-		static::mergeSortAsync($vector, $mid+1, $end);
+		static::mergeSortAsync($vector, $callback, $start, $mid);
+		static::mergeSortAsync($vector, $callback, $mid+1, $end);
 		
 		return Vector{$start, $mid, $end};
 	}
@@ -192,14 +202,15 @@ class Sort
 	 * Perform the merge portion of MergeSort
 	 * 
 	 * @access protected
-	 * @param Vector<int> $vector	The integer vector to sort
+	 * @param Vector<T> $vector		The vector to sort
+	 * @param Callable $callback	The callback to compare the values (@See usort())
 	 * @param int $start			The key for the beginning of the sub-vectors
 	 * @param int $mid				The key right smack dab in the middle of the sub-vectors
 	 * @param int $end				The key at the end of the sub-vectors
 	 * 
-	 * @return Vector<int> The merged and sorted integer vector
+	 * @return Vector<T> The merged and sorted vector
 	 */
-	protected static function merge(Vector<int> $vector, int $start, int $mid, int $end) : Vector<int>
+	protected static function merge<T>(Vector<T> $vector, Callable $callback, int $start, int $mid, int $end) : Vector<T>
 	{
 		$left	= Vector{};
 		$right	= Vector{};
@@ -223,7 +234,7 @@ class Sort
 		// Sort the vector by combining both sub-vectors
 		while ($i < $left->count() && $j < $right->count()) {
 			
-			if ($left[$i] < $right[$j]) {
+			if ($callback($right[$j], $left[$i]) > 0) {
 				
 				$vector[$k] = $left[$i];
 				$i++;
