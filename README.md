@@ -46,6 +46,8 @@ of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to us
 
 `insertSort(Vector<int> $vector) : Vector<int>`
 
+`mergeSort<T>(Vector<int> $vector, bool $returnWaitHandler = false) : T`
+
 Notes on Slower Algorithms
 --------------------------
 
@@ -68,6 +70,15 @@ you're ordering with SelectionSort, you could find it to be faster than using Me
 
 The other reason I'm including "slower" algorithms is because they're still popular as a way to benchmark one algorithm
 against another algorithm.
+
+Why is X application of Y algorithm not in the library?
+-------------------------------------------------------
+
+The reason why X application of Y algorithm is not part of the library is simply because *you* haven't written it yet!
+Every algorithm may be adapted to a multitude of application, and there are infinite possible algorithms. Simply put,
+I cannot possibly write an implementation of every possible algorithm or implement every possible application of that
+algorithm. I've chosen the most popular applications for each algorithm, and if you think that a popular algorithm
+is missing from the library, please write it into existence, then create a pull request.
 
 Contributing
 ------------
