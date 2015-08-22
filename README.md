@@ -42,6 +42,8 @@ of `HackFastAlgos.` So, if you wish to use `binarySearchInt` then you need to us
 
 `selectionSort(Vector<int> $vector) : Vector<int>`
 
+`bubbleSort(Vector<int> $vector) : Vector<int>`
+
 `insertSort(Vector<int> $vector) : Vector<int>`
 
 Notes on Slower Algorithms

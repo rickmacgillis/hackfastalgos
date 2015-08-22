@@ -22,7 +22,7 @@ class Sort
 	 */
 	public static function selectionSort(Vector<int> $vector) : Vector<int>
 	{
-		$vectorLen = count($vector);
+		$vectorLen = $vector->count();
 		
 		// Loop through the vector
 		for ($i = 0; $i < $vectorLen; $i++) {
@@ -57,7 +57,7 @@ class Sort
 	 */
 	public static function bubbleSort(Vector<int> $vector) : Vector<int>
 	{
-		$sortLen = count($vector);
+		$sortLen = $vector->count();
 		while ($sortLen > 0) {
 			
 			$newLen = 0;
@@ -93,7 +93,7 @@ class Sort
 	 */
 	public static function insertSort(Vector<int> $vector) : Vector<int>
 	{
-		$vectorLen = count($vector);
+		$vectorLen = $vector->count();
 		for ($i = 1; $i < $vectorLen; $i++) {
 			
 			$key = $vector[$i];
@@ -113,9 +113,151 @@ class Sort
 		return $vector;
 	}
 	
-	public static function mergeSort(Vector<int> $vector, int &$numSplitEnv = 0) : Vector<int>
+	/**
+	 * MergeSort runs in Big-Theta(n log n) time and is suitable for large datasets. It does not
+	 * work in place, so if memory is an issue, consider QuickSort. This implementation of MergeSort
+	 * takes advantage of the asynchronous features Hack provides, such that the child-nodes
+	 * of the binary tree are recursed at the same time.
+	 * 
+	 * Learn more @link https://en.wikipedia.org/wiki/Merge_sort
+	 * 
+	 * @param Vector<int> $vector		The integer vector to sort numerically
+	 * @param bool $returnWaitHandler	Set this param to true to return the wait handle for the
+	 * 									full MergeSort process. If you're not running other processes
+	 * 									asynchronously, then leave the value at false to return the
+	 * 									sorted Vector<int>.
+	 * 
+	 * @return T The numerically sorted Vector<int> or the Awaitable wait handle (See $returnWaitHandler)
+	 */
+	public static function mergeSort<T>(Vector<int> $vector, bool $returnWaitHandler = false) : T
 	{
-		// https://en.wikipedia.org/wiki/Merge_sort
+		$sorted = static::mergeSortAsync($vector);
+		
+		if (true === $returnWaitHandler) {
+			return $sorted;
+		}
+		
+		return $sorted->getWaitHandle()->join();
+	}
+	
+	/**
+	 * Async handler for MergeSort
+	 * 
+	 * @access protected
+	 * @param Vector<int> $vector	The vector to sort
+	 * @param ?int $start			The key to start sorting at (Set by the recursion)
+	 * @param ?int $end				The key to stop sorting at (Set by the recursion)
+	 * 
+	 * @return Awaitable<Vector<int>> The wait handler containing the sorted integer vector
+	 */
+	protected static async function mergeSortAsync(Vector<int> $vector, ?int $start = null, ?int $end = null) : Awaitable<Vector<int>>
+	{
+		$start	= (null === $start) ? 0 : $start;
+		$end	= (null === $end) ? $vector->count()-1 : $end;
+		
+		if ($start < $end) {
+			
+			/*
+			 * We need to wait for any children to do the splits so merge() will have everything it
+			 * needs at this recursion level.
+			 */
+			$halves = await static::mergeSortHalves($vector, $start, $end);
+			return static::merge($vector, $halves[0], $halves[1], $halves[2]);
+				
+		}
+		
+		return $vector;
+	}
+	
+	/**
+	 * Run the binary split asynchronously (awaited in mergeSortAsync)
+	 * 
+	 * @access protected
+	 * @param Vector<int> $vector	The vector to sort
+	 * @param int $start			The key for the start of the parent sub-vector
+	 * @param int $end				The key for the end of the parent sub-vector
+	 * 
+	 * @return Awaitable<Vector<int>> The vector containing the positions of start, mid, end for the child sub-vectors
+	 */
+	protected static async function mergeSortHalves(Vector<int> $vector, int $start, int $end) : Awaitable<Vector<int>>
+	{
+		$mid = (int) floor(($start+$end)/2);
+		static::mergeSortAsync($vector, $start, $mid);
+		static::mergeSortAsync($vector, $mid+1, $end);
+		
+		return Vector{$start, $mid, $end};
+	}
+	
+	/**
+	 * Perform the merge portion of MergeSort
+	 * 
+	 * @access protected
+	 * @param Vector<int> $vector	The integer vector to sort
+	 * @param int $start			The key for the beginning of the sub-vectors
+	 * @param int $mid				The key right smack dab in the middle of the sub-vectors
+	 * @param int $end				The key at the end of the sub-vectors
+	 * 
+	 * @return Vector<int> The merged and sorted integer vector
+	 */
+	protected static function merge(Vector<int> $vector, int $start, int $mid, int $end) : Vector<int>
+	{
+		$left	= Vector{};
+		$right	= Vector{};
+		
+		// Create temporary arrays (This is why MergeSort does not work in-place.
+		for ($k = $start; $k <= $mid; $k++) {
+			
+			$left[] = $vector[$k];
+			
+		}
+		
+		for ($k = $mid+1; $k <= $end; $k++) {
+			
+			$right[] = $vector[$k];
+			
+		}
+		
+		$i = $j = 0;
+		$k = $start;
+		
+		// Sort the vector by combining both sub-vectors
+		while ($i < $left->count() && $j < $right->count()) {
+			
+			if ($left[$i] < $right[$j]) {
+				
+				$vector[$k] = $left[$i];
+				$i++;
+				
+			} else {
+				
+				$vector[$k] = $right[$j];
+				$j++;
+				
+			}
+			
+			$k++;
+			
+		}
+		
+		// Only keys on $left remain, so add those now.
+		while ($i < $left->count()) {
+			
+			$vector[$k] = $left[$i];
+			$i++;
+			$k++;
+			
+		}
+		
+		// Only keys on $right remain, so add those now.
+		while ($j < $right->count()) {
+			
+			$vector[$k] = $right[$j];
+			$j++;
+			$k++;
+			
+		}
+		
+		return $vector;
 	}
 	
 	/**
@@ -172,6 +314,7 @@ class Sort
 	/**
 	 * Quickly swap array values
 	 * 
+	 * @access protected
 	 * @param Vector<int> $vector	The vector on which to swap the keys
 	 * @param int $indexA			The first index to swap
 	 * @param int $indexB			The second index to swap
