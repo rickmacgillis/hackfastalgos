@@ -1,25 +1,48 @@
 <?HH
- * Copyright 2015 Rick Mac Gillis
+/** Copyright 2015 Rick Mac Gillis
  *
  * Implements various graph algorithms optimized for speed.
  */
 
 namespace HackFastAlgos;
 
-class GeometryException extends \Exception{}
+class GraphException extends \Exception{}
 
-type HFAEdgeList	= Map<int,Vector<int>>;
-type HFAAdjList<T>	= Map<int,T>;
-type HFAMatrix		= Map<int,Vector<int>>;
+type HFAEdgeList	= Vector<Vector<int>>;
+type HFAAdjList<T>	= Vector<T>;
+type HFAMatrix		= Vector<Vector<int>>;
+type HFANode		= int;
 
-class Geometry
+type HFAShortestPath	= Vector<shape (
+	
+	'distance'		=> int,
+	'predecessor'	=> (int,int)
+	
+)>;
+
+class Graph
 {	
+	/**
+	 * Don't sort the resulting graph
+	 * @var int SORT_NONE = 0
+	 */
 	public const SORT_NONE		= 0;
+	
+	/**
+	 * Sort the resulting graph by its vertices (low to high)
+	 * @var int SORT_VERTEX = 1
+	 */
 	public const SORT_VERTEX	= 1;
+	
+	/**
+	 * Sort the resulting graph by its weights (low to high)
+	 * @var int SORT_WEIGHTS = 2
+	 */
 	public const SORT_WEIGHTS	= 2;
 	
 	public static function matrixTransform(HFAMatrix $matrix, int $degrees = 90, $flip = false) : HFAMatrix
 	{
+		// https://en.wikipedia.org/wiki/Transformation_matrix
 		switch ($degrees) {
 			
 			case 0:
@@ -27,7 +50,7 @@ class Geometry
 					
 				}
 				
-				throw new GeometryException('To flip a matrix, set the third parameter to boolean true.', 1);
+				throw new GraphException('To flip a matrix, set the third parameter to boolean true.', 1);
 				break;
 			
 			case 180:
@@ -65,6 +88,8 @@ class Geometry
 	 * [vertex][vertex, vertex, vertex, ...]
 	 * [vertex][vertex, vertex, ...]
 	 * [vertex][vertex, vertex, vertex, ...]
+	 * 
+	 * Learn more @link https://en.wikipedia.org/wiki/Adjacency_list
 	 * 
 	 * @param Map<int,Vector<int>> $edges	The edge list array map
 	 * @param int $sortMode					One of these: Graph::SORT_NONE (default), Graph::SORT_VERTEX, Graph::SORT_WEIGHTS
@@ -104,6 +129,8 @@ class Geometry
 	 * 	[1, 1, 0, 1, 1, 0],
 	 * 	...
 	 * ]
+	 * 
+	 * Learn more @link https://en.wikipedia.org/wiki/Adjacency_matrix
 	 * 
 	 * @param Map<int,Vector<int>> $edges	The edge list @see \PHPFastAlgos\Graph\edgeListToAdjList() for valid
 	 * 								edge list formats.
@@ -149,10 +176,10 @@ class Geometry
 	
 	public static function strassenMatrixMult(HFAMatrix $matrix1, HFAMatrix $matrix2) : HFAMatrix
 	{
-		
+		// https://en.wikipedia.org/wiki/Strassen_algorithm
 	}
 	
-	public static function closestPoints(Map<int,Pair<int,int>> &$pairs, ?int $start = null, ?int $length = null)
+	public static function closestPoints(Vector<Pair<int,int>> $pairs, ?int $start = null, ?int $length = null)
 	{
 		// https://en.wikipedia.org/wiki/Closest_pair_of_points_problem
 		if (empty($start) || empty($length)) {
@@ -177,10 +204,58 @@ class Geometry
 	{
 		// https://gist.github.com/MastaP/2314166
 		// https://en.wikipedia.org/wiki/Karger%27s_algorithm
+		// https://github.com/jinhw1989/MinCutAlgo/blob/master/algo/MinCut.py
 		/**
 		 * Karger-Stein
 		 * 
 		 * Page 37: http://mypages.iit.edu/~hjin15/talks/MATH565Pre.pdf
+		 * @TODO Make it always reliable and faster with Mac Gillis' Algorithm?
 		 */
+	}
+	
+	public static function bfsShortestPath(
+		HFAAdjList<T> $adjList,
+		HFANode $sourceNode,
+		HFANode $findNode,
+		bool &$notConnected = false
+	) : HFAShortestPath
+	{
+		// $notConnected is true when we can't find a path. HFABfs is 0 for both
+		// https://en.wikipedia.org/wiki/Breadth-first_search
+		if ($adjList[0]->count() > 2) {
+			throw new GraphException('The BFS shortest path method does not account for edge lengths. '.
+									 'Use dijkstrasShortestPath instead.');
+		}
+	}
+	
+	public static function dijkstrasShortestPath(HFAAdjList $adjList, HFANode $sourceNode) : HFAShortestPath
+	{
+		// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+		// Mention that Dijkstra's algorithm uses BFS
+		// If the list contains a negative length...
+			throw new GraphException('Dijkstra\'s algorithm does not work with negative edge lengths. '.
+									 'Use bellmanFordShortestPath instead.');
+	}
+	
+	public static function bellmanFordShortestPath(
+		Vector<int> $vertices,
+		HFAEdgeList $edgeList,
+		HFANode $sourceNode
+	) : HFAShortestPath
+	{
+		// https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
+		// Negative edge length safe
+	}
+	
+	public static function dfsTopSort(HFAAdjList<T> $adjList, HFANode $sourceNode) : Vector<HFANode>
+	{
+		// https://en.wikipedia.org/wiki/Depth-first_search
+		// https://en.wikipedia.org/wiki/Topological_sorting
+	}
+	
+	public static function kosarajuSCC(HFAAdjList<T> $adjList, HFANode $sourceNode) : Vector<HFANode>
+	{
+		// https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
+		// Returns an array of leader nodes
 	}
 }

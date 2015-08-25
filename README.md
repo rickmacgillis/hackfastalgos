@@ -20,6 +20,12 @@ algorithms. (Ex. sort() uses an implementation of Quick Sort) Therefore, it's of
 functionality. However built in functions do not always give you the fine tuning capabilities required when working
 with larger datasets.
 
+This library also serves the purpose of aiding web developers in their conquest of learning algorithms and data
+structures. If you intend to use the library as a learning or teaching tool, be advised that there are often multiple
+ways to write the algorithm concepts. For instance, MergeSort does not need to run its recursion asynchronously, and
+certain programming languages do not support asynchronous work-flows. The anthem of any good algorithm designer is,
+"Can we make it better (faster/more memory efficient/more memory focused)?"
+
 List of Algorithms
 ------------------
 
@@ -30,7 +36,7 @@ of `HackFastAlgos.` So, if you wish to use `mergeSort` then you need to use
 
 **Algos**
 
-**Geometry**
+**Graph**
 
 **Math**
 
@@ -50,6 +56,43 @@ The callback function must operate the same way as the comparative function for
 `insertSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
 
 `mergeSort<T>(Vector<T> $vector, Callable $callback, bool $returnWaitHandler = false) : T`
+
+List of Data Structures
+-----------------------
+
+All data structures use the namespace `\HackFastAlgos\DataStructure`. Below is a list of data structure class
+names and their methods. Data structures which employ a comparative function (`compare()`) may have said method
+overridden to extend the capabilities of that data structure. All data used the generic type `T` for that reason.
+
+**AVLTree**
+
+**BPlusTree**
+
+**BST**
+
+BST is an implementation of a Binary Search Tree.
+
+**BTree**
+
+**DoublyLinkedList**
+
+**GameTree**
+
+**HashTable**
+
+**Heap**
+
+Heap supports both MinHeap and MaxHeap types.
+
+**RBTree**
+
+RBTree is an implementation of a Red-Black Tree.
+
+**SplayTree**
+
+**UnionFind**
+
+The union-find data structure is also named the disjoint-set or merge-find.
 
 Notes on Slower Algorithms
 --------------------------

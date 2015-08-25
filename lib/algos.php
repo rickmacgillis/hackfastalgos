@@ -9,9 +9,10 @@ namespace HackFastAlgos;
 
 class Algos
 {
-	public static function solveHanoi(int $numDisks = 5) : Map<int,Vector<int>>
+	public static function solveHanoi(int $numDisks = 5) : Vector<Vector<int>>
 	{
 		// Returns an array of the stacks 
+		// https://en.wikipedia.org/wiki/Tower_of_Hanoi
 	}
 	
 	public static function isPalindrome(?string $text) : bool
@@ -19,5 +20,10 @@ class Algos
 		if (empty($text)) {
 			return true;
 		}
+	}
+	
+	public static function longestPalindrome(?string $text) : string
+	{
+		https://en.wikipedia.org/wiki/Longest_palindromic_substring
 	}
 }

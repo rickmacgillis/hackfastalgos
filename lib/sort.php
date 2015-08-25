@@ -316,10 +316,15 @@ class Sort
 		// https://en.wikipedia.org/wiki/Counting_sort
 	}
 	
-	public static function radixSort(Vector<int> $vector)
+	public static function radixSort(Vector<int> $vector) : Vector<int>
 	{
 		// https://en.wikipedia.org/wiki/Radix_sort
 		// https://www.codingbot.net/2013/02/radix-sort-algorithm-and-c-code.html
+	}
+	
+	public static function priorityQueue(Vector<int> $vector) : Vector<int>
+	{
+		// https://en.wikipedia.org/wiki/Priority_queue
 	}
 	
 	/**
