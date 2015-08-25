@@ -92,7 +92,7 @@ RBTree is an implementation of a Red-Black Tree.
 
 **UnionFind**
 
-The union-find data structure is also named the disjoint-set or merge-find.
+The union-find data structure is also named the disjoint-set or merge-find. 
 
 Notes on Slower Algorithms
 --------------------------
