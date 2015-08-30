@@ -14,7 +14,7 @@ function HackFastAlgosAutoload($class)
 		return;
 	}
 	
-	$proposed = '.'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.substr($class, $position+14).'.php';
+	$proposed = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, './lib/'.substr($class, $position+14).'.php');
 	if (false !== @filemtime($proposed)) {
 		require_once($proposed);
 	}

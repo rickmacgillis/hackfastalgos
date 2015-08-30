@@ -66,6 +66,8 @@ overridden to extend the capabilities of that data structure. All data used the 
 
 **AVLTree**
 
+**BloomFilter**
+
 **BPlusTree**
 
 **BST**
@@ -76,6 +78,32 @@ BST is an implementation of a Binary Search Tree.
 
 **DoublyLinkedList**
 
+`count() : int`
+
+`current<T>() : T`
+
+`valid() : bool`
+
+`key() : int`
+
+`prev()`
+
+`next()`
+
+`rewind()`
+
+`last()`
+
+`insertBefore<T>(T $data, int $node)`
+
+`insertAfter<T>(T $data, int $node)`
+
+`insertBeginning<T>(T $data)`
+
+`insertEnd<T>(T $data)`
+
+`remove(int $node)`
+
 **GameTree**
 
 **HashTable**
@@ -84,15 +112,43 @@ BST is an implementation of a Binary Search Tree.
 
 Heap supports both MinHeap and MaxHeap types.
 
+**LRUCache**
+
+**PriorityQueue**
+
+**Queue**
+
+`count() : int`
+
+`enqueue<T>(T $item)`
+
+`dequeue<T>(bool $manual = false) : T`
+
 **RBTree**
 
 RBTree is an implementation of a Red-Black Tree.
 
+**Schedule**
+
 **SplayTree**
+
+**Stack**
+
+`count() : int`
+
+`push<T>(T $item)1`
+
+`pop<T>() : T`
 
 **UnionFind**
 
 The union-find data structure is also named the disjoint-set or merge-find.
+
+`makeSet(int $item)`
+
+`find(int $item) : int`
+
+`union(int $item1, int $item2)`
 
 Notes on Slower Algorithms
 --------------------------

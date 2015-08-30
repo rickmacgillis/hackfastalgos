@@ -258,4 +258,25 @@ class Graph
 		// https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
 		// Returns an array of leader nodes
 	}
+	
+	public static function primMST(HFAAdjList $adjList) : int
+	{
+		// https://en.wikipedia.org/wiki/Prim%27s_algorithm
+		// Use a heap.
+		// Accepts a connected undirected graph with different edge weights.
+		// Returns the minimum possible total edge weights when connecting verteces spanning the full tree. (MST)
+	}
+	
+	public static function kruskalMST(HFAAdjList $adjList) : int
+	{
+		// https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+		// Use Union-Find
+	}
+	
+	public static function singleLinkCluster(HFAAdjList $adjList) : HFAAdjList
+	{
+		// Use Kruskal's MST
+		// @TODO What format does it return?
+		// https://en.wikipedia.org/wiki/Single-linkage_clustering
+	}
 }

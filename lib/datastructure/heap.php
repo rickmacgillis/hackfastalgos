@@ -1,4 +1,4 @@
-<?php
+<?HH
 /**
  * Copyright 2015 Rick Mac Gillis
  * 
@@ -19,12 +19,24 @@ class Heap implements \Countable
 	protected Vector<int> $heapData = Vector{};
 	
 	/**
+	 * Signifies a min heap
+	 * @var HEAP_MIN = 0
+	 */
+	const int HEAP_MIN = 0;
+	
+	/**
+	 * Signifies a max heap
+	 * @var HEAP_MAX = 1
+	 */
+	const int HEAP_MAX = 1;
+	
+	/**
 	 * Constructor for the heap
 	 * 
-	 * @param string $maxMin Specify "min" or "max" for MinHeap or MaxHeap
+	 * @param string $maxMin Specify the class constants HEAP_MIN or HEAP_MAX for MinHeap or MaxHeap
 	 */
 	public function __construct(
-		public string $maxMin = 'min'
+		public int $maxMin = static::HEAM_MIN
 	){}
 	
 	/**
@@ -46,11 +58,11 @@ class Heap implements \Countable
 
 		// MaxHeap is complimentary to MinHeap, so we flip the comparison.
 		if ($item1 < $item2) {
-			return ($this->maxMin === 'min') ? -1 : 1;
+			return ($this->maxMin === static::HEAP_MIN) ? -1 : 1;
 		}
 		
 		if ($item1 > $item2) {
-			return ($this->maxMin === 'min') ? 1 : -1;
+			return ($this->maxMin === static::HEAP_MIN) ? 1 : -1;
 		}
 		
 		return 0;
@@ -79,9 +91,15 @@ class Heap implements \Countable
 	 */
 	public function heapify<T>(Vector<T> $items) : this
 	{
+		// Insert in Theta(n) time.
 		foreach ($items as $value) {
-			$this->insert($value);
+			$this->heapData[] = $item;
 		}
+		
+		/**
+		 * @TODO Make it balance the full tree.
+		 */
+		static::balanceTree('bottom');
 		
 		// For chaining
 		return $this;
@@ -147,7 +165,7 @@ class Heap implements \Countable
 	 */
 	public function min<T>() : T
 	{
-		return $this->maxMin === 'min' ? $this->heapData[0] : $this->max();
+		return $this->maxMin === static::HEAP_MIN ? $this->heapData[0] : $this->max();
 	}
 	
 	/**
@@ -157,14 +175,14 @@ class Heap implements \Countable
 	 */
 	public function max<T>() : T
 	{
-		if ($this->maxMin === 'max') {
+		if ($this->maxMin === static::HEAP_MAX) {
 			return $this->min();
 		}
 		
 		// Finish this method
 	}
 	
-	public function balanceTree(string $start = 'top')
+	protected function balanceTree(string $start = 'top')
 	{
 		if ($start === 'top') {
 			

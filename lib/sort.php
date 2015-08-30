@@ -124,7 +124,7 @@ class Sort
 	 * MergeSort runs in Big-Theta(n log n) time and is suitable for large datasets. It does not
 	 * work in place, so if memory is an issue, consider QuickSort. This implementation of MergeSort
 	 * takes advantage of the asynchronous features Hack provides, such that the child-nodes
-	 * of the binary tree are recursed at the same time.
+	 * of the binary recursion tree are recursed at the same time.
 	 * 
 	 * Learn more @link https://en.wikipedia.org/wiki/Merge_sort
 	 * 

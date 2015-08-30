@@ -1,4 +1,4 @@
-<?PHP
+<?HH
 /**
  * Copyright 2015 Rick Mac Gillis
  *
@@ -9,6 +9,24 @@ namespace HackFastAlgos;
 
 class Search
 {
+	/**
+	 * Signifies that we'll use the average to break the tie when evaluating the median of two equal heaps
+	 * @var int MEDIANHEAP_AVG = 0
+	 */
+	const int MEDIANHEAP_AVG = 0;
+
+	/**
+	 * Signifies that we'll use the low value to break the tie when evaluating the median of two equal heaps
+	 * @var int MEDIANHEAP_LOW = 1
+	 */
+	const int MEDIANHEAP_LOW = 1;
+
+	/**
+	 * Signifies that we'll use the high value to break the tie when evaluating the median of two equal heaps
+	 * @var int MEDIANHEAP_HIGH = 2
+	 */
+	const int MEDIANHEAP_HIGH = 2;
+	
 	public static function fibonacci(int $nth) : int
 	{
 		// https://en.wikipedia.org/wiki/Fibonacci_number
@@ -35,7 +53,7 @@ class Search
 		// Return a vector of all primes or an integer version of the last prime if true === $onlyLast
 	}
 	
-	public static function medianHeap<T>(T $item, Callable $callback, string $highLowMedian = 'avg') : T
+	public static function medianHeap<T>(T $item, Callable $callback, int $highLowMedian = static::MEDIANHEAP_AVG) : T
 	{
 		/*
 		 * Maintain two heaps (minHeap and maxHeap
@@ -46,7 +64,18 @@ class Search
 		 * 
 		 * Return the median
 		 * 		In case of a perfectly balanced dual heap, use $highLowMedian to determine which median to return
-		 * 		(Values: high, low, avg)
 		 */
+	}
+	
+	public function twoSum(Vector<int> $vector, int $total) : Vector<int>
+	{
+		// https://en.wikipedia.org/wiki/3SUM
+		// Returns the numbers that total $total
+	}
+	
+	public function threeSum(Vector<int> $vector, int $total) : Vector<int>
+	{
+		// https://en.wikipedia.org/wiki/3SUM
+		// Returns the numbers that total $total
 	}
 }

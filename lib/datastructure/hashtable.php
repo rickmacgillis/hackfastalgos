@@ -1,4 +1,4 @@
-<?php
+<?HH
 /**
  * Copyright 2015 Rick Mac Gillis
  * 
@@ -8,19 +8,21 @@
 
 namespace HackFastAlgos\DataStructure;
 
+class HashTableException extends \Exception{}
+
 class HashTable implements \Countable, \ArrayAccess
 {
 	/**
 	 * Handle collisions using a linked list
 	 * @var int COLLISION_CHAINING = 0
 	 */
-	public const COLLISION_CHAINING	= 0;
+	const int COLLISION_CHAINING = 0;
 	
 	/**
 	 * Handle collisions using the open addressing method
 	 * @var int COLLISION_OPEN_ADDR = 1
 	 */
-	public const COLLISION_OPEN_ADDR	= 1;
+	const int COLLISION_OPEN_ADDR = 1;
 	
 	/**
 	 * The data stored in the hash table (It's ironic that we'll use a map to implement a map,
@@ -28,21 +30,91 @@ class HashTable implements \Countable, \ArrayAccess
 	 * as this library is built for Hack, we'll use the augmented Array in Hack, known as Map,
 	 * so we have OOP access.
 	 * 
+	 * T will be either a vector with the key at position 0 and the value at position 1 for open
+	 * addressing, or it'll be a linked list following the pattern key->value->key->value->...
+	 * for the chaining collision handling.
+	 * 
 	 * @var Map<int,T> $hashTableData
 	 */
 	protected Map<int,T> $hashTableData = Map{};
 	
 	/**
+	 * The number of buckets in the hash table
+	 * @var int $numBuckets
+	 */
+	protected int $numBuckets = 0;
+	
+	/**
+	 * Primes on a 32-bit system
+	 * Learn more @link https://en.wikipedia.org/wiki/Prime_gap#Numerical_results
+	 * 
+	 * @var Vector<int> $primes
+	 */
+	protected Vector<int> $primes = Vector{
+		2,3,7,23,89,113,523,887,1129,1327,9551,15683,19609,
+		1397,155921,360653,370261,492113,1349533,1357201,2010733
+	};
+	
+	/**
+	 * The open addressing probing number to locate the next open bucket
+	 * Keep this number prime so that it isn't divisible by the maximum
+	 * number of buckets, thus guaranteeing that when we overflow the number
+	 * of buckets, we'll always check a different set of buckets. The maximum
+	 * number of buckets should also be prime that way neither one can be
+	 * divisible by the other.
+	 * 
+	 * @var int OA_PROBE = 23
+	 */
+	protected const int OA_PROBE = 23;
+	
+	/**
 	 * Constructor for the hash table
 	 * 
-	 * @param int $collisionHandling Set to COLLISION_CHAINING or COLLISION_OPEN_ADDR
+	 * @TODO Figure out a way to set $maxBuckets to the next highest prime, and also watch out for
+	 * buffer overflow issues for the integer. Primes get further apart as the number of primes increases.
+	 * (To put it lightly)
+	 * 
+	 * @param int $maxItems				The maximum number of items to store in the hash table (When using open
+	 * 									addressing, the number must be Less than 2,010,733 - 10% = 1,809,660
+	 * 									@See HashTable::$primes)
+	 * @param int $collisionHandling	Set to COLLISION_CHAINING or COLLISION_OPEN_ADDR
 	 */
 	public function __construct(
-		protected int $maxBuckets,
+		protected int $maxItems,
 		protected int $collisionHandling = static::COLLISION_CHAINING
 	){
-		// Find a prime
-		$this->maxBuckets = \HackFastAlgos::atkinFindPrime($this->maxBuckets);
+		if ($this->collisionHandling === static::COLLISION_OPEN_ADDR) {
+			
+			// Scale horizontally using open addressing
+			
+			/**
+			 * If the number of items is greater than the largest prime number on a 32 bit system (2,010,733),
+			 * then throw an error.
+			 *
+			 * 1,809,660 === 2,010,733 - 10%
+			 */
+			if ($this->maxItems > 1809660) {
+				throw new HashTableException('The number of items must be less than 1,809,660.');
+			}
+			
+			// Find the prime one greater than the number of items we'll store.
+			$numPrimes = $this->primes->count();
+			for ($i = 0; $i < $numPrimes; $i++) {
+					
+				$this->numBuckets = $this->primes[$i];
+					
+				if ($this->primes[$i] > $this->maxItems) {
+					break;
+				}
+					
+			}
+			
+		} else {
+			
+			// Scale vertically using chaining
+			$this->numBuckets = $this->maxItems;
+			
+		}
 	}
 	
 	public function insert<T>(T $key, T $value)
