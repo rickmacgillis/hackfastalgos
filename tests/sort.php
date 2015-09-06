@@ -32,26 +32,6 @@ class SortTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($sorted, $result);
 	}
 
-	public function testMergeSort()
-	{
-		$unsorted = Vector{5,4,8,1,0,-1,4,7,3};
-		$sorted = Vector{-1,0,1,3,4,4,5,7,8};
-		$result = \HackFastAlgos\Sort::mergeSort($unsorted, function($a, $b){
-			return static::compareCallback($a, $b);
-		});
-		$this->assertEquals($sorted, $result);
-	}
-
-	public function testMergeSortAsync()
-	{
-		$unsorted = Vector{5,4,8,1,0,-1,4,7,3};
-		$sorted = Vector{-1,0,1,3,4,4,5,7,8};
-		$result = \HackFastAlgos\Sort::mergeSort($unsorted, function($a, $b){
-			return static::compareCallback($a, $b);
-		}, true);
-		$this->assertEquals($sorted, $result->getWaitHandle()->join());
-	}
-	
 	protected static function compareCallback($a, $b)
 	{
 		if ($a > $b) {

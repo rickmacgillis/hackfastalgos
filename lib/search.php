@@ -13,7 +13,7 @@ class Search
 	{
 		// https://en.wikipedia.org/wiki/Binary_search_algorithm
 	}
-	
+
 	public static function bruteForceSearch<T>(Map<int,T> $subject, T $find) : int
 	{
 		// https://en.wikipedia.org/wiki/Brute-force_search
