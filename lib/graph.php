@@ -158,11 +158,6 @@ class Graph
 
 	}
 
-	public static function strassenMatrixMultiply(HFAMatrix $matrix1, HFAMatrix $matrix2) : HFAMatrix
-	{
-		// https://en.wikipedia.org/wiki/Strassen_algorithm
-	}
-
 	public static function findClosestPoints(Vector<Pair<int,int>> $pairs)
 	{
 		// https://en.wikipedia.org/wiki/Closest_pair_of_points_problem

@@ -9,6 +9,8 @@ namespace HackFastAlgos;
 
 class MathNumberOfOperandsMustBeGreaterThanZeroException extends \Exception{}
 
+type HFAMatrix = Vector<Vector<int>>;
+
 class Math
 {
 	/**
@@ -29,7 +31,15 @@ class Math
 	 */
 	const int MEDIANHEAP_HIGH = 2;
 
-	public static function getFibonacci(int $nth) : int
+	/**
+	 * Get the nth Fibonnaci number.
+	 *
+	 * Operates in O(log n) time or Omega(1) time. (Due to Matrix exponentation)
+	 *
+	 * @param  int $nth
+	 * @return int
+	 */
+	public static function getFibonacciNumber(int $nth) : int
 	{
 		// https://en.wikipedia.org/wiki/Fibonacci_number
 	}
@@ -73,17 +83,17 @@ class Math
 		 */
 	}
 
-	public function findTotal2Sums(Vector<int> $vectors, int $total) : Vector<Vector<int>>
+	public static function findTotal2Sums(Vector<int> $vectors, int $total) : Vector<Vector<int>>
 	{
 		// https://en.wikipedia.org/wiki/3SUM
 	}
 
-	public function findTotal3Sums(Vector<int> $vectors, int $total) : Vector<Vector<int>>
+	public static function findTotal3Sums(Vector<int> $vectors, int $total) : Vector<Vector<int>>
 	{
 		// https://en.wikipedia.org/wiki/3SUM
 	}
 
-	public function findTotalKSums(Vector<int> $vectors, int $total, int $numberOfNumbers) : Vector<Vector<int>>
+	public static function findTotalKSums(Vector<int> $vectors, int $total, int $numberOfNumbers) : Vector<Vector<int>>
 	{
 		/*
 		 * https://en.wikipedia.org/wiki/3SUM

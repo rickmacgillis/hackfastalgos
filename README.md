@@ -75,51 +75,25 @@ All data structures use the namespace `\HackFastAlgos\DataStructure`. Below is a
 Data structures which employ a comparative function (`compare()`) may have said method overridden to extend
 the capabilities of that data structure. All data uses the generic type `T` for that reason, where appropriate.
 
-**AVLTree**
-
-**Bag**
-
-**BloomFilter**
-
-**BPlusTree**
-
-**BST**
-
-BST is an implementation of a Binary Search Tree.
-
-**BTree**
-
-**DoublyLinkedList**
-
-**GameTree**
-
-**HashTable**
-
-**Heap**
-
-Heap supports both MinHeap and MaxHeap types.
-
-**LRUCache**
-
-**PriorityQueue**
-
-**Queue**
-
-**RBTree**
-
-RBTree is an implementation of a Red-Black Tree.
-
-**Schedule**
-
-**SplayTree**
-
-**Stack**
-
-**TernarySearchTree**
-
-**UnionFind**
-
-The union-find data structure is also named the disjoint-set or merge-find.
+* AVLTree
+* Bag
+* BloomFilter
+* BPlusTree
+* BST - BST is an implementation of a Binary Search Tree.
+* BTree
+* DoublyLinkedList
+* GameTree
+* HashTable
+* Heap - Heap supports both MinHeap and MaxHeap types.
+* LRUCache
+* PriorityQueue
+* Queue
+* RBTree - RBTree is an implementation of a Red-Black Tree.
+* Schedule
+* SplayTree
+* Stack
+* TernarySearchTree
+* UnionFind - The union-find data structure is also named the disjoint-set or merge-find.
 
 Notes on Slower Algorithms
 --------------------------
