@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implementation of a hash table (Also called a hash map or dictionary)
  * Learn more @link https://en.wikipedia.org/wiki/Hash_table
@@ -8,7 +8,7 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class HashTableException extends \Exception{}
+class HashTableTooManyItemsException extends \Exception{}
 
 class HashTable implements \Countable, \ArrayAccess
 {
@@ -94,7 +94,7 @@ class HashTable implements \Countable, \ArrayAccess
 			 * 1,809,660 === 2,010,733 - 10%
 			 */
 			if ($this->maxItems > 1809660) {
-				throw new HashTableException('The number of items must be less than 1,809,660.');
+				throw new HashTableTooManyItemsException();
 			}
 
 			// Find the prime one greater than the number of items we'll store.

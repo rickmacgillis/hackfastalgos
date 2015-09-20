@@ -1,13 +1,14 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
- * 
+ * @author Rick Mac Gillis
+ *
  * Implementation of a B+ Tree
+ * Learn more @link https://en.wikipedia.org/wiki/B%2B_tree
  */
 
 namespace HackFastAlgos\DataStructure;
 
 class BPlusTree
 {
-	// https://en.wikipedia.org/wiki/B%2B_tree
+
 }

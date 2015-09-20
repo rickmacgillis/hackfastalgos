@@ -1,5 +1,5 @@
 Hack Fast Algos
-==============
+===============
 
 **STATUS:** IN DEVELOPMENT
 
@@ -9,36 +9,43 @@ are completely written in Hack, so they'll work with your HHVM installation with
 Purpose
 -------
 
-Companies like Facebook, Google, and Microsoft rely on speed and space-efficient code to keep their websites and
-projects running smoothly. You'll find that some of these algorithms are only either efficient on large data sets
-(Ex. Lots of array elements) or require appropriate parameters for the task at hand. (Such as the configuration of
-Quick Sort's parameters) I've commented on each algorithm's running times and storage requirements by using
-asymptotic notation.
+This library's main purpose is to aid web developers in their conquest of learning algorithms and data
+structures. If you intend to use the library as a learning or teaching tool, be advised that there are often multiple
+ways to write the algorithm concepts. For instance, MergeSort does not need to run its recursion asynchronously, and
+certain programming languages do not support asynchronous work-flows. The anthem of any good algorithm designer is,
+"Can we make it better (faster/more memory efficient/more memory focused)?"
+
+Companies rely on speed and space-efficient code to keep their websites and projects running smoothly. You'll find
+that some of these algorithms are only either efficient on large data sets (Ex. Lots of array elements) or require
+appropriate parameters for the task at hand. (Such as the configuration of Quick Sort's parameters) I've commented
+on each algorithm's running times and storage requirements by using asymptotic notation.
 
 Keep in mind that HHVM is written primarily in C++ and C, and has a lot of built-in functionality that uses these
 algorithms. (Ex. sort() uses an implementation of Quick Sort) Therefore, it's often faster to use the built in
 functionality. However built in functions do not always give you the fine tuning capabilities required when working
 with larger datasets.
 
-This library also serves the purpose of aiding web developers in their conquest of learning algorithms and data
-structures. If you intend to use the library as a learning or teaching tool, be advised that there are often multiple
-ways to write the algorithm concepts. For instance, MergeSort does not need to run its recursion asynchronously, and
-certain programming languages do not support asynchronous work-flows. The anthem of any good algorithm designer is,
-"Can we make it better (faster/more memory efficient/more memory focused)?"
-
 List of Algorithms
 ------------------
 
 Every algorithm is grouped into a class of similar algorithms. Below is a list of classes, followed by the list of
 algorithm methods in that class. For simplicity, the list below does not include the HackFastAlgos project namespace
-of `HackFastAlgos.` So, if you wish to use `mergeSort` then you need to use
-`\HackFastAlgos\Sort\mergeSort()`
+of `HackFastAlgos.` So, if you wish to use `insertSort` then you need to use
+`\HackFastAlgos\Sort::insertSort()`
 
 **Algos**
 
+**ConvexHull**
+
 **Graph**
 
+**LZW**
+
 **Math**
+
+**MergeSort**
+
+`mergeSort<T>(bool $returnWaitHandler = false) : T`
 
 **Search**
 
@@ -55,16 +62,22 @@ The callback function must operate the same way as the comparative function for
 
 `insertSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
 
-`mergeSort<T>(Vector<T> $vector, Callable $callback, bool $returnWaitHandler = false) : T`
+`shellSort(Vector<T> $vector, Callable $compareCallback) : Vector<T>`
+
+`fyShuffle<T>(Vector<T> $vector) : Vector<T>`
+
+**Strings**
 
 List of Data Structures
 -----------------------
 
-All data structures use the namespace `\HackFastAlgos\DataStructure`. Below is a list of data structure class
-names and their methods. Data structures which employ a comparative function (`compare()`) may have said method
-overridden to extend the capabilities of that data structure. All data used the generic type `T` for that reason.
+All data structures use the namespace `\HackFastAlgos\DataStructure`. Below is a list of data structures.
+Data structures which employ a comparative function (`compare()`) may have said method overridden to extend
+the capabilities of that data structure. All data uses the generic type `T` for that reason, where appropriate.
 
 **AVLTree**
+
+**Bag**
 
 **BloomFilter**
 
@@ -77,32 +90,6 @@ BST is an implementation of a Binary Search Tree.
 **BTree**
 
 **DoublyLinkedList**
-
-`count() : int`
-
-`current<T>() : T`
-
-`valid() : bool`
-
-`key() : int`
-
-`prev()`
-
-`next()`
-
-`rewind()`
-
-`last()`
-
-`insertBefore<T>(T $data, int $node)`
-
-`insertAfter<T>(T $data, int $node)`
-
-`insertBeginning<T>(T $data)`
-
-`insertEnd<T>(T $data)`
-
-`remove(int $node)`
 
 **GameTree**
 
@@ -118,12 +105,6 @@ Heap supports both MinHeap and MaxHeap types.
 
 **Queue**
 
-`count() : int`
-
-`enqueue<T>(T $item)`
-
-`dequeue<T>(bool $manual = false) : T`
-
 **RBTree**
 
 RBTree is an implementation of a Red-Black Tree.
@@ -134,21 +115,11 @@ RBTree is an implementation of a Red-Black Tree.
 
 **Stack**
 
-`count() : int`
-
-`push<T>(T $item)1`
-
-`pop<T>() : T`
+**TernarySearchTree**
 
 **UnionFind**
 
 The union-find data structure is also named the disjoint-set or merge-find.
-
-`makeSet(int $item)`
-
-`find(int $item) : int`
-
-`union(int $item1, int $item2)`
 
 Notes on Slower Algorithms
 --------------------------
@@ -191,17 +162,12 @@ When creating a pull-request, check the following.
 include a summary, @param, and @return information.
 2. Keep with the coding standards you see in front of you. This project uses [PSR-1](http://www.php-fig.org/psr/psr-1/)
 and [PSR-2](http://www.php-fig.org/psr/psr-2/) coding standards.
-3. In your doc block, remember to signify the asymptotic notation for your algorithm.
+3. In your doc block, remember to signify the asymptotic notation for your algorithm. Use the most strict notation possible.
 4. Always write your code in Hack! Hack is faster than PHP, and it reduces the number of bugs your code can cause. To
 ensure the quality of your code, you must use typing.
 5. If you're creating a new object, use the "HackFastAlgos" namespace to prevent code conflicts with other projects.
 6. Each file is named the same as the class it contains, and only one class may reside in a given file. The exception
 to the rule is that you may include an exception class *before* your main class.
-7. Exception classes must be named the same name as the main class' name with "Exception" suffixed to it. So,
-if the main class is named "Search," Your exception for that class must be named "SearchException" if your class
-requires one.
-8. Always throw *custom* exceptions exclusive to your class! Do not directly use the base class "Exception" for your
-exceptions. Extend class "Exception" and your your descendant class. When your code throws multiple exceptions in the
-same method, use the second parameter, "code," to help developers differentiate between them. If it only throws one
-exception, set the code to "1" in order to keep your code consistent.
-9. When you define a new type, prefix the type with "HFA" for Hack Fast Algos.
+7. Always throw *custom* exceptions for every type of exception. Name your exceptions in the following format. `<CLASS><TYPE>Exception`
+(Ex. `DoublyLinkedListInvalidIndexException`)
+8. When you define a new type, prefix the type with "HFA" for Hack Fast Algos.

@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implements various sorting algorithms optimized for speed.
  */
@@ -121,6 +121,41 @@ class Sort
 	}
 
 	/**
+	 * Sort a vector using the Shell Sort method.
+	 *
+	 * Learn more @link https://en.wikipedia.org/wiki/Shellsort
+	 * Operates in O(n^2) and Omega(n log^2 n) time.
+	 *
+	 * @param  Vector<T> $vector
+	 * @param  Callable  $compareCallback	The callback to compare the values (@See usort())
+	 *
+	 * @return Vector<T>
+	 */
+	public static function shellSort(Vector<T> $vector, Callable $compareCallback) : Vector<T>
+	{
+		$gaps = static::getTokundaGaps($vector);
+		while (!$gaps->isEmpty()){
+
+			$gap = $gaps->pop();
+			$vectorLen = $vector->count();
+			for ($i = $gap; $i < $vectorLen; $i++) {
+
+				$key = $vector[$i];
+
+				for ($j = $i; $j >= $gap && $compareCallback($vector[$j-$gap], $key) > 0; $j -= $gap) {
+		            $vector[$j] = $vector[$j - $gap];
+		        }
+
+				$vector[$j] = $key;
+
+			}
+
+		}
+
+		return $vector;
+	}
+
+	/**
 	 * Quick Sort works in big-O(n log n) time on average, though in the worst case, it
 	 * will operate in big-Omega(n^2) time. This method aims for a 3 to 1 split by taking
 	 * the median value of a random sampling of values from $array. As the sampling period
@@ -140,9 +175,16 @@ class Sort
 	 *
 	 * @return Vector<int> The sorted integer vector
 	 */
-	public static function quickSort(Vector<int> $vector, ?int $pivot = null, int $numRandom = -1, int $minArraySize = null) : Vector<int>
+	public static function quickSort(Vector<int> $vector, int $pivot = 0, int $numRandom = 9, int $minArraySize = 10) : Vector<int>
 	{
 		// https://en.wikipedia.org/wiki/Quicksort
+		// Shuffle first
+	}
+
+	public static function quickSort3(Vector<int> $vector, int $pivot = 0, int $numRandom = 9, int $minArraySize = 10) : Vector<int>
+	{
+		// http://www.sorting-algorithms.com/static/QuicksortIsOptimal.pdf
+		// Shuffle first
 	}
 
 	public static function heapSort(Vector<int> $vector) : Vector<int>
@@ -167,6 +209,28 @@ class Sort
 	}
 
 	/**
+	 * Shuffle a vector with the Fisher-Yates shuffle. (It's slow as it uses a
+	 * proper entropy source.)
+	 *
+	 * Runs in Theta(n) time.
+	 *
+	 * @param  Vector<T> $vector
+	 * @return Vector<T>
+	 */
+	public static function fyShuffle<T>(Vector<T> $vector) : Vector<T>
+	{
+		$count = $vector->count();
+		for ($i = 0; $i < $count-1; $i++) {
+
+			$random = static::getRandomNumber($i+1, $count);
+			$vector = static::swapValues($vector, $i, $random);
+
+		}
+
+		return $vector;
+	}
+
+	/**
 	 * Quickly swap array values
 	 *
 	 * @access protected
@@ -183,5 +247,63 @@ class Sort
 		$vector[$indexB] = $oldA;
 
 		return $vector;
+	}
+
+	/**
+	 * Get the Shell Sort gaps using the Tokunda Algorithm.
+	 *
+	 * Learn more @link https://en.wikipedia.org/wiki/Shellsort#Gap_sequences
+	 *
+	 * @param  Vector<int> $vector	The vector being sorted
+	 *
+	 * @return Vector<int>
+	 */
+	protected static function getTokundaGaps(Vector<int> $vector) : Vector<int>
+	{
+		$count = $vector->count();
+		$gaps = Vector{};
+		$k = 1;
+		$gap = 0;
+		while ($gap < $count) {
+			$gap = (int) ceil((9**$k - 4**$k) / (5*4**($k-1)));
+			$k++;
+			$gaps[] = $gap;
+		}
+
+		return $gaps;
+	}
+
+	/**
+	 * Get a truely random number.
+	 *
+	 * Credits to @link http://php.net/manual/en/function.openssl-random-pseudo-bytes.php#104322
+	 *
+	 * @param  int $min	Minimum number
+	 * @param  int $max	Maximum number
+	 *
+	 * @return int
+	 */
+	protected static function getRandomNumber(int $min, int $max) : int
+	{
+		$range = $max - $min;
+		if ($range <= 0) {
+			return $min;
+		}
+
+		$log = log($range, 2);
+		$lenInBytes = (int) ($log / 8) + 1;
+		$lenInBits = (int) $log + 1;
+
+		// set all lower bits to 1
+		$filter = (int) (1 << $lenInBits) - 1;
+
+		do {
+		    $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($lenInBytes)));
+
+			// discard irrelevant bits
+		    $rnd = $rnd & $filter;
+		} while ($rnd >= $range);
+
+		return $min + $rnd;
 	}
 }

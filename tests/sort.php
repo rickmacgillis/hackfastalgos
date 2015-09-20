@@ -32,6 +32,24 @@ class SortTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($sorted, $result);
 	}
 
+	public function testShellSort()
+	{
+		$unsorted = Vector{5,4,8,1,0,-1,4,7,3};
+		$sorted = Vector{-1,0,1,3,4,4,5,7,8};
+		$result = \HackFastAlgos\Sort::shellSort($unsorted, function($a, $b){
+			return static::compareCallback($a, $b);
+		});
+		$this->assertEquals($sorted, $result);
+	}
+
+	public function testFyShuffle()
+	{
+		$sorted = Vector{-1,0,1,3,4,4,5,7,8};
+		$sortedClone = clone $sorted;
+		$result = \HackFastAlgos\Sort::fyShuffle($sorted);
+		$this->assertFalse($result == $sortedClone);
+	}
+
 	protected static function compareCallback($a, $b)
 	{
 		if ($a > $b) {

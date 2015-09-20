@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Various algorithms involving strings
  */
@@ -9,16 +9,16 @@ namespace HackFastAlgos;
 
 class Strings
 {
-	public static function isPalindrome(?string $text) : bool
+	public static function isPalindrome(string $text) : bool
 	{
 		if (empty($text)) {
 			return true;
 		}
 	}
 
-	public static function findLongestPalindrome(?string $text) : string
+	public static function findLongestPalindrome(string $text) : string
 	{
-		https://en.wikipedia.org/wiki/Longest_palindromic_substring
+		// https://en.wikipedia.org/wiki/Longest_palindromic_substring
 	}
 
 	public static function getNeedlemanWunschScore(string $sequence1, string $squence2) : int
@@ -38,11 +38,13 @@ class Strings
 		// https://en.wikipedia.org/wiki/Huffman_coding
 	}
 
-	public static function findDialPadCombos(int $number, bool $returnWaitHandler = false) : Vector<string>
+	public static function findDialPadCombos(int $number) : Vector<string>
 	{
 		/*
 		 * Take in a phone number (or any number) and return all of the possible word combinations
 		 * in Theta(n log(n)) time. (Note: Until I've implemented it, the running time is theoretical.)
+		 *
+		 * Make one that returns the Async wait handler, and scrap this code.
 		 */
 		$dpadCobos = static::findDialPadCombosAsync($number);
 		if ($returnWaitHandler) {
@@ -56,5 +58,15 @@ class Strings
 	{
 		// Recurse on the data in log3 to create a vector of strings for the given subproblem.
 		// Merge the retrieved subproblem data into the data for the larger problem.
+	}
+
+	public static function kmpSearch()
+	{
+		// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+	}
+
+	public static function suffixArray(string $word, Vector<string> $suffixes) : string
+	{
+		// https://en.wikipedia.org/wiki/Suffix_array
 	}
 }

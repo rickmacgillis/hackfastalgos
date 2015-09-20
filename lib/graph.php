@@ -1,12 +1,14 @@
 <?HH
-/** Copyright 2015 Rick Mac Gillis
+/**
+ * @author Rick Mac Gillis
  *
  * Implements various graph algorithms optimized for speed.
  */
 
 namespace HackFastAlgos;
 
-class GraphException extends \Exception{}
+class GraphHasEdgeLengthsException extends \Exception{}
+class GraphHasNegativeedgeLengthsException extends \Exception{}
 
 type HFAEdgeList	= Vector<Vector<int>>;
 type HFAAdjList<T>	= Vector<T>;
@@ -40,33 +42,34 @@ class Graph
 	 */
 	public const SORT_WEIGHTS	= 2;
 
-	public static function transformMatrix(HFAMatrix $matrix, int $degrees = 90, $flip = false) : HFAMatrix
+	public static function transformMatrix180(HFAMatrix $matrix) : HFAMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
-		switch ($degrees) {
+	}
 
-			case 0:
-				if ($flip) {
+	public static function transformMatrix270(HFAMatrix $matrix) : HFAMatrix
+	{
+		// https://en.wikipedia.org/wiki/Transformation_matrix
+	}
 
-				}
+	public static function transformMatrix90(HFAMatrix $matrix) : HFAMatrix
+	{
+		// https://en.wikipedia.org/wiki/Transformation_matrix
+	}
 
-				throw new GraphException('To flip a matrix, set the third parameter to boolean true.', 1);
-				break;
+	public static function transformMatrixNeg90(HFAMatrix $matrix) : HFAMatrix
+	{
+		// https://en.wikipedia.org/wiki/Transformation_matrix
+	}
 
-			case 180:
-				break;
+	public static function flipMatrixHorizontally(HFAMatrix $matrix) : HFAMatrix
+	{
+		// https://en.wikipedia.org/wiki/Transformation_matrix
+	}
 
-			case 270:
-				// No break
-			case -90:
-				break;
-
-			case 90:
-				// No break
-			default:
-				break;
-
-		}
+	public static function flipMatrixVertically(HFAMatrix $matrix) : HFAMatrix
+	{
+		// https://en.wikipedia.org/wiki/Transformation_matrix
 	}
 
 	/**
@@ -93,17 +96,10 @@ class Graph
 	 *
 	 * @param Map<int,Vector<int>> $edges	The edge list array map
 	 * @param int $sortMode					One of these: Graph::SORT_NONE (default), Graph::SORT_VERTEX, Graph::SORT_WEIGHTS
-	 * @param callable $sortCallback		If you require a specific sorting algorithm, you may set one here. If
-	 * 										you don't pass a callback or the callback does not exist, it will default to
-	 * 										@see \PHPFastAlgos\Sort\IntelligentSort().
 	 *
 	 * @return Map<int,Map> The adjacency list
 	 */
-	public static function convertEdgeToAdjList<T>(
-		HFAEdgeList $edges,
-		int $sortMode = static::SORT_NONE,
-		?callable $sortCallback = null
-	) : HFAAdjList<T>
+	public static function convertEdgeToAdjList<T>(HFAEdgeList $edges, int $sortMode = static::SORT_NONE) : HFAAdjList<T>
 	{
 
 	}
@@ -142,29 +138,17 @@ class Graph
 
 	}
 
-	public static function convertMatrixToEdgeList(
-		HFAMatrix $matrix,
-		int $sortMode = static::SORT_NONE,
-		?callable $sortCallback = null
-	) : HFAEdgeList
+	public static function convertMatrixToEdgeList(HFAMatrix $matrix, int $sortMode = static::SORT_NONE) : HFAEdgeList
 	{
 
 	}
 
-	public static function convertMatrixToAdjList<T>(
-		HFAMatrix $matrix,
-		int $sortMode = static::SORT_NONE,
-		?callable $sortCallback = null
-	) : HFAAdjList<T>
+	public static function convertMatrixToAdjList<T>(HFAMatrix $matrix, int $sortMode = static::SORT_NONE) : HFAAdjList<T>
 	{
 
 	}
 
-	public static function convertAdjToEdgeList<T>(
-		HFAAdjList<T> $list,
-		int $sortMode = static::SORT_NONE,
-		?callable $sortCallback = null
-	) : HFAEdgeList
+	public static function convertAdjToEdgeList<T>(HFAAdjList<T> $list, int $sortMode = static::SORT_NONE) : HFAEdgeList
 	{
 
 	}
@@ -179,15 +163,11 @@ class Graph
 		// https://en.wikipedia.org/wiki/Strassen_algorithm
 	}
 
-	public static function findClosestPoints(Vector<Pair<int,int>> $pairs, ?int $start = null, ?int $length = null)
+	public static function findClosestPoints(Vector<Pair<int,int>> $pairs)
 	{
 		// https://en.wikipedia.org/wiki/Closest_pair_of_points_problem
-		if (empty($start) || empty($length)) {
-
-			$start = 0;
-			$length = count($pairs);
-
-		}
+		$start = 0;
+		$length = count($pairs);
 
 		// BASE CASE NEEDED
 
@@ -216,15 +196,13 @@ class Graph
 	public static function findBfsShortestPath(
 		HFAAdjList<T> $adjList,
 		HFANode $sourceNode,
-		HFANode $findNode,
-		bool &$notConnected = false
+		HFANode $findNode
 	) : HFAShortestPath
 	{
-		// $notConnected is true when we can't find a path. HFABfs is 0 for both
+		// When we can't find a path, throw an exception.
 		// https://en.wikipedia.org/wiki/Breadth-first_search
 		if ($adjList[0]->count() > 2) {
-			throw new GraphException('The BFS shortest path method does not account for edge lengths. '.
-									 'Use dijkstrasShortestPath instead.');
+			throw new GraphHasEdgeLengthsException();
 		}
 	}
 
@@ -233,21 +211,20 @@ class Graph
 		// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 		// Mention that Dijkstra's algorithm uses BFS
 		// If the list contains a negative length...
-			throw new GraphException('Dijkstra\'s algorithm does not work with negative edge lengths. '.
-									 'Use bellmanFordShortestPath instead.');
+			throw new GraphHasNegativeedgeLengthsException();
 	}
 
 	public static function findBellmanFordShortestPath(
 		Vector<int> $vertices,
 		HFAEdgeList $edgeList,
 		HFANode $sourceNode,
-		?int $maxEdges = null
+		int $maxEdges = 0
 	) : HFAShortestPath
 	{
 		// https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 		// Negative edge length safe
 		// If there's a negative edge loop, throw an exception.
-		// If $maxEdges is not null, then limit the number of edges the algorithm traverses to find the shortest path.
+		// If $maxEdges is not 0, then limit the number of edges the algorithm traverses to find the shortest path.
 	}
 
 	public static function findFloydWarshallAPSP(HFAAdjList $adjList)
@@ -303,5 +280,16 @@ class Graph
 	public static function calculateTSP(HFAAdjList $adjList) : Vector<int>
 	{
 		// https://en.wikipedia.org/wiki/Travelling_salesman_problem
+	}
+
+	public static function maxCuts(HFAAdjList $adjList) : int
+	{
+		// https://en.wikipedia.org/wiki/Maximum_cut
+		// Papadimitriou's algorithm
+	}
+
+	public static function maxFlow()
+	{
+		// https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm
 	}
 }

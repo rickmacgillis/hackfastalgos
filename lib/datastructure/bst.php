@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implementation of a Binary Search Tree (BST)
  * Learn more @link https://en.wikipedia.org/wiki/Binary_search_tree

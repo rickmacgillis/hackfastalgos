@@ -24,7 +24,7 @@ class UnionFindTest extends \PHPUnit_Framework_TestCase
 			$uf->find(2);
 			$this->fail();
 
-		} catch (DataStructure\UnionFindException $e) {}
+		} catch (DataStructure\UnionFindItemDoesNotExistException $e) {}
 	}
 
 	public function testUnion()

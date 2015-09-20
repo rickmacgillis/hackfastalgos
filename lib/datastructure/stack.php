@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implementation of a stack
  * @Learn more @link https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
@@ -8,7 +8,7 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class StackException extends \Exception{}
+class StackInvalidIndexException extends \Exception{}
 
 class Stack implements \Countable
 {
@@ -49,7 +49,7 @@ class Stack implements \Countable
 		$count = $this->stackData->count();
 
 		if ($count === 0) {
-			throw new StackException('Invalid index');
+			throw new StackInvalidIndexException();
 		}
 
 		$last = $this->stackData[$count-1];

@@ -1,14 +1,12 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implementation of a Heap data structure in Hack
  * Learn more @link https://en.wikipedia.org/wiki/Heap_(data_structure)
  */
 
 namespace HackFastAlgos\DataStructure;
-
-class HeapException extends \Exception{};
 
 class Heap implements \Countable
 {
@@ -35,9 +33,7 @@ class Heap implements \Countable
 	 *
 	 * @param string $heapType Specify the class constants HEAP_MIN or HEAP_MAX for MinHeap or MaxHeap
 	 */
-	public function __construct(
-		public int $heapType = static::HEAP_MIN
-	){}
+	public function __construct(public int $heapType = static::HEAP_MIN){}
 
 	/**
 	 * Compare two items to find out which is greater
@@ -46,8 +42,6 @@ class Heap implements \Countable
 	 * @param T $item2	The second item to compare
 	 *
 	 * @return int Returns -1, 0, or 1 if $item1 is less-than, equal-to, or greater-than $item2 respectively
-	 *
-	 * @throws \HackFastAlgos\DataStructure\HeapException If the items are not integers or floats
 	 */
 	public function compare<T>(T $item1, T $item2) : int
 	{
@@ -109,9 +103,6 @@ class Heap implements \Countable
 	{
 		$numItems = $this->count();
 
-		if ($numItems === 0) {
-			return false;
-		}
 		switch ($numItems) {
 
 			case 0:

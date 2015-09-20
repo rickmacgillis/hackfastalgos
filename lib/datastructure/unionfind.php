@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implementation of a Union-Find data structure (Also called Disjoint-Set or Merge-Find)
  * Lean more @link https://en.wikipedia.org/wiki/Disjoint-set_data_structure
@@ -8,7 +8,8 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class UnionFindException extends \Exception{}
+class UnionFindItemExistsException extends \Exception{}
+class UnionFindItemDoesNotExistException extends \Exception{}
 
 class UnionFind
 {
@@ -40,7 +41,7 @@ class UnionFind
 	public function makeSet(int $item)
 	{
 		if ($this->itemExists($item)) {
-			throw new UnionFindException('Node '.$item.' already exists in a set.');
+			throw new UnionFindItemExistsException($item);
 		}
 
 		$this->setItemData($item, $item, 0);
@@ -60,7 +61,7 @@ class UnionFind
 	public function find(int $item) : int
 	{
 		if (!$this->itemExists($item)) {
-			throw new UnionFindException('The item '.$item.' does not exist.');
+			throw new UnionFindItemDoesNotExistException($item);
 		}
 
 		// Find its parent. Prevent tall trees so we don't have to recurse every time.
@@ -89,7 +90,7 @@ class UnionFind
 		try {
 			$item1Leader = $this->find($item1);
 			$item2Leader = $this->find($item2);
-		} catch (UnionFindException $e) {
+		} catch (UnionFindItemDoesNotExistException $e) {
 			return false;
 		}
 

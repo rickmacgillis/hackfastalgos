@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implementation of a queue
  * @Learn more @link https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
@@ -8,7 +8,7 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class QueueException extends \Exception{}
+class QueueEmptyException extends \Exception{}
 
 class Queue implements \Countable
 {
@@ -44,13 +44,10 @@ class Queue implements \Countable
 	 * @param $manuallyDequeue Set this to true if you wish to manually shift the queue instead of using array_shift
 	 * @return T The item from the queue
 	 */
-	public function dequeue<T>(bool $manuallyDequeue = false) : T
+	public function dequeue<T>() : T
 	{
-		if (empty($this->queueData)) {
-			throw new QueueException('Invalid index');
-		}
-
-		return $manuallyDequeue ? $this->manuallyDequeue() : array_shift($this->queueData);
+		$this->throwIfEmptyQueue();
+		return array_shift($this->queueData);
 	}
 
 	/**
@@ -58,8 +55,10 @@ class Queue implements \Countable
 	 *
 	 * @return T	The first item in the queue
 	 */
-	protected function manuallyDequeue<T>() : T
+	public function manuallyDequeue<T>() : T
 	{
+		$this->throwIfEmptyQueue();
+
 		$count = count($this->queueData);
 		$first = array_key_exists(0, $this->queueData) ? $this->queueData[0] : null;
 
@@ -72,5 +71,17 @@ class Queue implements \Countable
 
 		$this->queueData = $newQueue;
 		return $first;
+	}
+
+	/**
+	 * Throw an exception if the queue is empty
+	 *
+	 * @throws QueueEmptyException
+	 */
+	protected function throwIfEmptyQueue()
+	{
+		if (empty($this->queueData)) {
+			throw new QueueEmptyException();
+		}
 	}
 }

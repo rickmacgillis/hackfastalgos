@@ -47,7 +47,7 @@ class DoublyLinkedListTest extends PHPUnit_Framework_TestCase
 			$dll->insertBefore('testing4', 4);
 			$this->fail();
 
-		} catch (DataStructure\DoublyLinkedListException $e) {}
+		} catch (DataStructure\DoublyLinkedListInvalidIndexException $e) {}
 	}
 
 	public function testInsertAfter()
@@ -68,7 +68,7 @@ class DoublyLinkedListTest extends PHPUnit_Framework_TestCase
 			$dll->insertAfter('testing4', 4);
 			$this->fail();
 
-		} catch (DataStructure\DoublyLinkedListException $e) {}
+		} catch (DataStructure\DoublyLinkedListInvalidIndexException $e) {}
 	}
 
 	public function testRemoveNode()
@@ -92,7 +92,7 @@ class DoublyLinkedListTest extends PHPUnit_Framework_TestCase
 			$dll->removeNode(0);
 			$this->fail();
 
-		} catch (DataStructure\DoublyLinkedListException $e) {}
+		} catch (DataStructure\DoublyLinkedListInvalidIndexException $e) {}
 
 		// First
 		$dll->removeNode(1);

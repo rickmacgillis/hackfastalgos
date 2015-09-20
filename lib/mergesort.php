@@ -1,16 +1,16 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
+ *
  * Implementation of Merge Sort
+ * Learn more @link https://en.wikipedia.org/wiki/Merge_sort
  */
 
 namespace HackFastAlgos;
 
 class MergeSort
 {
-	public function __construct(
-		protected Vector<T> $vector = Vector{}
-	){}
+	public function __construct(protected Vector<T> $vector = Vector{}){}
 
 	/**
 	 * MergeSort runs in Big-Theta(n log n) time and is suitable for large datasets. It does not
@@ -18,40 +18,35 @@ class MergeSort
 	 * takes advantage of the asynchronous features Hack provides, such that the child-nodes
 	 * of the binary recursion tree are recursed at the same time.
 	 *
-	 * Learn more @link https://en.wikipedia.org/wiki/Merge_sort
-	 *
-	 * @param bool $returnWaitHandler	Set this param to true to return the wait handle for the
-	 * 									full MergeSort process. If you're not running other processes
-	 * 									asynchronously, then leave the value at false to return the
-	 * 									sorted Vector<int>.
-	 *
-	 * @return T The numerically sorted vector or the Awaitable wait handle (See $returnWaitHandler)
+	 * @return Vector<T> The numerically sorted vector
 	 */
-	public function mergeSort<T>(bool $returnWaitHandler = false) : T
+	 public function mergeSort<T>() : Vector<T>
+ 	{
+ 		return $this->mergeSortAsync(0, $this->vector->count()-1)->getWaitHandle()->join();
+ 	}
+
+	/**
+	 * Return the asynchronous Awaitable object for easily managing multiple
+	 * asynchronous functions.
+	 *
+	 * @return Awaitable<Vector<T>>
+	 */
+	public function mergeSortAwaitable<T>() : Awaitable<Vector<T>>
 	{
-		$sorted = $this->mergeSortAsync();
-
-		if ($returnWaitHandler) {
-			return $sorted;
-		}
-
-		return $sorted->getWaitHandle()->join();
+		return $this->mergeSortAsync(0, $this->vector->count()-1);
 	}
 
 	/**
 	 * Async handler for MergeSort
 	 *
 	 * @access protected
-	 * @param ?int $start			The key to start sorting at (Set by the recursion)
-	 * @param ?int $end				The key to stop sorting at (Set by the recursion)
+	 * @param int $start	The key to start sorting at (Set by the recursion)
+	 * @param int $end		The key to stop sorting at (Set by the recursion)
 	 *
 	 * @return Awaitable<Vector<T>> The wait handler containing the sorted vector
 	 */
-	protected async function mergeSortAsync<T>(?int $start = null, ?int $end = null) : Awaitable<Vector<T>>
+	protected async function mergeSortAsync<T>(int $start, int $end) : Awaitable<Vector<T>>
 	{
-		$start	= ($start === null) ? 0 : $start;
-		$end	= ($end === null) ? $this->vector->count()-1 : $end;
-
 		if ($start < $end) {
 
 			/*
@@ -102,6 +97,7 @@ class MergeSort
 		// Sort the vector by combining both sub-vectors
 		list($leftVectorStart, $rightVectorStart, $vectorStart) = $this->importDataFromBothSubVectors($left, $right, $startIndex);
 
+		// Always pull from the left subarray first so the algorithm is stable for multisorting.
 		$vectorStart = $this->importDataFromSubVector($left, $vectorStart, $leftVectorStart);
 		$vectorStart = $this->importDataFromSubVector($right, $vectorStart, $rightVectorStart);
 
@@ -123,10 +119,11 @@ class MergeSort
 
 		while ($i < $subvector1->count() && $j < $subvector2->count()) {
 
-			if ($this->compare($subvector2[$j], $subvector1[$i]) > 0) {
-				$this->vector[$k++] = $subvector1[$i++];
-			} else {
+			// Always pull from the left subarray first so the algorithm is stable for multisorting.
+			if ($this->compare($subvector1[$i], $subvector2[$j]) > 0) {
 				$this->vector[$k++] = $subvector2[$j++];
+			} else {
+				$this->vector[$k++] = $subvector1[$i++];
 			}
 
 		}

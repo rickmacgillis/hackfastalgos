@@ -16,7 +16,7 @@ class MergeSortTest extends \PHPUnit_Framework_TestCase
 		$unsorted = Vector{5,4,8,1,0,-1,4,7,3};
 		$sorted = Vector{-1,0,1,3,4,4,5,7,8};
 		$ms = new \HackFastAlgos\MergeSort($unsorted);
-		$result = $ms->mergeSort(true);
+		$result = $ms->mergeSortAwaitable();
 		$this->assertEquals($sorted, $result->getWaitHandle()->join());
 	}
 }

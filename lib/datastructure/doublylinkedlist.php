@@ -1,6 +1,6 @@
 <?HH
 /**
- * Copyright 2015 Rick Mac Gillis
+ * @author Rick Mac Gillis
  *
  * Implementation of a doubly linked list
  * Learn more @link https://en.wikipedia.org/wiki/Doubly-linked_list
@@ -10,7 +10,7 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class DoublyLinkedListException extends \Exception{}
+class DoublyLinkedListInvalidIndexException extends \Exception{}
 
 class DoublyLinkedList implements \Iterator, \Countable
 {
@@ -57,12 +57,13 @@ class DoublyLinkedList implements \Iterator, \Countable
 	/**
 	 * Get the data for the current location.
 	 *
+	 * @throws DoublyLinkedListInvalidIndexException
 	 * @return T The data
 	 */
 	public function current<T>() : T
 	{
 		if ($this->pointer == null || !$this->dllData->containsKey($this->pointer)) {
-			throw new DoublyLinkedListException('Invalid index');
+			throw new DoublyLinkedListInvalidIndexException();
 		}
 
 		return $this->dllData[$this->pointer][1];
@@ -252,12 +253,12 @@ class DoublyLinkedList implements \Iterator, \Countable
 	 * Throw an exception if the requested node is invalid.
 	 *
 	 * @param  int $node	The node to search for
-	 * @throws DoublyLinkedListException
+	 * @throws DoublyLinkedListInvalidIndexException
 	 */
 	protected function throwIfInvalidNode(int $node)
 	{
 		if (!$this->nodeExists($node)) {
-			throw new DoublyLinkedListException('Invalid Index');
+			throw new DoublyLinkedListInvalidIndexException();
 		}
 	}
 
@@ -378,7 +379,6 @@ class DoublyLinkedList implements \Iterator, \Countable
 	 * Insert $data at the beginning of the DLL if the DLL is empty.
 	 *
 	 * @param  T $data The data to enter
-	 * @throws DoublyLinkedListException if the DLL is not empty.
 	 */
 	protected function insertAtBeginningIfEmpty<T>(T $data, Callable $notEmpty)
 	{
