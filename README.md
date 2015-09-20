@@ -43,6 +43,12 @@ of `HackFastAlgos.` So, if you wish to use `insertSort` then you need to use
 
 **Math**
 
+**MatrixMultiply**
+
+`__construct(protected HFAMatrix $matrix1, protected HFAMatrix $matrix2)`
+
+`multiply() : HFAMatrix`
+
 **MergeSort**
 
 `mergeSort<T>(bool $returnWaitHandler = false) : T`

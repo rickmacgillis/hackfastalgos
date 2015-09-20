@@ -20,10 +20,7 @@ class MatrixMultiply
 	 * @param  HFAMatrix	$matrix1
 	 * @param  HFAMatrix	$matrix2
 	 */
-	public function __construct(
-		protected HFAMatrix $matrix1,
-		protected HFAMatrix $matrix2
-	) {}
+	public function __construct(protected HFAMatrix $matrix1, protected HFAMatrix $matrix2) {}
 
 	/**
 	 * Multiply two matrixes using Strassen's Matrix Multiplication.
