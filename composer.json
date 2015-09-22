@@ -4,24 +4,25 @@
 	"description": "A library of various fast algorithms for Hack",
 	"homepage": "https://github.com/cozylife/hackfastalgos",
 	"license": "MIT",
-	
+
 	"authors": [
 		{
 			"name": "Rick Mac Gillis"
 		}
 	],
-	
+
 	"autoload": {
 		"psr-4": {
 			"HackFastAlgos\\": "lib/"
 		}
 	},
-	
+
 	"require": {
 		"hhvm": "~3.9.0"
 	},
-	
+
 	"require-dev": {
-		"phpunit/phpunit": "~4.8.6"
+		"phpunit/phpunit": "~4.8.6",
+		"codeclimate/php-test-reporter": "dev-master"
 	}
 }

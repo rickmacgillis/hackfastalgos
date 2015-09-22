@@ -2,6 +2,9 @@ Hack Fast Algos
 ===============
 
 [![Build Status](https://travis-ci.org/cozylife/hackfastalgos.svg?branch=master)](https://travis-ci.org/cozylife/hackfastalgos)
+[![Code Climate](https://codeclimate.com/github/cozylife/hackfastalgos/badges/gpa.svg)](https://codeclimate.com/github/cozylife/hackfastalgos)
+[![Test Coverage](https://codeclimate.com/github/cozylife/hackfastalgos/badges/coverage.svg)](https://codeclimate.com/github/cozylife/hackfastalgos/coverage)
+[![Stories in Ready](https://badge.waffle.io/cozylife/hackfastalgos.png?label=ready&title=Ready)](https://waffle.io/cozylife/hackfastalgos)
 
 **STATUS:** IN DEVELOPMENT
 
