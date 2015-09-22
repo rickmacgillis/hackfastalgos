@@ -1,7 +1,7 @@
-<?php
+<?HH
 /**
  * Copyright 2015 Rick Mac Gillis
- * 
+ *
  * Autoload file for PHPUnit
  */
 
@@ -13,9 +13,9 @@ function HackFastAlgosAutoload($class)
 	if (false === ($position = strpos($class, 'hackfastalgos\\'))) {
 		return;
 	}
-	
+
 	$proposed = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, './lib/'.substr($class, $position+14).'.php');
-	if (false !== @filemtime($proposed)) {
+	if (false !== file_exists($proposed)) {
 		require_once($proposed);
 	}
 }
