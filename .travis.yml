@@ -6,7 +6,10 @@ addons:
     repo_token: 292bd2078185242e92ef71b7a8e2ef71a0fff156a34ed492d292424b7b3086fd
 
 before_script:
+  - composer self-update
   - composer update
+
+script: phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
   - vendor/bin/test-reporter
