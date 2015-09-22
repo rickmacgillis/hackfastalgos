@@ -1,6 +1,8 @@
 Hack Fast Algos
 ===============
 
+[![Build Status](https://travis-ci.org/cozylife/hackfastalgos.svg?branch=master)](https://travis-ci.org/cozylife/hackfastalgos)
+
 **STATUS:** IN DEVELOPMENT
 
 Hack Fast Algos brings all of the most popular speed and space-efficient algorithms together in one library. The files
