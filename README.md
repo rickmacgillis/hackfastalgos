@@ -33,50 +33,28 @@ List of Algorithms
 ------------------
 
 Every algorithm is grouped into a class of similar algorithms. Below is a list of classes, followed by the list of
-algorithm methods in that class. For simplicity, the list below does not include the HackFastAlgos project namespace
-of `HackFastAlgos.` So, if you wish to use `insertSort` then you need to use
-`\HackFastAlgos\Sort::insertSort()`
+algorithms defined in that class.
 
-**Algos**
-
-**ConvexHull**
-
-**Graph**
-
-**LZW**
-
-**Math**
-
-**MatrixMultiply**
-
-`__construct(protected HFAMatrix $matrix1, protected HFAMatrix $matrix2)`
-
-`multiply() : HFAMatrix`
-
-**MergeSort**
-
-`mergeSort<T>(bool $returnWaitHandler = false) : T`
-
-**Search**
-
-**Select**
-
-**Sort**
-
-The callback function must operate the same way as the comparative function for
-[usort](http://php.net/manual/en/function.usort.php). It allows for sorting arbitrary data in $vector.
-
-`selectionSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
-
-`bubbleSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
-
-`insertSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>`
-
-`shellSort(Vector<T> $vector, Callable $compareCallback) : Vector<T>`
-
-`fyShuffle<T>(Vector<T> $vector) : Vector<T>`
-
-**Strings**
+* Algos
+* ConvexHull
+* Graph
+* LZW
+* Math
+* MatrixMultiply
+	* Strassen's Matrix Multiplication
+* MergeSort
+	* An implementation of Merge Sort
+* PolishNotation
+	* An implementation of Polish Prefix Notation
+* Search
+* Select
+* Sort
+	* Selection Sort
+	* Bubble Sort
+	* Insert Sort
+	* Shell Sort (Uses Tokunda's gap algorithm)
+	* Fisher-Yates Shuffle
+* Strings
 
 List of Data Structures
 -----------------------
