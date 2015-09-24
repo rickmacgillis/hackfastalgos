@@ -49,11 +49,6 @@ class Math
 		// https://en.wikipedia.org/wiki/Factorial
 	}
 
-	public static function fromPolishNotation(string $math) : float
-	{
-		// https://en.wikipedia.org/wiki/Polish_notation
-	}
-
 	public static function karatsuba(float $num1, float $num2) : float
 	{
 		// https://en.wikipedia.org/wiki/Karatsuba_algorithm
