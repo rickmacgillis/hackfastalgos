@@ -24,24 +24,6 @@ type HFAShortestPath	= Vector<shape (
 
 class Graph
 {
-	/**
-	 * Don't sort the resulting graph
-	 * @var int SORT_NONE = 0
-	 */
-	public const SORT_NONE		= 0;
-
-	/**
-	 * Sort the resulting graph by its vertices (low to high)
-	 * @var int SORT_VERTEX = 1
-	 */
-	public const SORT_VERTEX	= 1;
-
-	/**
-	 * Sort the resulting graph by its weights (low to high)
-	 * @var int SORT_WEIGHTS = 2
-	 */
-	public const SORT_WEIGHTS	= 2;
-
 	public static function transformMatrix180(HFAMatrix $matrix) : HFAMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
@@ -70,92 +52,6 @@ class Graph
 	public static function flipMatrixVertically(HFAMatrix $matrix) : HFAMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
-	}
-
-	/**
-	 * Convert an edge list to an adjacency list.
-	 *
-	 * Possible forms:
-	 * [[vertexU, vertexV],[vertexU, vertexV], ...]
-	 * [[vertexU, vertexV, weight],[vertexU, vertexV, weight], ...]
-	 *
-	 * For weighted edge lists, the adjacency list will have your adjacent vertex list
-	 * as an array in the following form.
-	 *
-	 * [vertex][[vertex, weight], [vertex, weight], ...]
-	 * [vertex][[vertex, weight], ...]
-	 * [vertex][[vertex, weight], ...]
-	 * ...
-	 *
-	 * Non-weighted edge lists will return an adjacency list in the form of
-	 * [vertex][vertex, vertex, vertex, ...]
-	 * [vertex][vertex, vertex, ...]
-	 * [vertex][vertex, vertex, vertex, ...]
-	 *
-	 * Learn more @link https://en.wikipedia.org/wiki/Adjacency_list
-	 *
-	 * @param Map<int,Vector<int>> $edges	The edge list array map
-	 * @param int $sortMode					One of these: Graph::SORT_NONE (default), Graph::SORT_VERTEX, Graph::SORT_WEIGHTS
-	 *
-	 * @return Map<int,Map> The adjacency list
-	 */
-	public static function convertEdgeToAdjList<T>(HFAEdgeList $edges, int $sortMode = static::SORT_NONE) : HFAAdjList<T>
-	{
-
-	}
-
-	/**
-	 * Convert an edge list to an adjacency matrix.
-	 *
-	 * In the event of a weighted edge list, the matrix will use the weights to signify the edge, and null to
-	 * signify that no edge exists. If the edge list is not weighted, then the adjacency matrix will use 1 for
-	 * a connection and 0 for no connection.
-	 *
-	 * Weighted matrix:
-	 * [
-	 * 	[3,    null, 4,    88, 0],
-	 * 	[null, 4,    null, 20, 1],
-	 * 	...
-	 * ]
-	 *
-	 * Matrix without weights
-	 *
-	 * [
-	 * 	[0, 1, 0, 0, 1, 1],
-	 * 	[1, 1, 0, 1, 1, 0],
-	 * 	...
-	 * ]
-	 *
-	 * Learn more @link https://en.wikipedia.org/wiki/Adjacency_matrix
-	 *
-	 * @param Map<int,Vector<int>> $edges	The edge list @see \PHPFastAlgos\Graph\edgeListToAdjList() for valid
-	 * 								edge list formats.
-	 *
-	 * @return Map<int,Vector<int>> The Adjacency Matrix
-	 */
-	public static function convertEdgeToAdjMatrix(HFAEdgeList $edges) : HFAMatrix
-	{
-
-	}
-
-	public static function convertMatrixToEdgeList(HFAMatrix $matrix, int $sortMode = static::SORT_NONE) : HFAEdgeList
-	{
-
-	}
-
-	public static function convertMatrixToAdjList<T>(HFAMatrix $matrix, int $sortMode = static::SORT_NONE) : HFAAdjList<T>
-	{
-
-	}
-
-	public static function convertAdjToEdgeList<T>(HFAAdjList<T> $list, int $sortMode = static::SORT_NONE) : HFAEdgeList
-	{
-
-	}
-
-	public static function convertAdjListToMatrix<T>(HFAAdjList<T> $list) : HFAMatrix
-	{
-
 	}
 
 	public static function findClosestPoints(Vector<Pair<int,int>> $pairs)

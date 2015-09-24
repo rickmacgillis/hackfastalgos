@@ -35,26 +35,26 @@ List of Algorithms
 Every algorithm is grouped into a class of similar algorithms. Below is a list of classes, followed by the list of
 algorithms defined in that class.
 
-* Algos
-* ConvexHull
-* Graph
-* LZW
-* Math
-* MatrixMultiply
+* **Algos**
+* **ConvexHull**
+* **Graph**
+* **LZW**
+* **Math**
+* **MatrixMultiply**
 	* Strassen's Matrix Multiplication
-* MergeSort
+* **MergeSort**
 	* An implementation of Merge Sort
-* PolishNotation
+* **PolishNotation**
 	* An implementation of Polish Prefix Notation
-* Search
-* Select
-* Sort
+* **Search**
+* **Select**
+* **Sort**
 	* Selection Sort
 	* Bubble Sort
 	* Insert Sort
 	* Shell Sort (Uses Tokunda's gap algorithm)
 	* Fisher-Yates Shuffle
-* Strings
+* **Strings**
 
 List of Data Structures
 -----------------------
@@ -63,25 +63,25 @@ All data structures use the namespace `\HackFastAlgos\DataStructure`. Below is a
 Data structures which employ a comparative function (`compare()`) may have said method overridden to extend
 the capabilities of that data structure. All data uses the generic type `T` for that reason, where appropriate.
 
-* AVLTree
-* Bag
-* BloomFilter
-* BPlusTree
-* BST - BST is an implementation of a Binary Search Tree.
-* BTree
-* DoublyLinkedList
-* GameTree
-* HashTable
-* Heap - Heap supports both MinHeap and MaxHeap types.
-* LRUCache
-* PriorityQueue
-* Queue
-* RBTree - RBTree is an implementation of a Red-Black Tree.
-* Schedule
-* SplayTree
-* Stack
-* TernarySearchTree
-* UnionFind - The union-find data structure is also named the disjoint-set or merge-find.
+* **AVLTree**
+* **Bag**
+* **BloomFilter**
+* **BPlusTree**
+* **BST** - BST is an implementation of a Binary Search Tree.
+* **BTree**
+* **DoublyLinkedList**
+* **GameTree**
+* **HashTable**
+* **Heap** - Heap supports both MinHeap and MaxHeap types.
+* **LRUCache**
+* **PriorityQueue**
+* **Queue**
+* **RBTree** - RBTree is an implementation of a Red-Black Tree.
+* **Schedule**
+* **SplayTree**
+* **Stack**
+* **TernarySearchTree**
+* **UnionFind** - The union-find data structure is also named the disjoint-set or merge-find.
 
 Notes on Slower Algorithms
 --------------------------
