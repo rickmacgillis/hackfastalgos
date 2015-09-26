@@ -53,6 +53,7 @@ algorithms defined in that class.
 	* Bubble Sort
 	* Insert Sort
 	* Shell Sort (Uses Tokunda's gap algorithm)
+	* Heap Sort
 	* Fisher-Yates Shuffle
 * **Strings**
 
@@ -72,7 +73,7 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **DoublyLinkedList**
 * **GameTree**
 * **HashTable**
-* **Heap** - Heap supports both MinHeap and MaxHeap types.
+* **Heap** - An implementation of a binary heap supporting both MinHeap and MaxHeap types.
 * **LRUCache**
 * **PriorityQueue**
 * **Queue**

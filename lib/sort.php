@@ -187,9 +187,26 @@ class Sort
 		// Shuffle first
 	}
 
-	public static function heapSort(Vector<int> $vector) : Vector<int>
+	/**
+	 * Sort a vector using heap sort.
+	 *
+	 * Learn more @link https://en.wikipedia.org/wiki/Heapsort
+	 *
+	 * @param  Vector<T> $vector
+	 *
+	 * @return Vector<T>
+	 */
+	public static function heapSort<T>(Vector<T> $vector) : Vector<T>
 	{
-		// https://en.wikipedia.org/wiki/Heapsort
+		$return = Vector{};
+		$heap = new DataStructure\Heap();
+		$heap->heapify($vector);
+		$numItems = $heap->count();
+		for ($i = 0; $i < $numItems; $i++) {
+			$return[] = $heap->extract();
+		}
+
+		return $return;
 	}
 
 	public static function bucketSort(Vector<int> $vector, int $buckets) : Vector<int>
