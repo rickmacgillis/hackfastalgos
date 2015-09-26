@@ -7,43 +7,43 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class Schedule
+class Schedule extends PriorityQueue
 {
 	/**
-	 * The scheduled events as a priority queue
-	 * @var PriorityQueue $scheduledEvents
-	 */
-	protected PriorityQueue $scheduledEvents = new PriorityQueue;
-
-	/**
 	 * Insert a task into the scheduler.
+	 *
+	 * Operates in O(log n) or Omega(1) time.
 	 *
 	 * @param T $task		The identifier for the task
 	 * @param int $length	A numerical representation of how long the task takes to run (Higher = slower)
 	 * @param int $weight	The priority of the task (Higher = more important)
 	 */
-	public function insert<T>(T $task, int $length, int $weight)
+	public function insertTask<T>(T $task, int $length, int $weight)
 	{
-		$this->scheduledEvents->enqueue($task, ($weight/$length));
+		$this->enqueue($task, (float) ($weight/$length));
 	}
 
 	/**
 	 * Extract a task
 	 *
+	 * Operates in O(log n) or Omega(1) time.
+	 *
 	 * @return T The identifier for the task
 	 */
-	public function extract<T>() : T
+	public function extractTask<T>() : T
 	{
-		return $this->scheduledEvents->dequeue();
+		return $this->dequeue();
 	}
 
 	/**
 	 * Delete a task
 	 *
+	 * Operates in O(n log n) time or Omega(1) time.
+	 *
 	 * @param T $task The task identifier to delete
 	 */
-	public function delete<T>(T $task)
+	public function deleteTask<T>(T $task)
 	{
-		$this->scheduledEvents->delete();
+		$this->delete($task);
 	}
 }

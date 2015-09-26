@@ -41,28 +41,6 @@ class Heap implements \Countable
 	public function __construct(public int $heapType = static::MIN_HEAP){}
 
 	/**
-	 * Compare two items to find out which is greater
-	 *
-	 * @param T $item1	The first item to compare
-	 * @param T $item2	The second item to compare
-	 *
-	 * @return int Returns -1, 0, or 1 if $item1 is less-than, equal-to, or greater-than $item2 respectively
-	 */
-	public function compare<T>(T $item1, T $item2) : int
-	{
-		// MaxHeap is complimentary to MinHeap, so we flip the comparison.
-		if ($item1 < $item2) {
-			return ($this->heapType === static::MIN_HEAP) ? -1 : 1;
-		}
-
-		if ($item1 > $item2) {
-			return ($this->heapType === static::MIN_HEAP) ? 1 : -1;
-		}
-
-		return 0;
-	}
-
-	/**
 	 * Insert an item into the tree
 	 *
 	 * Operates in O(log n) or Omega(1) time.
@@ -178,7 +156,7 @@ class Heap implements \Countable
 	public function getMin<T>() : T
 	{
 		$this->throwIfNotMinHeap();
-		return $this->heapData[0];
+		return $this->getRootItemData();
 	}
 
 	/**
@@ -189,7 +167,7 @@ class Heap implements \Countable
 	public function getMax<T>() : T
 	{
 		$this->throwIfNotMaxHeap();
-		return $this->heapData[0];
+		return $this->getRootItemData();
 	}
 
 	/**
@@ -377,14 +355,64 @@ class Heap implements \Countable
 	 * Operates in O(n) or Omega(1) time.
 	 *
 	 * @param  T $item
+	 *
 	 * @return int
 	 */
 	protected function findKeyForItem<T>(T $item) : int
 	{
 		foreach ($this->heapData as $key => $value) {
-			if ($item === $value) {
+			if ($this->itemsAreIdentical($item, $value)) {
 				return $key;
 			}
 		}
+	}
+
+	/**
+	 * Check if two items are identical.
+	 *
+	 * @param  T $item1
+	 * @param  T $item2
+	 *
+	 * @return bool
+	 */
+	protected function itemsAreIdentical<T>(T $compareTo, T $itemInHeap) : bool
+	{
+		if ($compareTo === $itemInHeap) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Compare two items to find out which is greater
+	 *
+	 * @param T $item1	The first item to compare
+	 * @param T $item2	The second item to compare
+	 *
+	 * @return int Returns -1, 0, or 1 if $item1 is less-than, equal-to, or greater-than $item2 respectively
+	 */
+	protected function compare<T>(T $item1, T $item2) : int
+	{
+		// MaxHeap is complimentary to MinHeap, so we flip the comparison.
+		if ($item1 < $item2) {
+			return ($this->heapType === static::MIN_HEAP) ? -1 : 1;
+		}
+
+		if ($item1 > $item2) {
+			return ($this->heapType === static::MIN_HEAP) ? 1 : -1;
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Get the data for the root key.
+	 *
+	 * @return T
+	 */
+	protected function getRootItemData<T>() : T
+	{
+		return $this->heapData[0];
 	}
 }

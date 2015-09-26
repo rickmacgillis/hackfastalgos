@@ -32,15 +32,6 @@ class Bag implements \Iterator, \Countable
 	}
 
 	/**
-	 * Get the size of the bag. (Alias of $this->count())
-	 * @return int
-	 */
-	public function size() : int
-	{
-		return $this->count();
-	}
-
-	/**
 	 * Check if the bag has any items.
 	 * @return bool
 	 */

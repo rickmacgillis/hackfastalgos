@@ -2,7 +2,8 @@
 /**
  * @author Rick Mac Gillis
  *
- * Implementation of a hash table (Also called a hash map or dictionary)
+ * Implementation of a hash table (Also called a hash map, dictionary, symbol
+ * table, flibber jabber, or Jabberwocky)
  * Learn more @link https://en.wikipedia.org/wiki/Hash_table
  */
 
@@ -10,7 +11,7 @@ namespace HackFastAlgos\DataStructure;
 
 class HashTableTooManyItemsException extends \Exception{}
 
-class HashTable implements \Countable, \ArrayAccess
+class HashTable implements \Countable, \ArrayAccess, \Iterator
 {
 	/**
 	 * Handle collisions using a linked list
@@ -132,6 +133,11 @@ class HashTable implements \Countable, \ArrayAccess
 		// Find an item in the hash table
 	}
 
+	public function contains<T>(T $value) : bool
+	{
+		// Does the hash table contain the item?
+	}
+
 	public function lookup<T>(T $key) : T
 	{
 		// Get an item by its key
@@ -178,5 +184,35 @@ class HashTable implements \Countable, \ArrayAccess
 	public function offsetUnset<T>(T $key)
 	{
 		// Remove the item at the given $key from the hash table
+	}
+
+	public function current<T>() : T
+	{
+
+	}
+
+	public function key<T>() : T
+	{
+
+	}
+
+	public function valid() : bool
+	{
+
+	}
+
+	public function next()
+	{
+
+	}
+
+	public function prev()
+	{
+
+	}
+
+	public function rewind()
+	{
+
 	}
 }

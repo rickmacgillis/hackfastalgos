@@ -44,6 +44,8 @@ algorithms defined in that class.
 	* Strassen's Matrix Multiplication
 * **MergeSort**
 	* An implementation of Merge Sort
+* **MostFrequentWord**
+	* Calculate the most frequent word in the given text.
 * **PolishNotation**
 	* An implementation of Polish Prefix Notation
 * **Search**

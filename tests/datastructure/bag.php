@@ -9,7 +9,6 @@ class BagTest extends \PHPUnit_Framework_TestCase
 		$bag = new DataStructure\Bag();
 		$bag->add('test');
 
-		$this->assertSame(1, $bag->size());
 		$this->assertSame(1, $bag->count());
 		$this->assertFalse($bag->isEmpty());
 	}
