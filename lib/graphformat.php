@@ -19,7 +19,7 @@ class GraphFormat
 	const SORT_VERTEX = 1;
 	const SORT_WEIGHTS = 2;
 
-	protected int $sortMode = SORT_NONE;
+	protected int $sortMode = 0;
 
 	protected ?DataStructure\EdgeList $edgeList = null;
 	protected ?DataStructure\AdjList $adjList = null;
