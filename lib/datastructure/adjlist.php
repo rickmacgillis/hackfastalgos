@@ -13,6 +13,7 @@ newtype AdjListMap = Map<int,Vector<Vector<int>>>;
 class AdjListNotEmptyException extends \Exception{}
 class AdjListEdgeIsWeightedException extends \Exception{}
 class AdjListEdgeIsNotWeightedException extends \Exception{}
+class AdjListNotWeightedListException extends \Exception{}
 
 class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 {
@@ -79,6 +80,15 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 	public function toMap() : AdjListMap
 	{
 		return $this->adjListData;
+	}
+
+	public function sortBy(int $sortingType)
+	{
+		switch ($sortingType) {
+			case static::SORT_VERTEX: $this->sortByVertex(); break;
+			case static::SORT_WEIGHTS: $this->sortByWeights(); break;
+		}
+
 	}
 
 	protected function startingVertexExists(int $vertex) : bool
@@ -149,6 +159,24 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 	{
 		if ($this->adjListData->isEmpty() === false) {
 			throw new AdjListNotEmptyException();
+		}
+	}
+
+	protected function sortByVertex()
+	{
+		// Use quick sort to sort the list.
+	}
+
+	protected function sortByWeights()
+	{
+		// Use quick sort to sort the list.
+		$this->throwExceptionIfNotWeightedList();
+	}
+
+	protected function throwExceptionIfNotWeightedList()
+	{
+		if ($this->isWeighted() === false) {
+			throw new AdjListNotWeightedListException();
 		}
 	}
 }

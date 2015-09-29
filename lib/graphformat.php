@@ -15,10 +15,6 @@ class GraphFormatFromTypeNotSetException extends \Exception{}
 
 class GraphFormat
 {
-	const SORT_NONE = 0;
-	const SORT_VERTEX = 1;
-	const SORT_WEIGHTS = 2;
-
 	protected int $sortMode = 0;
 
 	protected ?DataStructure\EdgeList $edgeList = null;
@@ -138,35 +134,130 @@ class GraphFormat
 
 	protected function edgeListToAdjList<T>()
 	{
-		$this->sortMode;
-		$this->edgeList;
+		$this->createEmptyAdjListOfWeightedType($this->edgeList->isWeighted());
+		$this->insertEdgeListEdgesIntoObject($this->adjList);
+		$this->sortObjectIfSortingEnabled($this->adjList);
+	}
+
+	protected function createEmptyAdjListOfWeightedType(bool $isWeighted)
+	{
+		$weighted = ($isWeighted === true) ? DataStructure\AdjList::WEIGHTED : DataStructure\AdjList::NOT_WEIGHTED;
+		$this->adjList = new DataStructure\AdjList($weighted);
+	}
+
+	/**
+	 * Operates in Theta(n*E) time for adjacency matrixes, where n is the size
+	 * of the adjacency matrix. E is the number of edges.
+	 * Operates in Theta(E) time for adjacency lists.
+	 */
+	protected function insertEdgeListEdgesIntoObject<T>(T $object)
+	{
+		$edgeListVector = $this->edgeList->toVector();
+		$edgeListCount = $edgeListVector->count();
+
+		for ($i = 0; $i < $edgeListCount; $i++) {
+			$object->insertEdge($edgeListVector[$i]);
+		}
+	}
+
+	protected function sortObjectIfSortingEnabled<T>(T $object)
+	{
+		if ($this->sortMode !== $object::SORT_NONE) {
+			$object->sortBy($this->sortMode);
+		}
 	}
 
 	protected function edgeListToAdjMatrix()
 	{
-		$this->edgeList;
+		$this->createEmptyAdjMatrixOfWeightedType($this->edgeList->isWeighted());
+		$this->insertEdgeListEdgesIntoObject($this->adjMatrix);
+	}
+
+	protected function createEmptyAdjMatrixOfWeightedType(bool $isWeighted)
+	{
+		$weighted = ($isWeighted === true) ? DataStructure\AdjMatrix::WEIGHTED : DataStructure\AdjMatrix::NOT_WEIGHTED;
+		$this->adjMatrix = new DataStructure\AdjMatrix($weighted);
 	}
 
 	protected function adjListToEdgeList<T>()
 	{
-		$this->sortMode;
-		$this->adjList;
+		$this->createEmptyEdgeListOfWeightedType($this->adjList->isWeighted());
+		$this->insertAdjListEdgesIntoObject($this->edgeList);
+		$this->sortObjectIfSortingEnabled($this->edgeList);
+	}
+
+	protected function insertAdjListEdgesIntoObject<T>(T $object)
+	{
+		$adjListMap = $this->adjList->toMap();
+		foreach ($adjListMap as $firstCoord => $adjEdges) {
+
+			$numAdjEdges = $adjEdges->count();
+			for ($i = 0; $i < $numAdjEdges; $i++) {
+
+				$edge = $this->getEdgeFromAdjEdgeVector($adjEdges[$i], $firstCoord);
+				$object->insertEdge($edge);
+
+			}
+
+		}
+	}
+
+	protected function createEmptyEdgeListOfWeightedType(bool $isWeighted)
+	{
+		$weighted = ($isWeighted === true) ? DataStructure\EdgeList::WEIGHTED : DataStructure\EdgeList::NOT_WEIGHTED;
+		$this->edgeList = new DataStructure\EdgeList($weighted);
+	}
+
+	protected function getEdgeFromAdjEdgeVector(Vector $adjEdge, int $firstCoord) : Vector
+	{
+		if ($adjEdge->count() === 2) {
+			return Vector{$firstCoord, $adjEdge[0], $adjEdge[1]};
+		}
+
+		return Vector{$firstCoord, $adjEdge[0]};
 	}
 
 	protected function adjListToAdjMatrix<T>()
 	{
-		$this->adjList;
+		$this->createEmptyAdjMatrixOfWeightedType($this->adjList->isWeighted());
+		$this->insertAdjListEdgesIntoObject($this->adjMatrix);
 	}
 
 	protected function adjMatrixToEdgeList()
 	{
-		$this->sortMode;
-		$this->adjMatrix;
+		$this->createEmptyEdgeListOfWeightedType($this->adjMatrix->isWeighted());
+		$this->insertAdjMatrixEdgesIntoObject($this->edgeList);
+		$this->sortObjectIfSortingEnabled($this->edgeList);
+	}
+
+	protected function insertAdjMatrixEdgesIntoObject<T>(T $object)
+	{
+		$matrixVector = $this->adjMatrix->toVector();
+		$matrixSize = $matrixVector->count();
+		for ($i = 0; $i < $matrixSize; $i++) {
+
+			for ($j = 0; $j < $matrixSize; $j++) {
+				$this->insertEdgeOnObjectIfExistsInMatrix(Vector{$i, $j}, $object);
+			}
+
+		}
+	}
+
+	protected function insertEdgeOnObjectIfExistsInMatrix<T>(Vector $edge, T $object)
+	{
+		$edgeWeight = $this->adjMatrix->getEdgeWeight($edge);
+		if ($edgeWeight !== $this->adjMatrix->getNoEdgeValue()) {
+
+			$edge = $this->adjMatrix->isWeighted() ? Vector{$edge[0], $edge[1], $edgeWeight} : $edge;
+			$object->insertEdge($edge);
+
+		}
 	}
 
 	protected function adjMatrixToAdjList<T>()
 	{
-		$this->sortMode;
-		$this->adjMatrix;
+		$this->createEmptyAdjListOfWeightedType($this->adjMatrix->isWeighted());
+		$this->insertAdjMatrixEdgesIntoObject($this->adjList);
+		$this->sortObjectIfSortingEnabled($this->adjList);
 	}
 }

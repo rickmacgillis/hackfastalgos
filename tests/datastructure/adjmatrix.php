@@ -160,4 +160,25 @@ class AdjMatrixTest extends \PHPUnit_Framework_TestCase
 
 		} catch (DataStructure\AdjMatrixNotEmptyException $e) {}
 	}
+
+	public function testCanGetEdgeWeight()
+	{
+		$adjMatrix = new DataStructure\AdjMatrix(DataStructure\AdjMatrix::WEIGHTED);
+		$adjMatrix->insertEdge(Vector{1,2,3});
+		$adjMatrix->insertEdge(Vector{1,3,4});
+
+		$this->assertSame(3, $adjMatrix->getEdgeWeight(Vector{1,2}));
+	}
+
+	public function testCanGetNoEdgeValueForNonWeightedMatrix()
+	{
+		$adjMatrix = new DataStructure\AdjMatrix();
+		$this->assertSame(0, $adjMatrix->getNoEdgeValue());
+	}
+
+	public function testCanGetNoEdgeValueForWeightedMatrix()
+	{
+		$adjMatrix = new DataStructure\AdjMatrix(DataStructure\AdjMatrix::WEIGHTED);
+		$this->assertSame(null, $adjMatrix->getNoEdgeValue());
+	}
 }

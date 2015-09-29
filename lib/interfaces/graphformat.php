@@ -9,6 +9,10 @@ namespace HackFastAlgos\Interfaces;
 
 interface GraphFormat
 {
+	const SORT_NONE = 0;
+	const SORT_VERTEX = 1;
+	const SORT_WEIGHTS = 2;
+	
 	const int NOT_WEIGHTED = 0;
 	const int WEIGHTED = 1;
 

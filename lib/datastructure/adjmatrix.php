@@ -46,11 +46,23 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 	public function edgeExists(Vector $edge) : bool
 	{
 		if ($this->matrixCanContainEdge($edge)) {
-			$matrixValue = $this->getMatrixValueFromEdge($edge);
+			$matrixValue = $this->getEdgeWeight($edge);
 			return $this->matrixValueMatchesEdge($matrixValue, $edge);
 		}
 
 		return false;
+	}
+
+	public function getEdgeWeight(Vector $edge) : ?int
+	{
+		if (
+			$this->adjMatrixData->containsKey($edge[0]) &&
+			$this->adjMatrixData[$edge[0]]->containsKey($edge[1])
+		) {
+			return $this->adjMatrixData[$edge[0]][$edge[1]];
+		}
+
+		return $this->getNoEdgeValue();
 	}
 
 	/**
@@ -66,6 +78,9 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		return $this->matrixType === static::WEIGHTED;
 	}
 
+	/**
+	 * Operates in Theta(n) time where "n" is the size of the matrix.
+	 */
 	public function insertEdge(Vector $edge)
 	{
 		$this->throwIfWrongEdgeType($edge);
@@ -108,15 +123,15 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		return $this->adjMatrixData;
 	}
 
+	public function getNoEdgeValue() : ?int
+	{
+		return $this->isWeighted() === true ? null : 0;
+	}
+
 	protected function matrixCanContainEdge(Vector $edge) : bool
 	{
 		$matrixSize = $this->getMatrixSize();
 		return $matrixSize > $edge[0] && $matrixSize > $edge[1];
-	}
-
-	protected function getMatrixValueFromEdge(Vector $edge) : ?int
-	{
-		return $this->adjMatrixData[$edge[0]][$edge[1]];
 	}
 
 	protected function matrixValueMatchesEdge(?int $matrixValue, Vector $edge) : bool
@@ -159,11 +174,6 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 	protected function throwEdgeIsWeightedException()
 	{
 		throw new AdjMatrixEdgeIsWeightedException();
-	}
-
-	protected function getNoEdgeValue() : ?int
-	{
-		return $this->isWeighted() === true ? null : 0;
 	}
 
 	protected function throwIfNotEmpty()

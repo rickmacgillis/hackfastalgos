@@ -12,6 +12,7 @@ newtype EdgeListVector = Vector<Vector<int>>;
 class EdgeListEdgeIsWeightedException extends \Exception{}
 class EdgeListEdgeIsNotWeightedException extends \Exception{}
 class EdgeListNotEmptyException extends \Exception{}
+class EdgeListNotWeightedListException extends \Exception{}
 
 class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 {
@@ -68,6 +69,15 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		return $this->edgeListData;
 	}
 
+	public function sortBy(int $sortingType)
+	{
+		switch ($sortingType) {
+			case static::SORT_VERTEX: $this->sortByVertex(); break;
+			case static::SORT_WEIGHTS: $this->sortByWeights(); break;
+		}
+
+	}
+
 	protected function throwIfEdgeIsTheWrongFormat(Vector $edge)
 	{
 		if ($edge->count() === 3 && $this->listType === static::NOT_WEIGHTED) {
@@ -93,6 +103,24 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 	{
 		if ($this->edgeListData->isEmpty() === false) {
 			throw new EdgeListNotEmptyException();
+		}
+	}
+
+	protected function sortByVertex()
+	{
+		// Use quick sort to sort the list.
+	}
+
+	protected function sortByWeights()
+	{
+		// Use quick sort to sort the list.
+		$this->throwExceptionIfNotWeightedList();
+	}
+
+	protected function throwExceptionIfNotWeightedList()
+	{
+		if ($this->isWeighted() === false) {
+			throw new EdgeListNotWeightedListException();
 		}
 	}
 }
