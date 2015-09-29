@@ -15,11 +15,6 @@ class Sort
 	 * around less than 10 elements. If you're sorting larger arrays, consider QuickSort or MergeSort.
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Selection_sort
-	 *
-	 * @param Vector<T> $vector		The vector to sort from lowest to highest value
-	 * @param Callable $callback	The callback to compare the values (@See usort())
-	 *
-	 * @return Vector<T> The sorted vector
 	 */
 	public static function selectionSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>
 	{
@@ -51,11 +46,6 @@ class Sort
 	 * as part of the Computer Science curriculum. BubbleSort is part of this library as a benchmark.
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Bubble_sort
-	 *
-	 * @param Vector<T> $vector			The vector to sort
-	 * @param Callable $compareCallback	The callback to compare the values (@See usort())
-	 *
-	 * @return Vector<T> The sorted vector
 	 */
 	public static function bubbleSort<T>(Vector<T> $vector, Callable $compareCallback) : Vector<T>
 	{
@@ -88,11 +78,6 @@ class Sort
 	 * vector greater than around 10 elements, then try MergeSort or QuickSort.
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Insertion_sort
-	 *
-	 * @param Vector<T> $vector		The vector to sort
-	 * @param Callable $callback	The callback to compare the values (@See usort())
-	 *
-	 * @return Vector<T> The sorted vector
 	 */
 	public static function insertSort<T>(Vector<T> $vector, Callable $compareCallback) : Vector<T>
 	{
@@ -121,15 +106,8 @@ class Sort
 	}
 
 	/**
-	 * Sort a vector using the Shell Sort method.
-	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Shellsort
 	 * Operates in O(n^2) and Omega(n log^2 n) time.
-	 *
-	 * @param  Vector<T> $vector
-	 * @param  Callable  $compareCallback	The callback to compare the values (@See usort())
-	 *
-	 * @return Vector<T>
 	 */
 	public static function shellSort(Vector<T> $vector, Callable $compareCallback) : Vector<T>
 	{
@@ -161,19 +139,6 @@ class Sort
 	 * the median value of a random sampling of values from $array. As the sampling period
 	 * takes extra work, set the $minArraySize to the smallest array to take a sampling from.
 	 * Anything less than the specified array width will not using sampling.
-	 *
-	 * This algorithm is designed to improve on the performance of PHP's sort(), such that it
-	 * gives you better speed control through the use of random sampling.
-	 *
-	 * NOTE: Leave $numRandom at -1 to allow the algorithm to determine the optimum number of
-	 * values to sample based on the width of the array at the current recursion level.
-	 *
-	 * @param array $vector			The Vector to sort
-	 * @param integer $pivot		The index to use as the pivot (Or leave at null)
-	 * @param integer $numRandom	The number of random elements to sample for each iteration (See above notes)
-	 * @param integer $minArraySize	The minimum array width to pull samples from
-	 *
-	 * @return Vector<int> The sorted integer vector
 	 */
 	public static function quickSort(Vector<int> $vector, int $pivot = 0, int $numRandom = 9, int $minArraySize = 10) : Vector<int>
 	{
@@ -188,13 +153,7 @@ class Sort
 	}
 
 	/**
-	 * Sort a vector using heap sort.
-	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Heapsort
-	 *
-	 * @param  Vector<T> $vector
-	 *
-	 * @return Vector<T>
 	 */
 	public static function heapSort<T>(Vector<T> $vector) : Vector<T>
 	{
@@ -230,9 +189,6 @@ class Sort
 	 * proper entropy source.)
 	 *
 	 * Runs in Theta(n) time.
-	 *
-	 * @param  Vector<T> $vector
-	 * @return Vector<T>
 	 */
 	public static function fyShuffle<T>(Vector<T> $vector) : Vector<T>
 	{
@@ -247,16 +203,6 @@ class Sort
 		return $vector;
 	}
 
-	/**
-	 * Quickly swap array values
-	 *
-	 * @access protected
-	 * @param Vector<int> $vector	The vector on which to swap the keys
-	 * @param int $indexA			The first index to swap
-	 * @param int $indexB			The second index to swap
-	 *
-	 * @return Vector<int> The integer vector object with the elements swapped
-	 */
 	protected static function swapValues(Vector<int> $vector, int $indexA, int $indexB) : Vector<int>
 	{
 		$oldA = $vector[$indexA];
@@ -270,10 +216,6 @@ class Sort
 	 * Get the Shell Sort gaps using the Tokunda Algorithm.
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Shellsort#Gap_sequences
-	 *
-	 * @param  Vector<int> $vector	The vector being sorted
-	 *
-	 * @return Vector<int>
 	 */
 	protected static function getTokundaGaps(Vector<int> $vector) : Vector<int>
 	{
@@ -294,11 +236,6 @@ class Sort
 	 * Get a truely random number.
 	 *
 	 * Credits to @link http://php.net/manual/en/function.openssl-random-pseudo-bytes.php#104322
-	 *
-	 * @param  int $min	Minimum number
-	 * @param  int $max	Maximum number
-	 *
-	 * @return int
 	 */
 	protected static function getRandomNumber(int $min, int $max) : int
 	{

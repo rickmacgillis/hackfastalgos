@@ -11,33 +11,14 @@ class MathNumberOfOperandsMustBeGreaterThanZeroException extends \Exception{}
 
 class Math
 {
-	/**
-	 * Signifies that we'll use the average to break the tie when evaluating the median of two equal heaps
-	 * @var int MEDIANHEAP_AVG = 0
-	 */
 	const int MEDIANHEAP_AVG = 0;
-
-	/**
-	 * Signifies that we'll use the low value to break the tie when evaluating the median of two equal heaps
-	 * @var int MEDIANHEAP_LOW = 1
-	 */
 	const int MEDIANHEAP_LOW = 1;
-
-	/**
-	 * Signifies that we'll use the high value to break the tie when evaluating the median of two equal heaps
-	 * @var int MEDIANHEAP_HIGH = 2
-	 */
 	const int MEDIANHEAP_HIGH = 2;
 
 	/**
-	 * Get the nth Fibonnaci number.
-	 *
 	 * Operates in O(log n) time or Omega(1) time. (Due to Matrix exponentation)
-	 *
-	 * @param  int $nth
-	 * @return int
 	 */
-	public static function getFibonacciNumber(int $nth) : int
+	public static function getNthFibonacciNumber(int $nth) : int
 	{
 		// https://en.wikipedia.org/wiki/Fibonacci_number
 	}

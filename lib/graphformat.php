@@ -15,97 +15,39 @@ class GraphFormatFromTypeNotSetException extends \Exception{}
 
 class GraphFormat
 {
-	/**
-	 * Don't sort the resulting graph
-	 * @var int SORT_NONE = 0
-	 */
 	const SORT_NONE = 0;
-
-	/**
-	 * Sort the resulting graph by its vertices (low to high)
-	 * @var int SORT_VERTEX = 1
-	 */
 	const SORT_VERTEX = 1;
-
-	/**
-	 * Sort the resulting graph by its weights (low to high)
-	 * @var int SORT_WEIGHTS = 2
-	 */
 	const SORT_WEIGHTS = 2;
 
-	/**
-	 * The sorting mode for all formats
-	 * @type int $sortMode
-	 */
-	protected int $sortMode = 0;
+	protected int $sortMode = SORT_NONE;
 
-	/**
-	 * The defined edge list
-	 * @type ?EdgeList
-	 */
 	protected ?DataStructure\EdgeList $edgeList = null;
-
-	/**
-	 * The defined adjacency list
-	 * @type ?AdjList
-	 */
 	protected ?DataStructure\AdjList $adjList = null;
-
-	/**
-	 * The defined adjacency matrix
-	 * @type ?Matrix
-	 */
 	protected ?DataStructure\Matrix $adjMatrix = null;
 
-	/**
-	 * Set the sorting mode for all converted data formats.
-	 *
-	 * @param int $sortMode	One of the class defined constants:
-	 *                      SORT_NONE (default), SORT_VERTEX, or SORT_WEIGHTS
-	 */
 	protected function setSortMode(int $sortMode)
 	{
 		$this->sortMode = $sortMode;
 	}
 
-	/**
-	 * Set the edge list.
-	 *
-	 * @param EdgeList $edgeList
-	 */
 	public function fromEdgeList(DataStructure\EdgeList $edgeList)
 	{
 		$this->throwIfFromFormatAlreadySet();
 		$this->edgeList = $edgeList;
 	}
 
-	/**
-	 * Set the adjacency list.
-	 *
-	 * @param AdjList $adjList
-	 */
 	public function fromAdjList(DataStructure\AdjList $adjList)
 	{
 		$this->throwIfFromFormatAlreadySet();
 		$this->adjList = $adjList;
 	}
 
-	/**
-	 * Set the adjacency matrix.
-	 *
-	 * @param AdjMatrix $adjMatrix
-	 */
 	public function fromAdjMatrix(DataStructure\AdjMatrix $adjMatrix)
 	{
 		$this->throwIfFromFormatAlreadySet();
 		$this->adjMatrix = $adjMatrix;
 	}
 
-	/**
-	 * Convert the data to an edge list.
-	 *
-	 * @return EdgeList
-	 */
 	public function toEdgeList() : DataStructure\EdgeList
 	{
 		$this->throwIfFromFormatNotSet();
@@ -125,11 +67,6 @@ class GraphFormat
 		}
 	}
 
-	/**
-	 * Convert the data to an adjacency list.
-	 *
-	 * @return AdjList
-	 */
 	public function toAdjList() : DataStructure\AdjList
 	{
 		$this->throwIfFromFormatNotSet();
@@ -149,11 +86,6 @@ class GraphFormat
 		}
 	}
 
-	/**
-	 * Convert the data to an adjacency matrix.
-	 *
-	 * @return AdjMatrix
-	 */
 	public function toAdjMatrix() : DataStructure\AdjMatrix
 	{
 		$this->throwIfFromFormatNotSet();
@@ -173,11 +105,6 @@ class GraphFormat
 		}
 	}
 
-	/**
-	 * Throw an exception if the from format is already set.
-	 *
-	 * @throws GraphFormatFromTypeAlreadySet
-	 */
 	protected function throwIfFromFormatAlreadySet()
 	{
 		if ($this->getFromFormat() !== null) {
@@ -185,11 +112,6 @@ class GraphFormat
 		}
 	}
 
-	/**
-	 * Get the format to convert from or return null;
-	 *
-	 * @return ?string
-	 */
 	protected function getFromFormat() : ?string
 	{
 		if ($this->edgeList !== null) {
@@ -207,11 +129,6 @@ class GraphFormat
 		return null;
 	}
 
-	/**
-	 * Throw an exception if the from format type is not set.
-	 *
-	 * @throws GraphFormatFromTypeNotSetException
-	 */
 	protected function throwIfFromFormatNotSet()
 	{
 		if ($this->getFromFormat() === null) {

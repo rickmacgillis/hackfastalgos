@@ -39,25 +39,10 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 	  * ]
 	 */
 
-	/**
- 	 * The adjacency matrix Vector
- 	 * @type AdjListMap $adjListData
- 	 */
  	protected AdjMatrixVector $adjMatrixData = Vector{};
 
- 	/**
- 	 * Construct the adjacency matrix.
- 	 *
- 	 * @param  protected int $matrixType = static::NOT_WEIGHTED
- 	 */
  	public function __construct(protected int $matrixType = static::NOT_WEIGHTED){}
 
-	/**
-	 * Check if an edge exists.
-	 *
-	 * @param  {[type]} Vector $edge         [description]
-	 * @return {[type]}        [description]
-	 */
 	public function edgeExists(Vector $edge) : bool
 	{
 		if ($this->matrixCanContainEdge($edge)) {
@@ -70,29 +55,17 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 
 	/**
 	 * Get the matrix width/height. It's always a square.
-	 *
-	 * @return int
 	 */
 	public function getMatrixSize() : int
 	{
 		return $this->adjMatrixData->count();
 	}
 
-	/**
-	 * Check if the adjacency matrix is weighted.
-	 *
-	 * @return bool
-	 */
 	public function isWeighted() : bool
 	{
 		return $this->matrixType === static::WEIGHTED;
 	}
 
-	/**
-	 * Insert an edge into the matrix.
-	 *
-	 * @param  Vector $edge
-	 */
 	public function insertEdge(Vector $edge)
 	{
 		$this->throwIfWrongEdgeType($edge);
@@ -109,11 +82,7 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 	}
 
 	/**
-	 * Resize the matrix to the given size.
-	 *
 	 * Operates in Theta(n) time where "n" is the size of the matrix.
-	 *
-	 * @param  int $size
 	 */
 	public function resizeMatrixTo(int $size)
 	{
@@ -128,59 +97,28 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	/**
-	 * Import the adjacency matrix from a vector.
-	 * @param  {[type]} AdjMatrixVector $adjMatrix    [description]
-	 * @return {[type]}                 [description]
-	 */
 	public function fromVector(AdjMatrixVector $adjMatrix)
 	{
 		$this->throwIfNotEmpty();
 		$this->adjMatrixData = $adjMatrix;
 	}
 
-	/**
-	 * Export the adjacency matrix to a vector.
-	 * @return {[type]} [description]
-	 */
 	public function toVector() : AdjMatrixVector
 	{
 		return $this->adjMatrixData;
 	}
 
-	/**
-	 * Check if the matrix is large enough to contain the given edge.
-	 *
-	 * @param  Vector $edge
-	 *
-	 * @return bool
-	 */
 	protected function matrixCanContainEdge(Vector $edge) : bool
 	{
 		$matrixSize = $this->getMatrixSize();
 		return $matrixSize > $edge[0] && $matrixSize > $edge[1];
 	}
 
-	/**
-	 * Get the value from the matrix at the given edge coordinates.
-	 *
-	 * @param  Vector $edge
-	 *
-	 * @return ?int
-	 */
 	protected function getMatrixValueFromEdge(Vector $edge) : ?int
 	{
 		return $this->adjMatrixData[$edge[0]][$edge[1]];
 	}
 
-	/**
-	 * Check if the value stored in the matrix matches the given edge.
-	 *
-	 * @param  ?int $matrixValue
-	 * @param  ?int $edge
-	 *
-	 * @return bool
-	 */
 	protected function matrixValueMatchesEdge(?int $matrixValue, Vector $edge) : bool
 	{
 		if ($this->isWeighted() === true && $matrixValue === $edge[2]) {
@@ -192,31 +130,16 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		return false;
 	}
 
-	/**
-	 * Insert a weighted edge.
-	 *
-	 * @param Vector $edge
-	 */
 	protected function insertWeightedEdge(Vector $edge)
 	{
 		$this->adjMatrixData[$edge[0]][$edge[1]] = $edge[2];
 	}
 
-	/**
-	 * Insert a non-weighted edge.
-	 *
-	 * @param Vector $edge
-	 */
 	protected function insertNonWeightedEdge(Vector $edge)
 	{
 		$this->adjMatrixData[$edge[0]][$edge[1]] = 1;
 	}
 
-	/**
-	 * Throw an exception if the edge type is incorrect.
-	 *
-	 * @param  Vector $edge
-	 */
 	protected function throwIfWrongEdgeType(Vector $edge)
 	{
 		if ($edge->count() === 2 && $this->isWeighted() === true) {
@@ -228,37 +151,21 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	/**
-	 * @throws AdjMatrixEdgeIsNotWeightedException
-	 */
 	protected function throwEdgeIsNotWeightedException()
 	{
 		throw new AdjMatrixEdgeIsNotWeightedException();
 	}
 
-	/**
-	 * @throws AdjMatrixEdgeIsWeightedException
-	 */
 	protected function throwEdgeIsWeightedException()
 	{
 		throw new AdjMatrixEdgeIsWeightedException();
 	}
 
-	/**
-	 * Get the value that sigifies that no edge exists.
-	 *
-	 * @return ?int
-	 */
 	protected function getNoEdgeValue() : ?int
 	{
 		return $this->isWeighted() === true ? null : 0;
 	}
 
-	/**
-	 * Throw an exception if the adjacency matrix is not empty.
-	 *
-	 * @throws AdjMatrixNotEmptyException
-	 */
 	protected function throwIfNotEmpty()
 	{
 		if ($this->adjMatrixData->isEmpty() === false) {

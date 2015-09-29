@@ -14,49 +14,10 @@ newtype BSTLeftChild	= int;
 newtype BSTRightChild	= int;
 newtype Relations		= Vector<(?BSTParent, ?BSTLeftChild, ?BSTRightChild)>;
 
-class BSTException extends \Exception{}
-
 class BST implements \Countable, \Iterator
 {
-	/**
-	 * The BST vector
-	 * @var Vector<int> $bstData
-	 */
 	protected Vector<(T, Statistic, Relations)> $bstData = Vector{};
-
-	/**
-	 * The iterator pointer
-	 * @var int $iteratorPtr
-	 */
 	protected int $iteratorPtr = 0;
-
-	/**
-	 * Compare two items to see which is larger
-	 *
-	 * @param T $item1	The first item to compare
-	 * @param T $item2	The second item to compare
-	 *
-	 * @return int Returns -1, 0, or 1 if $item1 is less-than, equal-to, or greater-than $item2 respectively
-	 *
-	 * @throws \HackFastAlgos\DataStructure\BSTException If the items are not integers or floats
-	 */
-	public function compare<T>(T $item1, T $item2) : int
-	{
-		if ((!is_int($item1) && !is_float($item1)) || (!is_int($item2) && !is_float($item2))) {
-			throw new BSTException('The built in compare() method only handles numeric comparisons. '.
-								   'Override the method to extend its capabilities.');
-		}
-
-		if ($item1 < $item2) {
-			return -1;
-		}
-
-		if ($item1 > $item2) {
-			return 1;
-		}
-
-		return 0;
-	}
 
 	public function insert<T>(T $item, ?int $priority = null)
 	{
@@ -75,12 +36,7 @@ class BST implements \Countable, \Iterator
 		}
 	}
 
-	/**
-	 * Import a vector into the BST tree format
-	 *
-	 * @param Vector<T> $vector The vector to import data from
-	 */
-	public function import<T>(Vector<T> $vector)
+	public function fromVector<T>(Vector<T> $vector)
 	{
 		foreach ($vector as $value) {
 			$this->insert($value);
@@ -107,17 +63,7 @@ class BST implements \Countable, \Iterator
 		// Return the index for the given item
 	}
 
-	/**
-	 * Return the data for the given statistic. (A statistic is the $statistic smallest
-	 * item in the tree. So if the tree contains the numbers, 1,2,3,4,5, then 3 is the 3rd
-	 * order statistic. It's not in relation to the root node. It's in relation to the entire
-	 * tree.)
-	 *
-	 * @param int $statistic The statistic to find the data for
-	 *
-	 * @return T The data at the given statistic or false on fail
-	 */
-	public function select<T>(int $statistic) : T
+	public function select<T>(int $nthOrderstatistic) : T
 	{
 		// https://en.wikipedia.org/wiki/Order_statistic_tree
 	}
@@ -143,49 +89,26 @@ class BST implements \Countable, \Iterator
 		// Swap $node with its left child.
 	}
 
-	/**
-	 * Get the total number of items in the BST
-	 *
-	 * @return int The number of items
-	 */
 	public function count() : int
 	{
 		// Find the statistic for the lower-right child.
 	}
 
-	/**
-	 * Rewind the pointer to the beginning of the tree vector
-	 */
 	public function rewind()
 	{
 		$this->iteratorPtr = 0;
 	}
 
-	/**
-	 * Get the current value of the iteration
-	 *
-	 * @return int The value at the pointer
-	 */
 	public function current() : int
 	{
 		return $this->bstData[$this->iteratorPtr][0];
 	}
 
-	/**
-	 * Get the key for the current value
-	 *
-	 * @return int The pointer's current value
-	 */
 	public function key() : int
 	{
 		return $this->iteratorPtr;
 	}
 
-	/**
-	 * Check if the pointer is pointing to a valid location in the tree vector
-	 *
-	 * @return bool True if it's a valid key or false if not
-	 */
 	public function valid() : bool
 	{
 		return $this->bstData->containsKey($this->iteratorPtr);
@@ -199,5 +122,18 @@ class BST implements \Countable, \Iterator
 	public function prev()
 	{
 		// Rewind to the last proper value.
+	}
+
+	protected function compare<T>(T $item1, T $item2) : int
+	{
+		if ($item1 < $item2) {
+			return -1;
+		}
+
+		if ($item1 > $item2) {
+			return 1;
+		}
+
+		return 0;
 	}
 }

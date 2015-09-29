@@ -10,8 +10,6 @@ namespace HackFastAlgos\DataStructure;
 class Schedule extends PriorityQueue
 {
 	/**
-	 * Insert a task into the scheduler.
-	 *
 	 * Operates in O(log n) or Omega(1) time.
 	 *
 	 * @param T $task		The identifier for the task
@@ -24,11 +22,7 @@ class Schedule extends PriorityQueue
 	}
 
 	/**
-	 * Extract a task
-	 *
 	 * Operates in O(log n) or Omega(1) time.
-	 *
-	 * @return T The identifier for the task
 	 */
 	public function extractTask<T>() : T
 	{
@@ -36,11 +30,7 @@ class Schedule extends PriorityQueue
 	}
 
 	/**
-	 * Delete a task
-	 *
 	 * Operates in O(n log n) time or Omega(1) time.
-	 *
-	 * @param T $task The task identifier to delete
 	 */
 	public function deleteTask<T>(T $task)
 	{

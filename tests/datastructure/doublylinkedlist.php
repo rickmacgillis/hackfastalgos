@@ -158,7 +158,7 @@ class DoublyLinkedListTest extends PHPUnit_Framework_TestCase
 		};
 
 		// Make it valid.
-		$dll->moveLast();
+		$dll->moveToLast();
 
 		$test2 = Map{};
 		while ($dll->valid()) {

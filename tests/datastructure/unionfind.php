@@ -61,19 +61,19 @@ class UnionFindTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(true, $uf->isConnected(1, 2));
 	}
 
-	public function testCountComponents()
+	public function testCountSets()
 	{
 		$uf = new DataStructure\UnionFind;
 
-		$this->assertSame(0, $uf->countComponents());
+		$this->assertSame(0, $uf->countSets());
 
 		$uf->makeSet(1);
 		$uf->makeSet(2);
 
-		$this->assertSame(2, $uf->countComponents());
+		$this->assertSame(2, $uf->countSets());
 
 		$uf->union(1, 2);
 
-		$this->assertSame(1, $uf->countComponents());
+		$this->assertSame(1, $uf->countSets());
 	}
 }

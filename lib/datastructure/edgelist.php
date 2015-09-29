@@ -24,28 +24,13 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 	 * [[vertexU, vertexV],[vertexU, vertexV], ...]
 	 */
 
-	/**
-	 * The list of edges
-	 * @type EdgeListVector $edgeListData
-	 */
 	protected EdgeListVector $edgeListData = Vector{};
 
-	/**
-	 * Contruct the edge list.
-	 *
-	 * @param  protected int $listType = static::NOT_WEIGHTED
-	 */
 	public function __construct(protected int $listType = static::NOT_WEIGHTED){}
 
 	/**
-	 * Check if an edge exists in the list.
-	 *
 	 * Operates in O(E) time where E is the number of edges.
 	 * At its best it operates in Omega(1) time.
-	 *
-	 * @param  Vector $edge
-	 *
-	 * @return bool
 	 */
 	public function edgeExists(Vector $edge) : bool
 	{
@@ -61,53 +46,28 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		return false;
 	}
 
-	/**
-	 * Check if the edge list is a weighted edge list.
-	 *
-	 * @return bool
-	 */
 	public function isWeighted() : bool
 	{
 		return $this->listType === static::WEIGHTED;
 	}
 
-	/**
-	 * Insert an edge into the edge list.
-	 *
-	 * @param  Vector $edge
-	 */
 	public function insertEdge(Vector $edge)
 	{
 		$this->throwIfEdgeIsTheWrongFormat($edge);
 		$this->edgeListData[] = $edge;
 	}
 
-	/**
-	 * Import an edge list vector into the object.
-	 *
-	 * @param  EdgeListVector $edgeList
-	 */
 	public function fromVector(EdgeListVector $edgeList)
 	{
 		$this->throwIfListNotEmpty();
 		$this->edgeListData = $edgeList;
 	}
 
-	/**
-	 * Get the edge list as a Vector.
-	 *
-	 * @return EdgeListVector
-	 */
 	public function toVector() : EdgeListVector
 	{
 		return $this->edgeListData;
 	}
 
-	/**
-	 * Throw an exception if the edge is not the proper format for the edge list.
-	 *
-	 * @param  Vector $edge
-	 */
 	protected function throwIfEdgeIsTheWrongFormat(Vector $edge)
 	{
 		if ($edge->count() === 3 && $this->listType === static::NOT_WEIGHTED) {
@@ -119,27 +79,16 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	/**
-	 * @throws EdgeListEdgeIsWeightedException
-	 */
 	protected function throwEdgeIsWeightedException()
 	{
 		throw new EdgeListEdgeIsWeightedException();
 	}
 
-	/**
-	 * @throws EdgeListEdgeIsNotWeightedException
-	 */
 	protected function throwEdgeIsNotWeightedException()
 	{
 		throw new EdgeListEdgeIsNotWeightedException();
 	}
 
-	/**
-	 * Throw an exception if the edge list is not empty.
-	 *
-	 * @throws EdgeListNotEmptyException
-	 */
 	protected function throwIfListNotEmpty()
 	{
 		if ($this->edgeListData->isEmpty() === false) {

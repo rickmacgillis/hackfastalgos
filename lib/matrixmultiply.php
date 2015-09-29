@@ -2,7 +2,7 @@
 /**
  * @author Rick Mac Gillis
  *
- * Implementation of Strassen's Matrix Multiplication
+ * Stripped down implementation of Strassen's Matrix Multiplication
  * Learn more @link https://en.wikipedia.org/wiki/Strassen_algorithm
  */
 
@@ -14,23 +14,10 @@ newtype Matrix = Vector<Vector<int>>;
 
 class MatrixMultiply
 {
-	/**
-	 * Contruct the object with the two matrixes to multiply.
-	 *
-	 * @param  Matrix	$matrix1
-	 * @param  Matrix	$matrix2
-	 */
 	public function __construct(protected Matrix $matrix1, protected Matrix $matrix2) {}
 
 	/**
-	 * Multiply two matrixes using Strassen's Matrix Multiplication.
-	 * I seriously doubt that anyone, save for Strassen, ever truly understands
-	 * how his algorithm works. It's faster than taking a dot product, so it's
-	 * here.
-	 *
 	 * Operates in Theta(1) time.
-	 *
-	 * @return Matrix
 	 */
 	public function multiply() : Matrix
 	{
@@ -57,10 +44,6 @@ class MatrixMultiply
 		return $result;
 	}
 
-	/**
-	 * Throw an exception if the matrixes are not 2x2.
-	 * @throws MatrixMultiplyNotTwoByTwoException
-	 */
 	protected function throwIfNotBothTwoByTwo()
 	{
 		if (

@@ -66,6 +66,8 @@ All data structures use the namespace `\HackFastAlgos\DataStructure`. Below is a
 Data structures which employ a comparative function (`compare()`) may have said method overridden to extend
 the capabilities of that data structure. All data uses the generic type `T` for that reason, where appropriate.
 
+* **AdjList**
+* **AdjMatrix**
 * **AVLTree**
 * **Bag**
 * **BloomFilter**
@@ -73,6 +75,7 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **BST** - BST is an implementation of a Binary Search Tree.
 * **BTree**
 * **DoublyLinkedList**
+* **EdgeList**
 * **GameTree**
 * **HashTable**
 * **Heap** - An implementation of a binary heap supporting both MinHeap and MaxHeap types.

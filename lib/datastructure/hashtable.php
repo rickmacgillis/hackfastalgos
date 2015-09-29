@@ -15,46 +15,13 @@ class HashTable implements \Countable, \ArrayAccess, \Iterator
 {
 	/**
 	 * Handle collisions using a linked list
-	 * @var int COLLISION_CHAINING = 0
 	 */
 	const int COLLISION_CHAINING = 0;
 
 	/**
 	 * Handle collisions using the open addressing method
-	 * @var int COLLISION_OPEN_ADDR = 1
 	 */
 	const int COLLISION_OPEN_ADDR = 1;
-
-	/**
-	 * The data stored in the hash table (It's ironic that we'll use a map to implement a map,
-	 * though the alternative is Array (A PHP array is also a map that uses linked lists). However,
-	 * as this library is built for Hack, we'll use the augmented Array in Hack, known as Map,
-	 * so we have OOP access.
-	 *
-	 * T will be either a vector with the key at position 0 and the value at position 1 for open
-	 * addressing, or it'll be a linked list following the pattern key->value->key->value->...
-	 * for the chaining collision handling.
-	 *
-	 * @var Map<int,T> $hashTableData
-	 */
-	protected Map<int,T> $hashTableData = Map{};
-
-	/**
-	 * The number of buckets in the hash table
-	 * @var int $numBuckets
-	 */
-	protected int $numBuckets = 0;
-
-	/**
-	 * Primes on a 32-bit system
-	 * Learn more @link https://en.wikipedia.org/wiki/Prime_gap#Numerical_results
-	 *
-	 * @var Vector<int> $primes
-	 */
-	protected Vector<int> $primes = Vector{
-		2,3,7,23,89,113,523,887,1129,1327,9551,15683,19609,
-		1397,155921,360653,370261,492113,1349533,1357201,2010733
-	};
 
 	/**
 	 * The open addressing probing number to locate the next open bucket
@@ -63,10 +30,22 @@ class HashTable implements \Countable, \ArrayAccess, \Iterator
 	 * of buckets, we'll always check a different set of buckets. The maximum
 	 * number of buckets should also be prime that way neither one can be
 	 * divisible by the other.
-	 *
-	 * @var int OPEN_ADDR_PROBE = 23
 	 */
 	protected const int OPEN_ADDR_PROBE = 23;
+
+	/**
+	 * T will be either a vector with the key at position 0 and the value at position 1 for open
+	 * addressing, or it'll be a linked list following the pattern key->value->key->value->...
+	 * for the chaining collision handling.
+	 */
+	protected Map<int,T> $hashTableData = Map{};
+
+	protected int $numBuckets = 0;
+
+	protected Vector<int> $primes = Vector{
+		2,3,7,23,89,113,523,887,1129,1327,9551,15683,19609,
+		1397,155921,360653,370261,492113,1349533,1357201,2010733
+	};
 
 	/**
 	 * Constructor for the hash table
@@ -154,12 +133,6 @@ class HashTable implements \Countable, \ArrayAccess, \Iterator
 		// Check if the offset exists in the hash table
 	}
 
-	/**
-	 * Get an entry with $hashTable[$key]
-	 *
-	 * @param T $key The key for which to locate the data
-	 * @return T The data stored in $key
-	 */
 	public function offsetGet<T>(T $key) : T
 	{
 		return $this->lookup($key);
@@ -170,12 +143,6 @@ class HashTable implements \Countable, \ArrayAccess, \Iterator
 		// Return the number of items in the hash table
 	}
 
-	/**
-	 * Set the entry with $hashTable[$key] = $value
-	 *
-	 * @param T $key	The key to set in the hash table
-	 * @param T $value	The value to set for the given $key
-	 */
 	public function offsetSet<T>(T $key, T $value)
 	{
 		$this->insert($key, $value);

@@ -11,10 +11,6 @@ namespace HackFastAlgos\DataStructure;
 
 class BloomFilter
 {
-	/**
-	 * The array of bits for the Bloom filter
-	 * @var Vector<int> $bloomData
-	 */
 	protected Vector<int> $bloomData = Vector{};
 
 	public function __construct(protected int $bitWidth = 8){}

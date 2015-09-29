@@ -7,7 +7,7 @@ class MostFrequentWordTest extends \PHPUnit_Framework_TestCase
 		$text = 'The word word must appear twice.';
 		$mostFreqWord = new \HackFastAlgos\MostFrequentWord($text);
 		$mostFreqWord->calculateFequency();
-		$this->assertSame('word', $mostFreqWord->getWord());
+		$this->assertSame('word', $mostFreqWord->getMostFrequentWord());
 	}
 
 	public function testCanGetTheNumberOfTimesThatTheMostFrequentWordAppears()

@@ -15,37 +15,15 @@ class HeapNotMaxHeapException extends \Exception{}
 
 class Heap implements \Countable
 {
-	/**
-	 * The data for the heap
-	 * @var Vector<int> $heapData
-	 */
-	protected Vector<int> $heapData = Vector{};
-
-	/**
-	 * Signifies a min heap
-	 * @var MIN_HEAP = 0
-	 */
 	const int MIN_HEAP = 0;
-
-	/**
-	 * Signifies a max heap
-	 * @var MAX_HEAP = 1
-	 */
 	const int MAX_HEAP = 1;
 
-	/**
-	 * Constructor for the heap
-	 *
-	 * @param string $heapType Specify the class constants MIN_HEAP or MAX_HEAP for MinHeap or MaxHeap
-	 */
+	protected Vector<int> $heapData = Vector{};
+
 	public function __construct(public int $heapType = static::MIN_HEAP){}
 
 	/**
-	 * Insert an item into the tree
-	 *
 	 * Operates in O(log n) or Omega(1) time.
-	 *
-	 * @param T $item The item to insert
 	 */
 	public function insert<T>(T $item)
 	{
@@ -54,11 +32,7 @@ class Heap implements \Countable
 	}
 
 	/**
-	 * Import a vector full of items to insert
-	 *
-	 * @param Vector<T> $items The vector of items to insert
-	 *
-	 * @return this The object ready for method chaining
+	 * Operates in O(n log n) or Omega(1) time.
 	 */
 	public function heapify<T>(Vector<T> $items)
 	{
@@ -70,11 +44,7 @@ class Heap implements \Countable
 	}
 
 	/**
-	 * Extract the node at the top of the heap
-	 *
 	 * Operates in O(log n) or Omega(1) time.
-	 *
-	 * @return T The item at the top of the heap
 	 */
 	public function extract<T>() : T
 	{
@@ -95,11 +65,7 @@ class Heap implements \Countable
 	}
 
 	/**
-	 * Delete an item from the heap.
-	 *
 	 * Operates in O(n log n) time or Omega(1) time.
-	 *
-	 * @param  T $item
 	 */
 	public function delete<T>(T $item)
 	{
@@ -120,61 +86,33 @@ class Heap implements \Countable
 		}
 	}
 
-	/**
-	 * Reset the heap.
-	 */
-	public function clear()
+	public function reset()
 	{
 		$this->heapData = Vector{};
 	}
 
-	/**
-	 * Return the number of items in the heap.
-	 *
-	 * @return int The number of items in the heap
-	 */
 	public function count() : int
 	{
 		return $this->heapData->count();
 	}
 
-	/**
-	 * Check if the heap is empty.
-	 *
-	 * @return bool
-	 */
 	public function isEmpty() : bool
 	{
 		return $this->heapData->count() === 0;
 	}
 
-	/**
-	 * Get the minimum element in the heap.
-	 *
-	 * @return T The minimum element
-	 */
 	public function getMin<T>() : T
 	{
 		$this->throwIfNotMinHeap();
 		return $this->getRootItemData();
 	}
 
-	/**
-	 * Get the maximum element in the heap.
-	 *
-	 * @return T The maximum element
-	 */
 	public function getMax<T>() : T
 	{
 		$this->throwIfNotMaxHeap();
 		return $this->getRootItemData();
 	}
 
-	/**
-	 * Throw an exception if the heap is not a min heap.
-	 *
-	 * @throws HeapNotMinHeapException
-	 */
 	protected function throwIfNotMinHeap()
 	{
 		if ($this->heapType === static::MAX_HEAP) {
@@ -182,11 +120,6 @@ class Heap implements \Countable
 		}
 	}
 
-	/**
-	 * Throw an exception if the heap is not a max heap.
-	 *
-	 * @throws HeapNotMaxHeapException
-	 */
 	protected function throwIfNotMaxHeap()
 	{
 		if ($this->heapType === static::MIN_HEAP) {
@@ -194,11 +127,6 @@ class Heap implements \Countable
 		}
 	}
 
-	/**
-	 * Throw an exception of the heap is not empty.
-	 *
-	 * @throws HeapNotEmptyException
-	 */
 	protected function throwIfHeapNotEmpty()
 	{
 		if ($this->count() !== 0) {
@@ -206,11 +134,6 @@ class Heap implements \Countable
 		}
 	}
 
-	/**
-	 * Throw an exception if the heap is empty.
-	 *
-	 * @throws HeapEmptyException
-	 */
 	protected function throwIfEmptyHeap()
 	{
 		if ($this->count() === 0) {
@@ -222,10 +145,8 @@ class Heap implements \Countable
 	 * Balance the tree by moving higher value nodes under lower value nodes.
 	 *
 	 * Operates in O(log n) or Omega(1) time.
-	 *
-	 * @param $source	The item to start comparisons from
 	 */
-	protected function sink(int $source)
+	protected function sink(int $startNode)
 	{
 		/*
 		 * Find the child nodes for the root node, then check which is smaller.
@@ -233,10 +154,10 @@ class Heap implements \Countable
 		 * Repeat the same thing for the new child node.
 		 */
 		$numItems = $this->count() - 1;
-		while ($source < $numItems) {
+		while ($startNode < $numItems) {
 
-			$leftChild = $this->getLeftChild($source);
-			$rightChild = $this->getRightChild($source);
+			$leftChild = $this->getLeftChildForParent($startNode);
+			$rightChild = $this->getRightChildForParent($startNode);
 
 			if ($leftChild > $numItems) {
 				break;
@@ -250,9 +171,9 @@ class Heap implements \Countable
 				$dest = $leftChild;
 			}
 
-			if ($this->compare($this->heapData[$dest], $this->heapData[$source]) < 0) {
-				$this->swap($source, $dest);
-				$source = $dest;
+			if ($this->compare($this->heapData[$dest], $this->heapData[$startNode]) < 0) {
+				$this->swap($startNode, $dest);
+				$startNode = $dest;
 			} else {
 				break;
 			}
@@ -264,10 +185,8 @@ class Heap implements \Countable
 	 * Balance the tree by moving lesser value nodes above the higher value nodes.
 	 *
 	 * Operates in O(log n) or Omega(1) time.
-	 *
-	 * @param $source	The item to start comparisons from
 	 */
-	protected function swim(int $source)
+	protected function swim(int $startNode)
 	{
 		/*
 		 * Find the parent for the child node. If it's parent is greater than
@@ -276,13 +195,13 @@ class Heap implements \Countable
 		 * method takes care of the differences in MinHeap and MaxHeap, so just
 		 * check once.
 		 */
-		 while ($source > 0) {
+		 while ($startNode > 0) {
 
-			 $parent = $this->getParent($source);
-			 if ($this->compare($this->heapData[$parent], $this->heapData[$source]) > 0) {
+			 $parent = $this->getParentForChild($startNode);
+			 if ($this->compare($this->heapData[$parent], $this->heapData[$startNode]) > 0) {
 
-				 $this->swap($parent, $source);
-				 $source = $parent;
+				 $this->swap($parent, $startNode);
+				 $startNode = $parent;
 
 			 } else {
 				 break;
@@ -291,13 +210,7 @@ class Heap implements \Countable
 		 }
 	}
 
-	/**
-	 * Get the parent node for a given child.
-	 *
-	 * @param  int $child
-	 * @return int
-	 */
-	protected function getParent(int $child) : int
+	protected function getParentForChild(int $child) : int
 	{
 		if ($child === 0) {
 			return 0;
@@ -306,13 +219,7 @@ class Heap implements \Countable
 		return $child % 2 === 1 ? $child >> 1 : ($child >> 1) - 1;
 	}
 
-	/**
-	 * Get the left child for a given parent.
-	 *
-	 * @param  int $parent
-	 * @return int
-	 */
-	protected function getLeftChild(int $parent) : int
+	protected function getLeftChildForParent(int $parent) : int
 	{
 		if ($parent === 0) {
 			return 1;
@@ -321,13 +228,7 @@ class Heap implements \Countable
 		return ($parent << 1) + 1;
 	}
 
-	/**
-	 * Get the right child for a given parent.
-	 *
-	 * @param  int $parent
-	 * @return int
-	 */
-	protected function getRightChild(int $parent) : int
+	protected function getRightChildForParent(int $parent) : int
 	{
 		if ($parent === 0) {
 			return 2;
@@ -336,12 +237,6 @@ class Heap implements \Countable
 		return ($parent << 1) + 2;
 	}
 
-	/**
-	 * Swap two items in the heap.
-	 *
-	 * @param  int $key1
-	 * @param  int $key2
-	 */
 	protected function swap(int $key1, int $key2)
 	{
 		$tmp = $this->heapData[$key1];
@@ -349,15 +244,6 @@ class Heap implements \Countable
 		$this->heapData[$key2] = $tmp;
 	}
 
-	/**
-	 * Find the key for a given item.
-	 *
-	 * Operates in O(n) or Omega(1) time.
-	 *
-	 * @param  T $item
-	 *
-	 * @return int
-	 */
 	protected function findKeyForItem<T>(T $item) : int
 	{
 		foreach ($this->heapData as $key => $value) {
@@ -367,14 +253,6 @@ class Heap implements \Countable
 		}
 	}
 
-	/**
-	 * Check if two items are identical.
-	 *
-	 * @param  T $item1
-	 * @param  T $item2
-	 *
-	 * @return bool
-	 */
 	protected function itemsAreIdentical<T>(T $compareTo, T $itemInHeap) : bool
 	{
 		if ($compareTo === $itemInHeap) {
@@ -384,14 +262,6 @@ class Heap implements \Countable
 		return false;
 	}
 
-	/**
-	 * Compare two items to find out which is greater
-	 *
-	 * @param T $item1	The first item to compare
-	 * @param T $item2	The second item to compare
-	 *
-	 * @return int Returns -1, 0, or 1 if $item1 is less-than, equal-to, or greater-than $item2 respectively
-	 */
 	protected function compare<T>(T $item1, T $item2) : int
 	{
 		// MaxHeap is complimentary to MinHeap, so we flip the comparison.
@@ -406,11 +276,6 @@ class Heap implements \Countable
 		return 0;
 	}
 
-	/**
-	 * Get the data for the root key.
-	 *
-	 * @return T
-	 */
 	protected function getRootItemData<T>() : T
 	{
 		return $this->heapData[0];

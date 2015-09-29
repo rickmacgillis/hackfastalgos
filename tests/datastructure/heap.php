@@ -114,13 +114,13 @@ class HeapTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(3, $heap->getMax());
 	}
 
-	public function testCanClearHeap()
+	public function testCanResetHeap()
 	{
 		$heap = new DataStructure\Heap();
 		$heap->insert(3);
 		$heap->insert(1);
 		$heap->insert(2);
-		$heap->clear();
+		$heap->reset();
 
 		$this->assertTrue($heap->isEmpty());
 	}

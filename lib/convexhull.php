@@ -12,10 +12,6 @@ namespace HackFastAlgos;
 
 class ConvexHull
 {
-	/**
-	 * The list of edges
-	 * @type Vector $edgeList
-	 */
 	protected Vector $edgeList = Vector{};
 
 	public function __construct(DataStructure\EdgeList $edgeList){
@@ -30,11 +26,6 @@ class ConvexHull
 		$this->orderByPolarAngle(); // Incomplete
 	}
 
-	/**
-	 * Find the lowest Y coordinate.
-	 *
-	 * @return int	The index of the lowest point
-	 */
 	protected function findLowestYCoordinate() : int
 	{
 		$count = $this->edgeList->count();
@@ -50,12 +41,6 @@ class ConvexHull
 		return $lowestPoint;
 	}
 
-	/**
-	 * Quickly swap array values
-	 *
-	 * @param int $indexA	The first index to swap
-	 * @param int $indexB	The second index to swap
-	 */
 	protected function swapValues(int $indexA, int $indexB)
 	{
 		$oldA = $this->edgeList[$indexA];
@@ -70,21 +55,11 @@ class ConvexHull
 		 */
 		$count = $this->edgeList->count();
 		for ($i = 1; $i < $count; $i++) {
-			$angle = $this->getAngle($this->edgeList[0], $this->edgeList[$i]);
+			$angle = $this->getAngleBetweenPoints($this->edgeList[0], $this->edgeList[$i]);
 		}
 	}
 
-	/**
-	 * Get the angle between two points.
-	 *
-	 * Credit to @link http://stackoverflow.com/questions/7586063/how-to-calculate-the-angle-between-a-line-and-the-horizontal-axis#answer-7586218
-	 *
-	 * @param  Vector<int> $point1
-	 * @param  Vector<int> $point2
-	 *
-	 * @return int
-	 */
-	protected function getAngle(Vector<int> $point1, Vector<int> $point2) : int
+	protected function getAngleBetweenPoints(Vector<int> $point1, Vector<int> $point2) : int
 	{
 		$deltaY = $point2[1] - $point1[1];
 		$deltaX = $point2[0] - $point1[0];

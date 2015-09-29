@@ -7,7 +7,7 @@ class BagTest extends \PHPUnit_Framework_TestCase
 	public function testBagCanAddItem()
 	{
 		$bag = new DataStructure\Bag();
-		$bag->add('test');
+		$bag->addItem('test');
 
 		$this->assertSame(1, $bag->count());
 		$this->assertFalse($bag->isEmpty());
@@ -16,8 +16,8 @@ class BagTest extends \PHPUnit_Framework_TestCase
 	public function testCanIterateThroughTheBag()
 	{
 		$bag = new Datastructure\Bag();
-		$bag->add('test1');
-		$bag->add('test2');
+		$bag->addItem('test1');
+		$bag->addItem('test2');
 
 		$bag->rewind();
 		$this->assertTrue($bag->valid());
