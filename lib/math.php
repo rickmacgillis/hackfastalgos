@@ -9,8 +9,6 @@ namespace HackFastAlgos;
 
 class MathNumberOfOperandsMustBeGreaterThanZeroException extends \Exception{}
 
-type HFAMatrix = Vector<Vector<int>>;
-
 class Math
 {
 	/**

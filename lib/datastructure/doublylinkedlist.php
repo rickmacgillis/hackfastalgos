@@ -10,6 +10,9 @@
 
 namespace HackFastAlgos\DataStructure;
 
+newtype DLLNode = int;
+newtype DLLEntry = (?DLLNode,T,?DLLNode);
+
 class DoublyLinkedListInvalidIndexException extends \Exception{}
 
 class DoublyLinkedList implements \Iterator, \Countable
@@ -18,7 +21,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 	 * The data for the DLL
 	 * @var Map<int, (int,T,int)> $dllData
 	 */
-	protected Map<int, (?int,T,?int)> $dllData = Map{};
+	protected Map<int, DLLEntry> $dllData = Map{};
 
 	/**
 	 * The last node in the DLL

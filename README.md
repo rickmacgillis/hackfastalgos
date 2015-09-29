@@ -135,4 +135,3 @@ ensure the quality of your code, you must use typing.
 to the rule is that you may include an exception class *before* your main class.
 7. Always throw *custom* exceptions for every type of exception. Name your exceptions in the following format. `<CLASS><TYPE>Exception`
 (Ex. `DoublyLinkedListInvalidIndexException`)
-8. When you define a new type, prefix the type with "HFA" for Hack Fast Algos.

@@ -10,17 +10,17 @@ namespace HackFastAlgos;
 
 class MatrixMultiplyNotTwoByTwoException extends \Exception{}
 
-type HFAMatrix = Vector<Vector<int>>;
+newtype Matrix = Vector<Vector<int>>;
 
 class MatrixMultiply
 {
 	/**
 	 * Contruct the object with the two matrixes to multiply.
 	 *
-	 * @param  HFAMatrix	$matrix1
-	 * @param  HFAMatrix	$matrix2
+	 * @param  Matrix	$matrix1
+	 * @param  Matrix	$matrix2
 	 */
-	public function __construct(protected HFAMatrix $matrix1, protected HFAMatrix $matrix2) {}
+	public function __construct(protected Matrix $matrix1, protected Matrix $matrix2) {}
 
 	/**
 	 * Multiply two matrixes using Strassen's Matrix Multiplication.
@@ -30,9 +30,9 @@ class MatrixMultiply
 	 *
 	 * Operates in Theta(1) time.
 	 *
-	 * @return HFAMatrix
+	 * @return Matrix
 	 */
-	public function multiply() : HFAMatrix
+	public function multiply() : Matrix
 	{
 		$m1 = $this->matrix1;
 		$m2 = $this->matrix2;

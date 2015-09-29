@@ -14,7 +14,7 @@ function HackFastAlgosAutoload($class)
 		return;
 	}
 
-	$proposed = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, './lib/'.substr($class, $position+14).'.php');
+	$proposed = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, './lib/'.substr($class, $position+strlen('hackfastalgos\\')).'.php');
 	if (false !== file_exists($proposed)) {
 		require_once($proposed);
 	}

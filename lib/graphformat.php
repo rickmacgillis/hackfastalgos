@@ -8,53 +8,7 @@
  * @link https://en.wikipedia.org/wiki/Adjacency_matrix
  */
 
-/**
- * Format types:
- *
- * Weighted edge list:
- * [[vertexU, vertexV, weight],[vertexU, vertexV, weight], ...]
- *
- * Non-weighted edge list:
- * [[vertexU, vertexV],[vertexU, vertexV], ...]
- *
- * Weighted adjacency list:
- * [vertex][[vertex, weight], [vertex, weight], ...]
- * [vertex][[vertex, weight], ...]
- * [vertex][[vertex, weight], ...]
- * ...
- *
- * Non-weighted adjacency list:
- * [vertex][[vertex], [vertex], [vertex], ...]
- * [vertex][[vertex], [vertex], ...]
- * [vertex][[vertex], [vertex], [vertex], ...]
- * ...
- *
- * If the data contains weights, then the matrix will use the weights to
- * signify an edge, and null to signify that no edge exists. If the edge
- * list is not weighted, then the adjacency matrix will use 1 for a
- * connection and 0 for no connection.
- *
- * Weighted adjacency matrix:
- * [
- * 	[3,    null, 4,    88, 0],
- * 	[null, 4,    null, 20, 1],
- * 	...
- * ]
- *
- * Non-weighted adjacency matrix:
- *
- * [
- * 	[0, 1, 0, 0, 1, 1],
- * 	[1, 1, 0, 1, 1, 0],
- * 	...
- * ]
- */
-
 namespace HackFastAlgos;
-
-type HFAEdgeList	= Vector<Vector<int>>;
-type HFAAdjList<T>	= Vector<T>;
-type HFAMatrix		= Vector<Vector<int>>;
 
 class GraphFormatFromTypeAlreadySetException extends \Exception{}
 class GraphFormatFromTypeNotSetException extends \Exception{}
@@ -87,21 +41,21 @@ class GraphFormat
 
 	/**
 	 * The defined edge list
-	 * @type HFAEdgeList
+	 * @type ?EdgeList
 	 */
-	protected ?HFAEdgeList $edgeList = null;
+	protected ?DataStructure\EdgeList $edgeList = null;
 
 	/**
 	 * The defined adjacency list
-	 * @type HFAAdjList
+	 * @type ?AdjList
 	 */
-	protected ?HFAAdjList $adjList = null;
+	protected ?DataStructure\AdjList $adjList = null;
 
 	/**
 	 * The defined adjacency matrix
-	 * @type HFAMatrix
+	 * @type ?Matrix
 	 */
-	protected ?HFAMatrix $adjMatrix = null;
+	protected ?DataStructure\Matrix $adjMatrix = null;
 
 	/**
 	 * Set the sorting mode for all converted data formats.
@@ -117,9 +71,9 @@ class GraphFormat
 	/**
 	 * Set the edge list.
 	 *
-	 * @param HFAEdgeList $edgeList
+	 * @param EdgeList $edgeList
 	 */
-	public function fromEdgeList(HFAEdgeList $edgeList)
+	public function fromEdgeList(DataStructure\EdgeList $edgeList)
 	{
 		$this->throwIfFromFormatAlreadySet();
 		$this->edgeList = $edgeList;
@@ -128,9 +82,9 @@ class GraphFormat
 	/**
 	 * Set the adjacency list.
 	 *
-	 * @param HFAAdjList $adjList
+	 * @param AdjList $adjList
 	 */
-	public function fromAdjList(HFAAdjList $adjList)
+	public function fromAdjList(DataStructure\AdjList $adjList)
 	{
 		$this->throwIfFromFormatAlreadySet();
 		$this->adjList = $adjList;
@@ -139,9 +93,9 @@ class GraphFormat
 	/**
 	 * Set the adjacency matrix.
 	 *
-	 * @param HFAMatrix $adjMatrix
+	 * @param AdjMatrix $adjMatrix
 	 */
-	public function fromAdjMatrix(HFAMatrix $adjMatrix)
+	public function fromAdjMatrix(DataStructure\AdjMatrix $adjMatrix)
 	{
 		$this->throwIfFromFormatAlreadySet();
 		$this->adjMatrix = $adjMatrix;
@@ -150,9 +104,9 @@ class GraphFormat
 	/**
 	 * Convert the data to an edge list.
 	 *
-	 * @return HFAEdgeList
+	 * @return EdgeList
 	 */
-	public function toEdgeList() : HFAEdgeList
+	public function toEdgeList() : DataStructure\EdgeList
 	{
 		$this->throwIfFromFormatNotSet();
 
@@ -161,12 +115,12 @@ class GraphFormat
 		}
 
 		if ($this->getFromFormat() === 'adjList') {
-			$this->edgeList = $this->adjListToEdgeList();
+			$this->adjListToEdgeList();
 			return $this->edgeList;
 		}
 
 		if ($this->getFromFormat() === 'adjMatrix') {
-			$this->edgeList = $this->adjMatrixToEdgeList();
+			$this->adjMatrixToEdgeList();
 			return $this->edgeList;
 		}
 	}
@@ -174,9 +128,9 @@ class GraphFormat
 	/**
 	 * Convert the data to an adjacency list.
 	 *
-	 * @return HFAAdjList
+	 * @return AdjList
 	 */
-	public function toAdjList() : HFAAdjList
+	public function toAdjList() : DataStructure\AdjList
 	{
 		$this->throwIfFromFormatNotSet();
 
@@ -185,12 +139,12 @@ class GraphFormat
 		}
 
 		if ($this->getFromFormat() === 'edgeList') {
-			$this->adjList = $this->edgeListToAdjList();
+			$this->edgeListToAdjList();
 			return $this->adjList;
 		}
 
 		if ($this->getFromFormat() === 'adjMatrix') {
-			$this->adjList = $this->adjMatrixToAdjList();
+			$this->adjMatrixToAdjList();
 			return $this->adjList;
 		}
 	}
@@ -198,9 +152,9 @@ class GraphFormat
 	/**
 	 * Convert the data to an adjacency matrix.
 	 *
-	 * @return HFAMatrix
+	 * @return AdjMatrix
 	 */
-	public function toAdjMatrix() : HFAMatrix
+	public function toAdjMatrix() : DataStructure\AdjMatrix
 	{
 		$this->throwIfFromFormatNotSet();
 
@@ -209,12 +163,12 @@ class GraphFormat
 		}
 
 		if ($this->getFromFormat() === 'edgeList') {
-			$this->adjMatrix = $this->edgeListToAdjMatrix();
+			$this->edgeListToAdjMatrix();
 			return $this->adjMatrix;
 		}
 
 		if ($this->getFromFormat() === 'adjList') {
-			$this->adjMatrix = $this->adjListToAdjMatrix();
+			$this->adjListToAdjMatrix();
 			return $this->adjMatrix;
 		}
 	}
@@ -265,35 +219,35 @@ class GraphFormat
 		}
 	}
 
-	protected function edgeListToAdjList<T>() : HFAAdjList<T>
+	protected function edgeListToAdjList<T>()
 	{
 		$this->sortMode;
 		$this->edgeList;
 	}
 
-	protected function edgeListToAdjMatrix() : HFAMatrix
+	protected function edgeListToAdjMatrix()
 	{
 		$this->edgeList;
 	}
 
-	protected function adjListToEdgeList<T>() : HFAEdgeList
+	protected function adjListToEdgeList<T>()
 	{
 		$this->sortMode;
 		$this->adjList;
 	}
 
-	protected function adjListToAdjMatrix<T>() : HFAMatrix
+	protected function adjListToAdjMatrix<T>()
 	{
 		$this->adjList;
 	}
 
-	protected function adjMatrixToEdgeList() : HFAEdgeList
+	protected function adjMatrixToEdgeList()
 	{
 		$this->sortMode;
 		$this->adjMatrix;
 	}
 
-	protected function adjMatrixToAdjList<T>() : HFAAdjList<T>
+	protected function adjMatrixToAdjList<T>()
 	{
 		$this->sortMode;
 		$this->adjMatrix;

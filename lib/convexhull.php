@@ -6,19 +6,25 @@
  * Learn more @link https://en.wikipedia.org/wiki/Graham_scan
  */
 
-type HFAEdgeList = Vector<Vector<int>>;
+use HackFastAlgos\DataStructure as DataStructure;
+
+namespace HackFastAlgos;
 
 class ConvexHull
 {
 	/**
 	 * The list of edges
-	 * @type HFAEdgeList
+	 * @type Vector $edgeList
 	 */
-	public function __construct(protected HFAEdgeList $edges = Vector{}){}
+	protected Vector $edgeList = Vector{};
 
-	public function calculateGrahamScan() : HFAEdgeList $edges
+	public function __construct(DataStructure\EdgeList $edgeList){
+		$this->edgeList = $edgeList->toVector{};
+	}
+
+	public function calculateGrahamScan() : DataStructure\EdgeList
 	{
-		$numPoints = $this->edges->count();
+		$numPoints = $this->edgeList->count();
 		$lowestCoordinate = $this->findLowestYCoordinate();
 		$this->swapValues(0, $lowestCoordinate);
 		$this->orderByPolarAngle(); // Incomplete
@@ -31,11 +37,11 @@ class ConvexHull
 	 */
 	protected function findLowestYCoordinate() : int
 	{
-		$count = $this->edges->count();
+		$count = $this->edgeList->count();
 		$lowestPoint = 0;
 		for ($i = 0; $i < $count; $i++) {
 
-			if ($this->edges[$i][1] < $this->edges[$lowestPoint][1]) {
+			if ($this->edgeList[$i][1] < $this->edgeList[$lowestPoint][1]) {
 				$lowestPoint = $i;
 			}
 
@@ -52,9 +58,9 @@ class ConvexHull
 	 */
 	protected function swapValues(int $indexA, int $indexB)
 	{
-		$oldA = $this->edges[$indexA];
-		$this->edges[$indexA] = $this->edges[$indexB];
-		$this->edges[$indexB] = $oldA;
+		$oldA = $this->edgeList[$indexA];
+		$this->edgeList[$indexA] = $this->edgeList[$indexB];
+		$this->edgeList[$indexB] = $oldA;
 	}
 
 	protected function orderByPolarAngle()
@@ -62,9 +68,9 @@ class ConvexHull
 		/**
 		 * @TODO Finish the Priority Queue datastructure, then use it to complete the sorting process.
 		 */
-		$count = $this->edges->count();
+		$count = $this->edgeList->count();
 		for ($i = 1; $i < $count; $i++) {
-			$angle = $this->getAngle($this->edges[0], $this->edges[$i]);
+			$angle = $this->getAngle($this->edgeList[0], $this->edgeList[$i]);
 		}
 	}
 

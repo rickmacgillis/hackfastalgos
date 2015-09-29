@@ -7,10 +7,10 @@
 
 namespace HackFastAlgos;
 
-type HFAMatchPreferences	= Vector<int>;
-type HFAMatchPeople			= Vector<HFAMatchPreferences>;
-type HFAMatchedPeople		= Vector<Vector<int>>;
-type HFAKnapsackItem		= Pair<int,int>;
+newtype MatchPreferences	= Vector<int>;
+newtype MatchPeople			= Vector<MatchPreferences>;
+newtype MatchedPeople		= Vector<Vector<int>>;
+newtype KnapsackItem		= Pair<int,int>;
 
 class Algos
 {
@@ -20,7 +20,7 @@ class Algos
 		// https://en.wikipedia.org/wiki/Tower_of_Hanoi
 	}
 
-	public static function solveKnapsackProblem(Vector<HFAKnapsackItem> $items, int $sizeOfYourKnapsack) : Vector<HFAKnapsackItem>
+	public static function solveKnapsackProblem(Vector<KnapsackItem> $items, int $sizeOfYourKnapsack) : Vector<KnapsackItem>
 	{
 		// https://en.wikipedia.org/wiki/Knapsack_problem
 		// $items contains the weights and values for each item.
@@ -30,7 +30,7 @@ class Algos
 		}
 	}
 
-	public static function stableMatching(HFAMatchPeople $men, HFAMatchPeople $women) : HFAMatchedPeople
+	public static function stableMatching(MatchPeople $men, MatchPeople $women) : MatchedPeople
 	{
 		// https://en.wikipedia.org/wiki/Stable_marriage_problem
 	}

@@ -8,13 +8,13 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class BSTException extends \Exception{}
+newtype Statistic		= int;
+newtype BSTParent		= int;
+newtype BSTLeftChild	= int;
+newtype BSTRightChild	= int;
+newtype Relations		= Vector<(?BSTParent, ?BSTLeftChild, ?BSTRightChild)>;
 
-type HFAStatistic		= int;
-type HFABSTParent		= int;
-type HFABSTLeftChild	= int;
-type HFABSTRightChild	= int;
-type HFARelations		= Vector<(?HFABSTParent, ?HFABSTLeftChild, ?HFABSTRightChild)>;
+class BSTException extends \Exception{}
 
 class BST implements \Countable, \Iterator
 {
@@ -22,7 +22,7 @@ class BST implements \Countable, \Iterator
 	 * The BST vector
 	 * @var Vector<int> $bstData
 	 */
-	protected Vector<(T, HFAStatistic, HFARelations)> $bstData = Vector{};
+	protected Vector<(T, Statistic, Relations)> $bstData = Vector{};
 
 	/**
 	 * The iterator pointer

@@ -5,17 +5,19 @@
  * Implements various graph algorithms optimized for speed.
  */
 
+use HackFastAlgos\DataStructure as DataStructure;
+
 namespace HackFastAlgos;
 
 class GraphHasEdgeLengthsException extends \Exception{}
 class GraphHasNegativeedgeLengthsException extends \Exception{}
 
-type HFAEdgeList	= Vector<Vector<int>>;
-type HFAAdjList<T>	= Vector<T>;
-type HFAMatrix		= Vector<Vector<int>>;
-type HFANode		= int;
+type EdgeList	= Vector<Vector<int>>;
+type AdjList	= Map<int,Vector<Vector<int>>>;
+type AdjMatrix	= Vector<Vector<int>>;
+type Node		= int;
 
-type HFAShortestPath	= Vector<shape (
+type ShortestPath	= Vector<shape (
 
 	'distance'			=> Vector<int>,
 	'predecessor'		=> Vector<(int,int)>
