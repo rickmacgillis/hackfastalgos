@@ -38,6 +38,8 @@ algorithms defined in that class.
 * **Algos**
 * **ConvexHull**
 * **Graph**
+* **GraphFormat**
+	* Convert between edge lists, adjacency lists, and adjacency matrices.
 * **LZW**
 * **Math**
 * **MatrixMultiply**
@@ -58,6 +60,7 @@ algorithms defined in that class.
 	* Heap Sort
 	* Fisher-Yates Shuffle
 * **Strings**
+	* isPalendrome
 
 List of Data Structures
 -----------------------

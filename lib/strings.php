@@ -11,9 +11,26 @@ class Strings
 {
 	public static function isPalindrome(string $text) : bool
 	{
-		if (empty($text)) {
+		$text = strtolower($text);
+		$textLength = strlen($text);
+		if ($textLength <= 1) {
 			return true;
 		}
+
+		$leftPtr = 0;
+		$rightPtr = $textLength-1;
+		while ($leftPtr <= $rightPtr) {
+
+			if ($text[$leftPtr] !== $text[$rightPtr]) {
+				return false;
+			}
+
+			$leftPtr++;
+			$rightPtr--;
+
+		}
+
+		return true;
 	}
 
 	public static function findLongestPalindrome(string $text) : string
@@ -54,7 +71,7 @@ class Strings
 		return $dpadCobos->getWaitHandle()->join();
 	}
 
-	public static async findDialPadCombosAsync(int $number) : Awaitable<Vector<string>>
+	public static async function findDialPadCombosAsync(int $number) : Awaitable<Vector<string>>
 	{
 		// Recurse on the data in log3 to create a vector of strings for the given subproblem.
 		// Merge the retrieved subproblem data into the data for the larger problem.
