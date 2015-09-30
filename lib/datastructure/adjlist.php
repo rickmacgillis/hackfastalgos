@@ -32,8 +32,11 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 	 */
 
 	protected AdjListMap $adjListData = Map{};
+	protected ?PriorityQueue $edgeQueue = null;
 
-	public function __construct(protected int $listType = static::NOT_WEIGHTED){}
+	public function __construct(protected int $listType = static::NOT_WEIGHTED){
+		$this->edgeQueue = new PriorityQueue();
+	}
 
 	/**
 	 * Operates in O(E) time where E is the number of edges adjacent to
@@ -82,13 +85,24 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		return $this->adjListData;
 	}
 
-	public function sortBy(int $sortingType)
+	/**
+	 * Operates in Theta(n log n) time.
+	 */
+	public function sortByVertex()
 	{
-		switch ($sortingType) {
-			case static::SORT_VERTEX: $this->sortByVertex(); break;
-			case static::SORT_WEIGHTS: $this->sortByWeights(); break;
-		}
+		// Heap sort is not stable, so we cannot multisort by the second vertex this way.
+		$this->queueEdgesByPriorityIndex(null);
+		$this->queueToAdjList();
+	}
 
+	/**
+	 * Operates in Theta(n log n) time.
+	 */
+	public function sortByWeights()
+	{
+		$this->throwExceptionIfNotWeightedList();
+		$this->queueEdgesByPriorityIndex(1);
+		$this->queueToAdjList();
 	}
 
 	protected function startingVertexExists(int $vertex) : bool
@@ -162,15 +176,44 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function sortByVertex()
+	/**
+	 * Operates in O(E log n) or Omega(E) time.
+	 */
+	protected function queueEdgesByPriorityIndex(?int $priorityIndex)
 	{
-		// Use quick sort to sort the list.
+		foreach ($this->adjListData as $vertex => $adjEdges) {
+
+			$numAdjEdges = $adjEdges->count();
+			for ($i = 0; $i < $numAdjEdges; $i++) {
+
+				$adjEdge = $adjEdges[$i];
+				$edge = $this->getEdgeFromVertexAndAdjacentEdge($vertex, $adjEdge);
+				$priority = ($priorityIndex === null) ? $vertex : $adjEdge[$priorityIndex];
+				$this->edgeQueue->enqueue($edge, -$priority);
+
+			}
+		}
 	}
 
-	protected function sortByWeights()
+	protected function getEdgeFromVertexAndAdjacentEdge(int $vertex, Vector $adjEdge) : Vector
 	{
-		// Use quick sort to sort the list.
-		$this->throwExceptionIfNotWeightedList();
+		$edge = Vector{$vertex, $adjEdge[0]};
+		if ($this->isWeighted()) {
+			$edge[] = $adjEdge[1];
+		}
+		return $edge;
+	}
+
+	/**
+	 * Operates in O(E log n) or Omega(E) time.
+	 */
+	protected function queueToAdjList()
+	{
+		$numEdges = $this->edgeQueue->count();
+		$this->adjListData = Map{};
+		for ($i = 0; $i < $numEdges; $i++) {
+			$this->insertEdge($this->edgeQueue->dequeue());
+		}
 	}
 
 	protected function throwExceptionIfNotWeightedList()

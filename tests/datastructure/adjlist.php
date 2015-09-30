@@ -104,4 +104,59 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 
 		} catch (DataStructure\AdjListNotEmptyException $e) {}
 	}
+
+	public function testCanSortByVertex()
+	{
+		$adjList = new DataStructure\AdjList();
+
+		$adjList->insertEdge(Vector{1,2});
+		$adjList->insertEdge(Vector{3,4});
+		$adjList->insertEdge(Vector{0,3});
+		$adjList->insertEdge(Vector{-1,5});
+		$adjList->insertEdge(Vector{3,6});
+
+		$adjList->sortByVertex();
+
+		$expected = Map{
+			-1	=> Vector{Vector{5}},
+			0	=> Vector{Vector{3}},
+			1	=> Vector{Vector{2}},
+			3	=> Vector{Vector{6},Vector{4}}
+		};
+
+		$this->assertEquals($expected, $adjList->toMap());
+	}
+
+	public function testCanSortByWeight()
+	{
+		$adjList = new DataStructure\AdjList(DataStructure\AdjList::WEIGHTED);
+
+		$adjList->insertEdge(Vector{1,2,3});
+		$adjList->insertEdge(Vector{3,4,6});
+		$adjList->insertEdge(Vector{0,3,1});
+		$adjList->insertEdge(Vector{-1,5,-1});
+		$adjList->insertEdge(Vector{3,6,0});
+
+		$adjList->sortByWeights();
+
+		$expected = Map{
+			-1	=> Vector{Vector{5,-1}},
+			3	=> Vector{Vector{6,0},Vector{4,6}},
+			0	=> Vector{Vector{3,1}},
+			1	=> Vector{Vector{2,3}}
+		};
+
+		$this->assertEquals($expected, $adjList->toMap());
+	}
+
+	public function testCannotSortByWeightWhenNotWeightedList()
+	{
+		$adjList = new DataStructure\AdjList();
+		$adjList->insertEdge(Vector{1,2});
+
+		try {
+			$adjList->sortByWeights();
+			$this->fail();
+		} catch (DataStructure\AdjListNotWeightedListException $e) {}
+	}
 }

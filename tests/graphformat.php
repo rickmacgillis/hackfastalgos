@@ -186,4 +186,58 @@ class GraphFormatTest extends \PHPUnit_Framework_TestCase
 		$graph->fromAdjMatrix($this->adjMatrixWeighted);
 		$this->assertEquals($this->adjListWeighted, $graph->toAdjList());
 	}
+
+	public function testCanSortEdgeListByVertex()
+	{
+		$graph = new \HackFastAlgos\GraphFormat();
+		$graph->setSortVertex();
+
+		$input = Map{
+			1	=> Vector{Vector{2},Vector{3}},
+			3	=> Vector{Vector{1}},
+			2	=> Vector{Vector{3}},
+			4	=> Vector{Vector{0}}
+		};
+		$adjList = new DataStructure\AdjList();
+		$adjList->fromMap($input);
+
+		$graph->fromAdjList($adjList);
+
+		$expected = Vector{
+			Vector{1,2},
+			Vector{1,3},
+			Vector{2,3},
+			Vector{3,1},
+			Vector{4,0}
+		};
+
+		$this->assertEquals($expected, $graph->toEdgeList()->toVector());
+	}
+
+	public function testCanSortEdgeListByWeights()
+	{
+		$graph = new \HackFastAlgos\GraphFormat();
+		$graph->setSortWeights();
+
+		$input = Map{
+			1	=> Vector{Vector{2,5},Vector{3,4}},
+			3	=> Vector{Vector{1,6}},
+			2	=> Vector{Vector{3,-1}},
+			4	=> Vector{Vector{0,0}}
+		};
+		$adjList = new DataStructure\AdjList(DataStructure\AdjList::WEIGHTED);
+		$adjList->fromMap($input);
+
+		$graph->fromAdjList($adjList);
+
+		$expected = Vector{
+			Vector{2,3,-1},
+			Vector{4,0,0},
+			Vector{1,3,4},
+			Vector{1,2,5},
+			Vector{3,1,6}
+		};
+
+		$this->assertEquals($expected, $graph->toEdgeList()->toVector());
+	}
 }

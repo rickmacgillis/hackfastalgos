@@ -153,6 +153,7 @@ class Sort
 	}
 
 	/**
+	 * Heap sort is not a stable sorting method.
 	 * Learn more @link https://en.wikipedia.org/wiki/Heapsort
 	 */
 	public static function heapSort<T>(Vector<T> $vector) : Vector<T>

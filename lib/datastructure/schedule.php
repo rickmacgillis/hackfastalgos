@@ -7,8 +7,15 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class Schedule extends PriorityQueue
+class Schedule
 {
+	protected ?PriorityQueue $taskQueue = null;
+
+	public function __construct()
+	{
+		$this->taskQueue = new PriorityQueue();
+	}
+
 	/**
 	 * Operates in O(log n) or Omega(1) time.
 	 *
@@ -18,7 +25,7 @@ class Schedule extends PriorityQueue
 	 */
 	public function insertTask<T>(T $task, int $length, int $weight)
 	{
-		$this->enqueue($task, (float) ($weight/$length));
+		$this->taskQueue->enqueue($task, (float) ($weight/$length));
 	}
 
 	/**
@@ -26,7 +33,7 @@ class Schedule extends PriorityQueue
 	 */
 	public function extractTask<T>() : T
 	{
-		return $this->dequeue();
+		return $this->taskQueue->dequeue();
 	}
 
 	/**
@@ -34,6 +41,6 @@ class Schedule extends PriorityQueue
 	 */
 	public function deleteTask<T>(T $task)
 	{
-		$this->delete($task);
+		$this->taskQueue->delete($task);
 	}
 }

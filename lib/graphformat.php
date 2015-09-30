@@ -15,16 +15,15 @@ class GraphFormatFromTypeNotSetException extends \Exception{}
 
 class GraphFormat
 {
+	const SORT_NONE = 0;
+	const SORT_VERTEX = 1;
+	const SORT_WEIGHTS = 2;
+
 	protected int $sortMode = 0;
 
 	protected ?DataStructure\EdgeList $edgeList = null;
 	protected ?DataStructure\AdjList $adjList = null;
 	protected ?DataStructure\Matrix $adjMatrix = null;
-
-	protected function setSortMode(int $sortMode)
-	{
-		$this->sortMode = $sortMode;
-	}
 
 	public function fromEdgeList(DataStructure\EdgeList $edgeList)
 	{
@@ -101,6 +100,16 @@ class GraphFormat
 		}
 	}
 
+	public function setSortVertex()
+	{
+		$this->sortMode = static::SORT_VERTEX;
+	}
+
+	public function setSortWeights()
+	{
+		$this->sortMode = static::SORT_WEIGHTS;
+	}
+
 	protected function throwIfFromFormatAlreadySet()
 	{
 		if ($this->getFromFormat() !== null) {
@@ -162,8 +171,9 @@ class GraphFormat
 
 	protected function sortObjectIfSortingEnabled<T>(T $object)
 	{
-		if ($this->sortMode !== $object::SORT_NONE) {
-			$object->sortBy($this->sortMode);
+		switch ($this->sortMode) {
+			case static::SORT_VERTEX: $object->sortByVertex(); break;
+			case static::SORT_WEIGHTS: $object->sortByWeights(); break;
 		}
 	}
 

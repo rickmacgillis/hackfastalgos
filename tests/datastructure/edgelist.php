@@ -101,7 +101,61 @@ class EdgeListTest extends \PHPUnit_Framework_TestCase
 			};
 			$edgeList->fromVector($edges);
 			$this->fail();
-			
+
 		} catch (DataStructure\EdgeListNotEmptyException $e) {}
+	}
+
+	public function testCanSortByVertex()
+	{
+		$edgeList = new DataStructure\EdgeList();
+
+		$edgeList->insertEdge(Vector{1,2});
+		$edgeList->insertEdge(Vector{3,4});
+		$edgeList->insertEdge(Vector{2,1});
+		$edgeList->insertEdge(Vector{1,0});
+
+		$edgeList->sortByVertex();
+
+		$expected = Vector{
+			Vector{1,2},
+			Vector{1,0},
+			Vector{2,1},
+			Vector{3,4}
+		};
+
+		$this->assertEquals($expected, $edgeList->toVector());
+	}
+
+	public function testCanSortByWeight()
+	{
+		$edgeList = new DataStructure\EdgeList(DataStructure\EdgeList::WEIGHTED);
+
+		$edgeList->insertEdge(Vector{1,2,3});
+		$edgeList->insertEdge(Vector{3,4,4});
+		$edgeList->insertEdge(Vector{2,1,1});
+		$edgeList->insertEdge(Vector{1,0,-1});
+
+		$edgeList->sortByWeights();
+
+		$expected = Vector{
+			Vector{1,0,-1},
+			Vector{2,1,1},
+			Vector{1,2,3},
+			Vector{3,4,4}
+		};
+
+		$this->assertEquals($expected, $edgeList->toVector());
+	}
+
+	public function testCannotSortByWeightWhenNotWeightedList()
+	{
+		$edgeList = new DataStructure\EdgeList();
+
+		try {
+			
+			$edgeList->sortByWeights();
+			$this->fail();
+
+		} catch (DataStructure\EdgeListNotWeightedListException $e) {}
 	}
 }

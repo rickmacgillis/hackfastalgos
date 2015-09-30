@@ -26,8 +26,11 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 	 */
 
 	protected EdgeListVector $edgeListData = Vector{};
+	protected ?PriorityQueue $edgeQueue = null;
 
-	public function __construct(protected int $listType = static::NOT_WEIGHTED){}
+	public function __construct(protected int $listType = static::NOT_WEIGHTED){
+		$this->edgeQueue = new PriorityQueue();
+	}
 
 	/**
 	 * Operates in O(E) time where E is the number of edges.
@@ -69,13 +72,24 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		return $this->edgeListData;
 	}
 
-	public function sortBy(int $sortingType)
+	/**
+	 * Operates in Theta(n log n) time.
+	 */
+	public function sortByVertex()
 	{
-		switch ($sortingType) {
-			case static::SORT_VERTEX: $this->sortByVertex(); break;
-			case static::SORT_WEIGHTS: $this->sortByWeights(); break;
-		}
+		// Heap sort is not stable, so we cannot multisort by the second vertex this way.
+		$this->queueEdgesByPriorityIndex(0);
+		$this->queueToEdgeList();
+	}
 
+	/**
+	 * Operates in Theta(n log n) time.
+	 */
+	public function sortByWeights()
+	{
+		$this->throwExceptionIfNotWeightedList();
+		$this->queueEdgesByPriorityIndex(2);
+		$this->queueToEdgeList();
 	}
 
 	protected function throwIfEdgeIsTheWrongFormat(Vector $edge)
@@ -106,15 +120,28 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function sortByVertex()
+	/**
+	 * Operates in O(E log n) or Omega(E) time.
+	 */
+	protected function queueEdgesByPriorityIndex(int $priorityIndex)
 	{
-		// Use quick sort to sort the list.
+		$edgeCount = $this->edgeListData->count();
+		for ($i = 0; $i < $edgeCount; $i++) {
+			$edge = $this->edgeListData[$i];
+			$this->edgeQueue->enqueue($edge, -$edge[$priorityIndex]);
+		}
 	}
 
-	protected function sortByWeights()
+	/**
+	 * Operates in O(E log n) or Omega(E) time.
+	 */
+	protected function queueToEdgeList()
 	{
-		// Use quick sort to sort the list.
-		$this->throwExceptionIfNotWeightedList();
+		$numEdges = $this->edgeQueue->count();
+		$this->edgeListData = Vector{};
+		for ($i = 0; $i < $numEdges; $i++) {
+			$this->insertEdge($this->edgeQueue->dequeue());
+		}
 	}
 
 	protected function throwExceptionIfNotWeightedList()
