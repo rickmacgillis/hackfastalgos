@@ -48,6 +48,9 @@ algorithms defined in that class.
 	* An implementation of Merge Sort
 * **MostFrequentWord**
 	* Calculate the most frequent word in the given text.
+* **Palindrome**
+	* isPalindrome
+	* Manacher's Algorithm for finding the longest palindrome in the desired text
 * **PolishNotation**
 	* An implementation of Polish Prefix Notation
 * **Search**
@@ -59,8 +62,6 @@ algorithms defined in that class.
 	* Shell Sort (Uses Tokunda's gap algorithm)
 	* Heap Sort
 	* Fisher-Yates Shuffle
-* **Strings**
-	* isPalendrome
 
 List of Data Structures
 -----------------------

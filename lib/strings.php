@@ -9,35 +9,6 @@ namespace HackFastAlgos;
 
 class Strings
 {
-	public static function isPalindrome(string $text) : bool
-	{
-		$text = strtolower($text);
-		$textLength = strlen($text);
-		if ($textLength <= 1) {
-			return true;
-		}
-
-		$leftPtr = 0;
-		$rightPtr = $textLength-1;
-		while ($leftPtr <= $rightPtr) {
-
-			if ($text[$leftPtr] !== $text[$rightPtr]) {
-				return false;
-			}
-
-			$leftPtr++;
-			$rightPtr--;
-
-		}
-
-		return true;
-	}
-
-	public static function findLongestPalindrome(string $text) : string
-	{
-		// https://en.wikipedia.org/wiki/Longest_palindromic_substring
-	}
-
 	public static function getNeedlemanWunschScore(string $sequence1, string $squence2) : int
 	{
 		// https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
