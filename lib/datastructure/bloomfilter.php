@@ -11,7 +11,7 @@ namespace HackFastAlgos\DataStructure;
 
 class BloomFilter
 {
-	protected Vector<int> $bloomData = Vector{};
+	private Vector<int> $bloomData = Vector{};
 
 	public function __construct(protected int $bitWidth = 8){}
 

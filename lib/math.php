@@ -11,9 +11,9 @@ class MathNumberOfOperandsMustBeGreaterThanZeroException extends \Exception{}
 
 class Math
 {
-	const int MEDIANHEAP_AVG = 0;
-	const int MEDIANHEAP_LOW = 1;
-	const int MEDIANHEAP_HIGH = 2;
+	public const int MEDIANHEAP_AVG = 0;
+	public const int MEDIANHEAP_LOW = 1;
+	public const int MEDIANHEAP_HIGH = 2;
 
 	/**
 	 * Operates in O(log n) time or Omega(1) time. (Due to Matrix exponentation)

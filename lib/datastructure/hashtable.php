@@ -31,18 +31,18 @@ class HashTable implements \Countable, \ArrayAccess, \Iterator
 	 * number of buckets should also be prime that way neither one can be
 	 * divisible by the other.
 	 */
-	protected const int OPEN_ADDR_PROBE = 23;
+	const int OPEN_ADDR_PROBE = 23;
 
 	/**
 	 * T will be either a vector with the key at position 0 and the value at position 1 for open
 	 * addressing, or it'll be a linked list following the pattern key->value->key->value->...
 	 * for the chaining collision handling.
 	 */
-	protected Map<int,T> $hashTableData = Map{};
+	private Map<int,T> $hashTableData = Map{};
 
-	protected int $numBuckets = 0;
+	private int $numBuckets = 0;
 
-	protected Vector<int> $primes = Vector{
+	private Vector<int> $primes = Vector{
 		2,3,7,23,89,113,523,887,1129,1327,9551,15683,19609,
 		1397,155921,360653,370261,492113,1349533,1357201,2010733
 	};

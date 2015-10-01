@@ -17,11 +17,11 @@ class DoublyLinkedListInvalidIndexException extends \Exception{}
 
 class DoublyLinkedList implements \Iterator, \Countable
 {
-	protected Map<int, DLLEntry> $dllData = Map{};
-	protected int $lastNode = 0;
-	protected int $firstNode = 0;
-	protected int $openIndex = 0;
-	protected ?int $pointer = 0;
+	private Map<int, DLLEntry> $dllData = Map{};
+	private int $lastNode = 0;
+	private int $firstNode = 0;
+	private int $openIndex = 0;
+	private ?int $pointer = 0;
 
 	public function count() : int
 	{

@@ -39,7 +39,7 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 	  * ]
 	 */
 
- 	protected AdjMatrixVector $adjMatrixData = Vector{};
+ 	private AdjMatrixVector $adjMatrixData = Vector{};
 
  	public function __construct(protected int $matrixType = static::NOT_WEIGHTED){}
 

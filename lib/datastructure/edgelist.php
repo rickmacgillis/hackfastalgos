@@ -25,8 +25,8 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 	 * [[vertexU, vertexV],[vertexU, vertexV], ...]
 	 */
 
-	protected EdgeListVector $edgeListData = Vector{};
-	protected ?PriorityQueue $edgeQueue = null;
+	private EdgeListVector $edgeListData = Vector{};
+	private ?PriorityQueue $edgeQueue = null;
 
 	public function __construct(protected int $listType = static::NOT_WEIGHTED){
 		$this->edgeQueue = new PriorityQueue();

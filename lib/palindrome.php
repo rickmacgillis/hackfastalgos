@@ -9,8 +9,11 @@ namespace HackFastAlgos;
 
 class Palindrome
 {
-	protected $originalText = null;
-	protected $boundedText = null;
+	private $originalText = null;
+	private $boundedText = null;
+	private $palindromeLengths = [0];
+	private $centerPtr = 0;
+	private $rightPtr = 0;
 
 	public function isPalindrome(string $text) : bool
 	{
@@ -39,46 +42,20 @@ class Palindrome
 	public function findLongestPalindrome(string $text) : String
 	{
 		// Manachers Algorithm
-		// REFACTORING IN PROGRESS
 		// http://articles.leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
 		$this->originalText = $text;
 		$this->addTextBoundaries();
 		$boundaryTextLen = strlen($this->boundedText);
-		$palindromeLengths = [0];
-		$centerPtr = 0;
-		$rightPtr = 0;
+
 		for ($i = 1; $i < $boundaryTextLen-1; $i++) {
 
-			$iMirror = 2*$centerPtr - $i;
-
-			$palindromeLengths[$i] = ($rightPtr > $i) ? min($rightPtr-$i, $palindromeLengths[$iMirror]) : 0;
-
-			// Attempt to expand palindrome centered at $i
-			while ($this->boundedText[$i + 1 + $palindromeLengths[$i]] == $this->boundedText[$i - 1 - $palindromeLengths[$i]]) {
-				$palindromeLengths[$i]++;
-			}
-
-			// If the palindrome centered at $i expands past $rightPtr,
-			// adjust center based on expanded palindrome.
-			if ($i + $palindromeLengths[$i] > $rightPtr) {
-				$centerPtr = $i;
-				$rightPtr = $i + $palindromeLengths[$i];
-			}
+			$this->setPalindromeStartingLengthForIndex($i);
+			$this->incrementPalendromeLengthAtIndex($i);
+			$this->retargetPointersForIndex($i);
 
 		}
 
-		// Find the maximum element in $palindromeLengths.
-		$maxLen = 0;
-		$centerIndex = 0;
-		for ($i = 1; $i < $boundaryTextLen-1; $i++) {
-			if ($palindromeLengths[$i] > $maxLen) {
-				$maxLen = $palindromeLengths[$i];
-				$centerIndex = $i;
-			}
-		}
-
-		$longest = substr($this->originalText, ($centerIndex - $maxLen - 1)/2, $maxLen);
-		return $longest === false ? '' : $longest;
+		return $this->getLongestPalindrome();
 
 	}
 
@@ -95,5 +72,78 @@ class Palindrome
 		}
 
 		$this->boundedText .= '#$';
+	}
+
+	protected function setPalindromeStartingLengthForIndex(int $index)
+	{
+		if ($this->rightPtr > $index) {
+
+			$indexMirror = $this->getIndexOppositeOf($index);
+			$lengthOppositeOfIndex = $this->getLengthAtIndex($indexMirror);
+
+			$distanceFromIndex = $this->rightPtr - $index;
+
+			$this->palindromeLengths[$index] = min($distanceFromIndex, $lengthOppositeOfIndex);
+
+		} else {
+			$this->palindromeLengths[$index] = 0;
+		}
+	}
+
+	protected function getLengthAtIndex(int $index) : int
+	{
+		return $this->palindromeLengths[$index];
+	}
+
+	protected function getIndexOppositeOf(int $index) : int
+	{
+		return 2*$this->centerPtr - $index;
+	}
+
+	protected function incrementPalendromeLengthAtIndex(int $index)
+	{
+		do {
+
+			$leftCharIndex = $index - 1 - $this->getLengthAtIndex($index);
+			$rightCharIndex = $index + 1 + $this->getLengthAtIndex($index);
+
+			if ($this->boundedText[$leftCharIndex] === $this->boundedText[$rightCharIndex]) {
+				$this->palindromeLengths[$index]++;
+			} else {
+				break;
+			}
+
+		} while (1);
+	}
+
+	protected function retargetPointersForIndex(int $index)
+	{
+		$rightSideOfPalendrome = $index + $this->getLengthAtIndex($index);
+		if ($rightSideOfPalendrome > $this->rightPtr) {
+			$this->centerPtr = $index;
+			$this->rightPtr = $rightSideOfPalendrome;
+		}
+	}
+
+	protected function getLongestPalindrome() : String
+	{
+		$maxLen = 0;
+		$centerIndex = 0;
+		$boundaryTextLen = strlen($this->boundedText);
+		for ($i = 1; $i < $boundaryTextLen-1; $i++) {
+
+			$palindromeLen = $this->getLengthAtIndex($i);
+			if ($palindromeLen > $maxLen) {
+
+				$maxLen = $palindromeLen;
+				$centerIndex = $i;
+
+			}
+
+		}
+
+		$palindromeStart = ($centerIndex - $maxLen - 1)/2;
+		$longest = substr($this->originalText, $palindromeStart, $maxLen);
+		return $longest === false ? '' : $longest;
 	}
 }

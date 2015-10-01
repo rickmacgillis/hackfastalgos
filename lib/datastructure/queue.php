@@ -12,7 +12,7 @@ class QueueEmptyException extends \Exception{}
 
 class Queue implements \Countable
 {
-	protected array $queueData = [];
+	private array $queueData = [];
 
 	public function count() : int
 	{

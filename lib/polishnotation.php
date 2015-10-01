@@ -10,8 +10,8 @@ namespace HackFastAlgos;
 
 class PolishNotation
 {
-	protected array $math = [];
-	protected Vector<float> $stack = Vector{};
+	private array $math = [];
+	private Vector<float> $stack = Vector{};
 
 	public function __construct(string $math){
 		$this->math = explode(' ', $math);

@@ -12,7 +12,7 @@ class StackInvalidIndexException extends \Exception{}
 
 class Stack implements \Countable
 {
-	protected Vector<T> $stackData = Vector{};
+	private Vector<T> $stackData = Vector{};
 
 	public function count() : int
 	{

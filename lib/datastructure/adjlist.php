@@ -31,8 +31,8 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 	 * ...
 	 */
 
-	protected AdjListMap $adjListData = Map{};
-	protected ?PriorityQueue $edgeQueue = null;
+	private AdjListMap $adjListData = Map{};
+	private ?PriorityQueue $edgeQueue = null;
 
 	public function __construct(protected int $listType = static::NOT_WEIGHTED){
 		$this->edgeQueue = new PriorityQueue();

@@ -16,8 +16,8 @@ newtype Relations		= Vector<(?BSTParent, ?BSTLeftChild, ?BSTRightChild)>;
 
 class BST implements \Countable, \Iterator
 {
-	protected Vector<(T, Statistic, Relations)> $bstData = Vector{};
-	protected int $iteratorPtr = 0;
+	private Vector<(T, Statistic, Relations)> $bstData = Vector{};
+	private int $iteratorPtr = 0;
 
 	public function insert<T>(T $item, ?int $priority = null)
 	{

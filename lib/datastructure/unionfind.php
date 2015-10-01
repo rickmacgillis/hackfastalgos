@@ -13,9 +13,8 @@ class UnionFindItemDoesNotExistException extends \Exception{}
 
 class UnionFind
 {
-	protected Map<int, Vector<int>> $unionFindData = Map{};
-
-	protected int $totalSets = 0;
+	private Map<int, Vector<int>> $unionFindData = Map{};
+	private int $totalSets = 0;
 
 	/**
 	 * Operates in Theta(1) time.

@@ -9,9 +9,9 @@ namespace HackFastAlgos;
 
 class MostFrequentWord
 {
-	protected Map<string,int> $freqData = Map{};
+	private Map<string,int> $freqData = Map{};
 
-	protected ?DataStructure\PriorityQueue $queue = null;
+	private ?DataStructure\PriorityQueue $queue = null;
 
 	public function __construct(protected string $text){
 		$this->text = strtolower($this->text);

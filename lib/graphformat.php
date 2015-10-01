@@ -19,11 +19,11 @@ class GraphFormat
 	const SORT_VERTEX = 1;
 	const SORT_WEIGHTS = 2;
 
-	protected int $sortMode = 0;
+	private int $sortMode = 0;
 
-	protected ?DataStructure\EdgeList $edgeList = null;
-	protected ?DataStructure\AdjList $adjList = null;
-	protected ?DataStructure\Matrix $adjMatrix = null;
+	private ?DataStructure\EdgeList $edgeList = null;
+	private ?DataStructure\AdjList $adjList = null;
+	private ?DataStructure\Matrix $adjMatrix = null;
 
 	public function fromEdgeList(DataStructure\EdgeList $edgeList)
 	{

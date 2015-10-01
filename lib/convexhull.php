@@ -12,7 +12,7 @@ namespace HackFastAlgos;
 
 class ConvexHull
 {
-	protected Vector $edgeList = Vector{};
+	private Vector $edgeList = Vector{};
 
 	public function __construct(DataStructure\EdgeList $edgeList){
 		$this->edgeList = $edgeList->toVector{};

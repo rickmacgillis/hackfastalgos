@@ -10,8 +10,8 @@ namespace HackFastAlgos\Datastructure;
 
 class Bag implements \Iterator, \Countable
 {
-	protected Vector<T> $bagData = Vector{};
-	protected int $bagPointer = 0;
+	private Vector<T> $bagData = Vector{};
+	private int $bagPointer = 0;
 
 	public function count() : int
 	{

@@ -9,7 +9,7 @@ namespace HackFastAlgos\DataStructure;
 
 class Schedule
 {
-	protected ?PriorityQueue $taskQueue = null;
+	private ?PriorityQueue $taskQueue = null;
 
 	public function __construct()
 	{

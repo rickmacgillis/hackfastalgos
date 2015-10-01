@@ -18,7 +18,7 @@ class Heap implements \Countable
 	const int MIN_HEAP = 0;
 	const int MAX_HEAP = 1;
 
-	protected Vector<int> $heapData = Vector{};
+	private Vector<int> $heapData = Vector{};
 
 	public function __construct(public int $heapType = static::MIN_HEAP){}
 
