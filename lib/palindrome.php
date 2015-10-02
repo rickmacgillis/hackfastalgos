@@ -108,7 +108,7 @@ class Palindrome
 	 * Operates in O(1) time. Consider wowowowow. Every time we loop, we can take up to n/2
 	 * time, though the for loop in the findLongestPalindrome() method makes this loop run
 	 * a TOTAL of n iterations for the entire outer loop. w, wow, wowow, wowowow, and wowowowow
-	 * are the strings it checks. Thus, the outer loop takes Thera(n) and this inner loop takes
+	 * are the strings it checks. Thus, the outer loop takes Theta(n) and this inner loop takes
 	 * a TOTAL of n iterations for ~2n time.
 	 */
 	protected function incrementPalendromeLengthAtIndex(int $index)
