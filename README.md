@@ -37,6 +37,7 @@ algorithms defined in that class.
 
 * **Algos**
 * **ConvexHull**
+* **Geometry**
 * **Graph**
 * **GraphFormat**
 	* Convert between edge lists, adjacency lists, and adjacency matrices.
@@ -82,15 +83,18 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **EdgeList**
 * **GameTree**
 * **HashTable**
-* **Heap** - An implementation of a binary heap supporting both MinHeap and MaxHeap types.
+* **Heap** - An implementation of a binary heap supporting both MinHeap and MaxHeap types
+* **IntervalTree** - An implementation of an Interval Search Tree
+* **KDTree** - An implementation of a K-dimensional tree
 * **LRUCache**
 * **PriorityQueue**
 * **Queue**
-* **RBTree** - RBTree is an implementation of a Red-Black Tree.
+* **RBTree** - RBTree is an implementation of a Left-Leaning Red-Black Tree.
 * **Schedule**
 * **SplayTree**
 * **Stack**
 * **TernarySearchTree**
+* **TwoThreeTree**
 * **UnionFind** - The union-find data structure is also named the disjoint-set or merge-find.
 
 Notes on Slower Algorithms

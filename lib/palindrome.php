@@ -2,7 +2,8 @@
 /**
  * @author Rick Mac Gillis
  *
- * Various algorithms for working with palindromes
+ * Algorithms for working with palindromes
+ * Learn more @link http://articles.leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
  */
 
 namespace HackFastAlgos;
@@ -40,13 +41,13 @@ class Palindrome
 	}
 
 	/**
+	 * Manachers Algorithm
+	 * 
 	 * Operates in Theta(n) time. (See incrementPalendromeLengthAtIndex for the reason
 	 * why it's not O(n^2).)
 	 */
 	public function findLongestPalindrome(string $text) : String
 	{
-		// Manachers Algorithm
-		// http://articles.leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
 		$this->originalText = $text;
 		$this->addTextBoundaries();
 		$boundaryTextLen = strlen($this->boundedText);
