@@ -39,10 +39,9 @@ class Search
 	 */
 	public static function bruteForceSearch(Vector<int> $vector, int $find) : int
 	{
-		$count = $vector->count();
-		for ($i = 0; $i < $count; $i++) {
-			if ($vector[$i] === $find) {
-				return $i;
+		foreach ($vector as $key => $value) {
+			if ($value === $find) {
+				return $key;
 			}
 		}
 

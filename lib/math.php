@@ -11,10 +11,6 @@ class MathNumberOfOperandsMustBeGreaterThanZeroException extends \Exception{}
 
 class Math
 {
-	public const int MEDIANHEAP_AVG = 0;
-	public const int MEDIANHEAP_LOW = 1;
-	public const int MEDIANHEAP_HIGH = 2;
-
 	/**
 	 * Operates in O(log n) time or Omega(1) time. (Due to Matrix exponentation)
 	 */
@@ -41,20 +37,6 @@ class Math
 	public static function atkinFindGreatestPrime(int $lessThan) : int
 	{
 		// https://en.wikipedia.org/wiki/Sieve_of_Atkin
-	}
-
-	public static function findMedianHeap<T>(T $item, Callable $callback, int $highLowMedian = static::MEDIANHEAP_AVG) : T
-	{
-		/*
-		 * Maintain two heaps (minHeap and maxHeap
-		 * When an item is added
-		 * 		Check if the item belongs on the minHeap or maxHeap, then add it in.
-		 * 		Keep the heaps balanced by extracting the extra value from one heap
-		 * 			and placing it on the other heap.
-		 *
-		 * Return the median
-		 * 		In case of a perfectly balanced dual heap, use $highLowMedian to determine which median to return
-		 */
 	}
 
 	public static function findTotal2Sums(Vector<int> $vectors, int $total) : Vector<Vector<int>>

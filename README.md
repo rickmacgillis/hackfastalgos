@@ -46,6 +46,8 @@ algorithms defined in that class.
 * **Math**
 * **MatrixMultiply**
 	* Strassen's Matrix Multiplication
+* **MedianHeap**
+	* Get the median number in a stream if integers.
 * **MergeSort**
 	* An implementation of Merge Sort
 * **MostFrequentWord**
