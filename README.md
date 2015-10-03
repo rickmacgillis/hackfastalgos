@@ -37,6 +37,7 @@ algorithms defined in that class.
 
 * **Algos**
 * **ConvexHull**
+	* Calculate the convex hull using a Graham Scan.
 * **Geometry**
 * **Graph**
 * **GraphFormat**

@@ -16,6 +16,8 @@ type ConvexHullVector = Vector<Vector<Vector<int>>>;
 class ConvexHull
 {
 	private ?DataStructure\PriorityQueue $priorityQueue = null;
+	private int $sourceNode = 0;
+	private int $numPoints = 0;
 
 	public function __construct(private CartesianPointList $cartesianPoints){
 		$this->priorityQueue = new DataStructure\PriorityQueue();
@@ -26,32 +28,21 @@ class ConvexHull
 	 */
 	public function grahamScan() : CartesianPointList
 	{
-		// BROKEN - MUST FIX
 		$this->prepareCoordinatesList();
+		$this->numPoints = $this->cartesianPoints->count();
 
-		$sourceNode = 1;
-		$numPoints = $this->cartesianPoints->count();
-		for ($i = 2; $i < $numPoints; $i++) {
+		for ($i = 1; $i < $this->numPoints; $i++) {
 
-			$prevSourcePoint = $this->cartesianPoints[$sourceNode-1];
-			$sourcePoint = $this->cartesianPoints[$sourceNode];
-			while ($this->clockwiseTurnCompare($prevSourcePoint, $sourcePoint, $this->cartesianPoints[$i]) <= 0) {
-
-				if ($sourceNode > 1) {
-					$sourceNode--;
-				} elseif ($i === $numPoints-1) {
-					break;
-				} else {
-					$i++;
-				}
-
+			while ($this->isCcwTurn($i) === false && $i !== $this->numPoints-1) {
+				$this->decrementSourceNode();
 			}
 
-			$sourceNode++;
-			$this->swapValues($sourceNode, $i);
+			$this->sourceNode++;
+			$this->swapValues($this->sourceNode, $i);
 
 		}
 
+		$this->cartesianPoints->resize($this->sourceNode+1, null);
 		return $this->cartesianPoints;
 	}
 
@@ -63,7 +54,6 @@ class ConvexHull
 		$lowestCoordinate = $this->findLowestYCoordinate();
 		$this->swapValues(0, $lowestCoordinate);
 		$this->orderByPolarAngle();
-		$this->prependLastPointToList();
 	}
 
 	/**
@@ -105,7 +95,7 @@ class ConvexHull
 		$count = $this->cartesianPoints->count();
 		for ($i = 1; $i < $count; $i++) {
 			$angle = $this->getAngleBetweenPoints($this->cartesianPoints[0], $this->cartesianPoints[$i]);
-			$this->priorityQueue->enqueue($this->cartesianPoints[$i], $angle);
+			$this->priorityQueue->enqueue($this->cartesianPoints[$i], -$angle);
 		}
 	}
 
@@ -146,14 +136,36 @@ class ConvexHull
 		$this->cartesianPoints = $formatted;
 	}
 
-	protected function clockwiseTurnCompare(Vector $point1, Vector $point2, Vector $point3) : int
+	protected function getPreviousSourceNode() : int
+	{
+		return $this->sourceNode === 0 ? $this->numPoints-1 : $this->sourceNode-1;
+	}
+
+	protected function isCcwTurn(int $destNode) : bool
+	{
+		$prevSourcePoint = $this->cartesianPoints[$this->getPreviousSourceNode()];
+		$sourcePoint = $this->cartesianPoints[$this->sourceNode];
+		$destPoint = $this->cartesianPoints[$destNode];
+		return $this->pointsAreCcw($prevSourcePoint, $sourcePoint, $destPoint);
+	}
+
+	protected function pointsAreCcw(Vector $point1, Vector $point2, Vector $point3) : bool
 	{
 		$point2XMinusPoint1X = $point2[0] - $point1[0];
 		$point3YMinusPoint1Y = $point3[1] - $point1[1];
 		$point2YMinusPoint1Y = $point2[1] - $point1[1];
 		$point3XMinusPoint1X = $point3[0] - $point1[0];
 
-		$ccw = $point2XMinusPoint1X * $point3YMinusPoint1Y - $point2YMinusPoint1Y * $point3XMinusPoint1X;
-		return -$ccw;
+		$turn = $point2XMinusPoint1X * $point3YMinusPoint1Y - $point2YMinusPoint1Y * $point3XMinusPoint1X;
+		return $turn >= 0;
+	}
+
+	protected function decrementSourceNode()
+	{
+		if ($this->sourceNode > 0) {
+			$this->sourceNode--;
+		} else {
+			$this->sourceNode = $this->numPoints-1;
+		}
 	}
 }
