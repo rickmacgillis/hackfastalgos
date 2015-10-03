@@ -56,6 +56,8 @@ algorithms defined in that class.
 * **PolishNotation**
 	* An implementation of Polish Prefix Notation
 * **Search**
+	* Binary search
+	* Brute force search
 * **Select**
 * **Sort**
 	* Selection Sort
