@@ -151,3 +151,33 @@ ensure the quality of your code, you must use typing.
 to the rule is that you may include an exception class *before* your main class.
 7. Always throw *custom* exceptions for every type of exception. Name your exceptions in the following format. `<CLASS><TYPE>Exception`
 (Ex. `DoublyLinkedListInvalidIndexException`)
+
+This Library In Other Languages
+-------------------------------
+
+No one has created a port of HackFastAlgos in any other language just yet. If you create your own port of the language,
+please let me know so that I can list it in this section.
+
+Credits and Further Learning Resources
+--------------------------------------
+
+Many of the algorithms in this library are well known algorithms in the computer science community. Various scientists
+invented the algorithms that I've implemented. Where applicable, I've linked to Wikipedia or other locations of interest
+to describe the algorithms and data structures. You may find the details on who invented the algorithm by visiting those
+pages.
+
+Below is a list of sources for where I've first learned about the algorithms and data structures in this library. Most
+of the resources below are free resources from MOOCs. If you're interested in expanding your knowledge on algorithms and
+data structures, please take the classes below, read the books, or the websites. This library is a great way to easily
+understand the material, though it does not cover everything in the resources below.
+
+To fully understand the content, practice writing your own copy of this library manually. If you write it in a language
+other than Hack, see the "This Library In Other Languages" section above.
+
+* [Khan Academy](https://www.khanacademy.org/computing/computer-science/algorithms)
+* [Algorithms: Design and Analysis, Part 1](https://www.coursera.org/course/algo)
+* [Algorithms: Design and Analysis, Part 2](https://www.coursera.org/course/algo2)
+* [Algorithms, Part I](https://www.coursera.org/course/algs4partI)
+* [Algorithms, Part II](https://www.coursera.org/course/algs4partII)
+* [Cracking the Coding Interview](http://www.crackingthecodinginterview.com/)
+* And other random places on the interwebs...
