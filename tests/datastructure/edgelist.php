@@ -4,6 +4,20 @@ use HackFastAlgos\DataStructure as DataStructure;
 
 class EdgeListTest extends \PHPUnit_Framework_TestCase
 {
+	public function testCanSetToWeightedList()
+	{
+		$edgeList = new DataStructure\EdgeList();
+		$edgeList->setWeighted();
+		$this->assertTrue($edgeList->isWeighted());
+	}
+
+	public function testCanSetToNotWeightedList()
+	{
+		$edgeList = new DataStructure\EdgeList(DataStructure\EdgeList::WEIGHTED);
+		$edgeList->setNotWeighted();
+		$this->assertFalse($edgeList->isWeighted());
+	}
+
 	public function testCanAddNonWeightedEdgesToEdgeList()
 	{
 		$edgeList = new DataStructure\EdgeList();
@@ -152,7 +166,7 @@ class EdgeListTest extends \PHPUnit_Framework_TestCase
 		$edgeList = new DataStructure\EdgeList();
 
 		try {
-			
+
 			$edgeList->sortByWeights();
 			$this->fail();
 

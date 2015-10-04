@@ -38,6 +38,16 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		$this->edgeQueue = new PriorityQueue();
 	}
 
+	public function setWeighted()
+	{
+		$this->listType = static::WEIGHTED;
+	}
+
+	public function setNotWeighted()
+	{
+		$this->listType = static::NOT_WEIGHTED;
+	}
+
 	/**
 	 * Operates in O(E) time where E is the number of edges adjacent to
 	 * the first vertex in the edge. At its best it operates in Omega(1) time.
@@ -49,7 +59,7 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 			$adjEdges = $this->getAdjacentEdgesForVertex($edge[0]);
 			$numAdjEdges = $adjEdges->count();
 			for ($i = 0; $i < $numAdjEdges; $i++) {
-				if ($this->edgesAreTheSame($adjEdges[$i], $edge)) {
+				if ($this->adjEdgeIsTheSameAsExistingEdge($edge, $adjEdges[$i])) {
 					return true;
 				}
 			}
@@ -115,13 +125,13 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		return $this->adjListData[$vertex];
 	}
 
-	protected function edgesAreTheSame(Vector $existingEdge, Vector $compareTo) : bool
+	protected function adjEdgeIsTheSameAsExistingEdge(Vector $adjEdge, Vector $existingEdge) : bool
 	{
 		if ($this->isWeighted() === true) {
-			return $existingEdge[0] === $compareTo[1] && $existingEdge[1] === $compareTo[2];
+			return $existingEdge[0] === $adjEdge[1] && $existingEdge[1] === $adjEdge[2];
 		}
 
-		return $existingEdge[0] === $compareTo[1];
+		return $existingEdge[0] === $adjEdge[1];
 	}
 
 	protected function isWeightedEdge(Vector $edge) : bool

@@ -32,6 +32,16 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		$this->edgeQueue = new PriorityQueue();
 	}
 
+	public function setWeighted()
+	{
+		$this->listType = static::WEIGHTED;
+	}
+
+	public function setNotWeighted()
+	{
+		$this->listType = static::NOT_WEIGHTED;
+	}
+
 	/**
 	 * Operates in O(E) time where E is the number of edges.
 	 * At its best it operates in Omega(1) time.

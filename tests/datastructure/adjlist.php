@@ -4,9 +4,24 @@ use HackFastAlgos\DataStructure as DataStructure;
 
 class AdjListTest extends \PHPUnit_Framework_TestCase
 {
+	public function testCanSetToWeightedList()
+	{
+		$adjList = new DataStructure\AdjList();
+		$adjList->setWeighted();
+		$this->assertTrue($adjList->isWeighted());
+	}
+
+	public function testCanSetToNotWeightedList()
+	{
+		$adjList = new DataStructure\AdjList(DataStructure\AdjList::WEIGHTED);
+		$adjList->setNotWeighted();
+		$this->assertFalse($adjList->isWeighted());
+	}
+
 	public function testCanAddNonWeightedEdgeToAdjList()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
 		$adjList->insertEdge(Vector{1,2});
 		$adjList->insertEdge(Vector{3,4});
 
@@ -20,7 +35,9 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanAddWeightedEdgeToAdjList()
 	{
-		$adjList = new DataStructure\AdjList(DataStructure\AdjList::WEIGHTED);
+		$adjList = new DataStructure\AdjList();
+		$adjList->setWeighted();
+
 		$adjList->insertEdge(Vector{1,2,3});
 		$adjList->insertEdge(Vector{3,4,5});
 
@@ -35,12 +52,14 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 	public function testDoesNotExistWhenNotInAdjList()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
 		$this->assertFalse($adjList->edgeExists(Vector{1,2}));
 	}
 
 	public function testExistsWhenInAdjList()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
 		$adjList->insertEdge(Vector{1,2});
 		$this->assertTrue($adjList->edgeExists(Vector{1,2}));
 	}
@@ -48,6 +67,7 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 	public function testCannotAddWeightedEdgeToNonWeightedList()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
 
 		try {
 			$adjList->insertEdge(Vector{1,2,3});
@@ -57,7 +77,8 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 
 	public function testCannotAddNonWeightedEdgeToWeightedList()
 	{
-		$adjList = new DataStructure\AdjList(DataStructure\AdjList::WEIGHTED);
+		$adjList = new DataStructure\AdjList();
+		$adjList->setWeighted();
 
 		try {
 			$adjList->insertEdge(Vector{1,2});
@@ -67,30 +88,39 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 
 	public function testIsWeightedReturnsTrueWhenWeighted()
 	{
-		$adjList = new DataStructure\AdjList(DataStructure\AdjList::WEIGHTED);
+		$adjList = new DataStructure\AdjList();
+		$adjList->setWeighted();
+
 		$this->assertTrue($adjList->isWeighted());
 	}
 
 	public function testIsWeightedReturnsFalseWhenNotWeighted()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
+
 		$this->assertFalse($adjList->isWeighted());
 	}
 
 	public function testCanImportFromMap()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
+
 		$map = Map{
 			1	=> Vector{Vector{2,3}},
 			3	=> Vector{Vector{4,5}},
 		};
 		$adjList->fromMap($map);
+
 		$this->assertEquals($map, $adjList->toMap());
 	}
 
 	public function testCannotImportFromMapWhenListNotempty()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
+
 		$adjList->insertEdge(Vector{1,2});
 
 		try {
@@ -108,6 +138,7 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 	public function testCanSortByVertex()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
 
 		$adjList->insertEdge(Vector{1,2});
 		$adjList->insertEdge(Vector{3,4});
@@ -129,7 +160,8 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanSortByWeight()
 	{
-		$adjList = new DataStructure\AdjList(DataStructure\AdjList::WEIGHTED);
+		$adjList = new DataStructure\AdjList();
+		$adjList->setWeighted();
 
 		$adjList->insertEdge(Vector{1,2,3});
 		$adjList->insertEdge(Vector{3,4,6});
@@ -152,6 +184,7 @@ class AdjListTest extends \PHPUnit_Framework_TestCase
 	public function testCannotSortByWeightWhenNotWeightedList()
 	{
 		$adjList = new DataStructure\AdjList();
+		$adjList->setNotWeighted();
 		$adjList->insertEdge(Vector{1,2});
 
 		try {

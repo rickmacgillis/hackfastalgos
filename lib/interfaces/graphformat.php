@@ -15,4 +15,6 @@ interface GraphFormat
 	public function edgeExists(Vector $edge) : bool;
 	public function isWeighted() : bool;
 	public function insertEdge(Vector $edge);
+	public function setWeighted();
+	public function setNotWeighted();
 }

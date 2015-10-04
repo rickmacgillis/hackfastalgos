@@ -4,6 +4,20 @@ use HackFastAlgos\DataStructure as DataStructure;
 
 class AdjMatrixTest extends \PHPUnit_Framework_TestCase
 {
+	public function testCanSetToWeightedMatrix()
+	{
+		$adjMatrix = new DataStructure\AdjMatrix();
+		$adjMatrix->setWeighted();
+		$this->assertTrue($adjMatrix->isWeighted());
+	}
+
+	public function testCanSetToNotWeightedMatrix()
+	{
+		$adjMatrix = new DataStructure\AdjMatrix(DataStructure\AdjMatrix::WEIGHTED);
+		$adjMatrix->setNotWeighted();
+		$this->assertFalse($adjMatrix->isWeighted());
+	}
+
 	public function testCanSetInitialMatrixSizeForNonWeightedMatrix()
 	{
 		$adjMatrix = new DataStructure\AdjMatrix();

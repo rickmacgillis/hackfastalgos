@@ -43,6 +43,16 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 
  	public function __construct(protected int $matrixType = static::NOT_WEIGHTED){}
 
+	public function setWeighted()
+	{
+		$this->matrixType = static::WEIGHTED;
+	}
+
+	public function setNotWeighted()
+	{
+		$this->matrixType = static::NOT_WEIGHTED;
+	}
+
 	public function edgeExists(Vector $edge) : bool
 	{
 		if ($this->matrixCanContainEdge($edge)) {

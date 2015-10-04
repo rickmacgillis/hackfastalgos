@@ -150,8 +150,17 @@ class GraphFormat
 
 	protected function createEmptyAdjListOfWeightedType(bool $isWeighted)
 	{
-		$weighted = ($isWeighted === true) ? DataStructure\AdjList::WEIGHTED : DataStructure\AdjList::NOT_WEIGHTED;
-		$this->adjList = new DataStructure\AdjList($weighted);
+		$this->adjList = new DataStructure\AdjList();
+		$this->setObjectWeighting($this->adjList, $isWeighted);
+	}
+
+	protected function setObjectWeighting<T>(T $obj, bool $isWeighted)
+	{
+		if ($isWeighted === true) {
+			$obj->setWeighted();
+		} else {
+			$obj->setNotWeighted();
+		}
 	}
 
 	/**
@@ -185,8 +194,8 @@ class GraphFormat
 
 	protected function createEmptyAdjMatrixOfWeightedType(bool $isWeighted)
 	{
-		$weighted = ($isWeighted === true) ? DataStructure\AdjMatrix::WEIGHTED : DataStructure\AdjMatrix::NOT_WEIGHTED;
-		$this->adjMatrix = new DataStructure\AdjMatrix($weighted);
+		$this->adjMatrix = new DataStructure\AdjMatrix();
+		$this->setObjectWeighting($this->adjMatrix, $isWeighted);
 	}
 
 	protected function adjListToEdgeList<T>()
@@ -214,8 +223,8 @@ class GraphFormat
 
 	protected function createEmptyEdgeListOfWeightedType(bool $isWeighted)
 	{
-		$weighted = ($isWeighted === true) ? DataStructure\EdgeList::WEIGHTED : DataStructure\EdgeList::NOT_WEIGHTED;
-		$this->edgeList = new DataStructure\EdgeList($weighted);
+		$this->edgeList = new DataStructure\EdgeList();
+		$this->setObjectWeighting($this->edgeList, $isWeighted);
 	}
 
 	protected function getEdgeFromAdjEdgeVector(Vector $adjEdge, int $firstCoord) : Vector
