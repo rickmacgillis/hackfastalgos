@@ -133,19 +133,6 @@ class Sort
 		return $vector;
 	}
 
-	/**
-	 * Quick Sort works in big-O(n log n) time on average, though in the worst case, it
-	 * will operate in big-Omega(n^2) time. This method aims for a 3 to 1 split by taking
-	 * the median value of a random sampling of values from $array. As the sampling period
-	 * takes extra work, set the $minArraySize to the smallest array to take a sampling from.
-	 * Anything less than the specified array width will not using sampling.
-	 */
-	public static function quickSort(Vector<int> $vector, int $pivot = 0, int $numRandom = 9, int $minArraySize = 10) : Vector<int>
-	{
-		// https://en.wikipedia.org/wiki/Quicksort
-		// Shuffle first
-	}
-
 	public static function quickSort3(Vector<int> $vector, int $pivot = 0, int $numRandom = 9, int $minArraySize = 10) : Vector<int>
 	{
 		// http://www.sorting-algorithms.com/static/QuicksortIsOptimal.pdf
@@ -196,7 +183,7 @@ class Sort
 		$count = $vector->count();
 		for ($i = 0; $i < $count-1; $i++) {
 
-			$random = static::getRandomNumber($i+1, $count);
+			$random = Algos::getRandomNumber($i+1, $count);
 			$vector = static::swapValues($vector, $i, $random);
 
 		}
@@ -231,34 +218,5 @@ class Sort
 		}
 
 		return $gaps;
-	}
-
-	/**
-	 * Get a truely random number.
-	 *
-	 * Credits to @link http://php.net/manual/en/function.openssl-random-pseudo-bytes.php#104322
-	 */
-	protected static function getRandomNumber(int $min, int $max) : int
-	{
-		$range = $max - $min;
-		if ($range <= 0) {
-			return $min;
-		}
-
-		$log = log($range, 2);
-		$lenInBytes = (int) ($log / 8) + 1;
-		$lenInBits = (int) $log + 1;
-
-		// set all lower bits to 1
-		$filter = (int) (1 << $lenInBits) - 1;
-
-		do {
-		    $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($lenInBytes)));
-
-			// discard irrelevant bits
-		    $rnd = $rnd & $filter;
-		} while ($rnd >= $range);
-
-		return $min + $rnd;
 	}
 }

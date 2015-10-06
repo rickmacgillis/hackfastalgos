@@ -55,8 +55,12 @@ algorithms defined in that class.
 * **Palindrome**
 	* isPalindrome
 	* Manacher's Algorithm for finding the longest palindrome in the desired text
+* **Partition**
+	* Partition a vector around an integer.
 * **PolishNotation**
 	* An implementation of Polish Prefix Notation
+* **QuickSort**
+	* Implementation of Quick Sort
 * **Search**
 	* Binary search
 	* Brute force search
