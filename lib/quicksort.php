@@ -3,6 +3,7 @@
  * @author Rick Mac Gillis
  *
  * Implementation of Quick Sort
+ * Learn more @link https://en.wikipedia.org/wiki/Quicksort
  */
 
 namespace HackFastAlgos;
@@ -19,8 +20,6 @@ class QuickSort
 	/**
 	 * Quick Sort works in O(n log n) time on average, though in the worst case, it
 	 * will operate in O(n^2) time.
-	 *
-	 * Learn more @link https://en.wikipedia.org/wiki/Quicksort
 	 */
 	public function sort()
 	{
