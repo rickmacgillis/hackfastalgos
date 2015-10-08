@@ -38,6 +38,8 @@ algorithms defined in that class.
 * **Algos**
 * **ConvexHull**
 	* Calculate the convex hull using a Graham Scan.
+* **Cryptography**
+	* Algorithm to generate a secure random number
 * **Geometry**
 * **Graph**
 * **GraphFormat**
@@ -52,6 +54,8 @@ algorithms defined in that class.
 	* An implementation of Merge Sort
 * **MostFrequentWord**
 	* Calculate the most frequent word in the given text.
+* **MurmurHash3**
+	* Implementation of MurmurHash3
 * **Palindrome**
 	* isPalindrome
 	* Manacher's Algorithm for finding the longest palindrome in the desired text

@@ -183,7 +183,7 @@ class Sort
 		$count = $vector->count();
 		for ($i = 0; $i < $count-1; $i++) {
 
-			$random = Algos::getRandomNumber($i+1, $count);
+			$random = Cryptography::getRandomNumber($i+1, $count);
 			$vector = static::swapValues($vector, $i, $random);
 
 		}
