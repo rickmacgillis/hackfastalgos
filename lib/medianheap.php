@@ -70,7 +70,7 @@ class MedianHeap
 		return $this->getMedianFromEqualHeaps();
 	}
 
-	protected function balanceHeaps()
+	private function balanceHeaps()
 	{
 		while ($this->maxHeap->count() > $this->minHeap->count()) {
 			$this->minHeap->insert($this->maxHeap->extract());
@@ -81,7 +81,7 @@ class MedianHeap
 		}
 	}
 
-	protected function getMedianFromEqualHeaps() : int
+	private function getMedianFromEqualHeaps() : int
 	{
 		$firstNum = $this->maxHeap->extract();
 		$secondNum = $this->minHeap->extract();

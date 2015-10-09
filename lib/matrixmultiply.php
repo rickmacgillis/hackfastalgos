@@ -44,7 +44,7 @@ class MatrixMultiply
 		return $result;
 	}
 
-	protected function throwIfNotBothTwoByTwo()
+	private function throwIfNotBothTwoByTwo()
 	{
 		if (
 			$this->matrix1->count() !== 2 ||

@@ -138,13 +138,13 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		return $this->isWeighted() === true ? null : 0;
 	}
 
-	protected function matrixCanContainEdge(Vector $edge) : bool
+	private function matrixCanContainEdge(Vector $edge) : bool
 	{
 		$matrixSize = $this->getMatrixSize();
 		return $matrixSize > $edge[0] && $matrixSize > $edge[1];
 	}
 
-	protected function matrixValueMatchesEdge(?int $matrixValue, Vector $edge) : bool
+	private function matrixValueMatchesEdge(?int $matrixValue, Vector $edge) : bool
 	{
 		if ($this->isWeighted() === true && $matrixValue === $edge[2]) {
 			return true;
@@ -155,17 +155,17 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		return false;
 	}
 
-	protected function insertWeightedEdge(Vector $edge)
+	private function insertWeightedEdge(Vector $edge)
 	{
 		$this->adjMatrixData[$edge[0]][$edge[1]] = $edge[2];
 	}
 
-	protected function insertNonWeightedEdge(Vector $edge)
+	private function insertNonWeightedEdge(Vector $edge)
 	{
 		$this->adjMatrixData[$edge[0]][$edge[1]] = 1;
 	}
 
-	protected function throwIfWrongEdgeType(Vector $edge)
+	private function throwIfWrongEdgeType(Vector $edge)
 	{
 		if ($edge->count() === 2 && $this->isWeighted() === true) {
 			$this->throwEdgeIsNotWeightedException();
@@ -176,17 +176,17 @@ class AdjMatrix implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function throwEdgeIsNotWeightedException()
+	private function throwEdgeIsNotWeightedException()
 	{
 		throw new AdjMatrixEdgeIsNotWeightedException();
 	}
 
-	protected function throwEdgeIsWeightedException()
+	private function throwEdgeIsWeightedException()
 	{
 		throw new AdjMatrixEdgeIsWeightedException();
 	}
 
-	protected function throwIfNotEmpty()
+	private function throwIfNotEmpty()
 	{
 		if ($this->adjMatrixData->isEmpty() === false) {
 			throw new AdjMatrixNotEmptyException();

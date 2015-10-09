@@ -42,7 +42,7 @@ class Palindrome
 
 	/**
 	 * Manachers Algorithm
-	 * 
+	 *
 	 * Operates in Theta(n) time. (See incrementPalendromeLengthAtIndex for the reason
 	 * why it's not O(n^2).)
 	 */
@@ -64,7 +64,7 @@ class Palindrome
 
 	}
 
-	protected function addTextBoundaries()
+	private function addTextBoundaries()
 	{
 		if (empty($this->originalText)) {
 			$this->boundedText = '^$';
@@ -79,7 +79,7 @@ class Palindrome
 		$this->boundedText .= '#$';
 	}
 
-	protected function setPalindromeStartingLengthForIndex(int $index)
+	private function setPalindromeStartingLengthForIndex(int $index)
 	{
 		if ($this->rightPtr > $index) {
 
@@ -95,12 +95,12 @@ class Palindrome
 		}
 	}
 
-	protected function getLengthAtIndex(int $index) : int
+	private function getLengthAtIndex(int $index) : int
 	{
 		return $this->palindromeLengths[$index];
 	}
 
-	protected function getIndexOppositeOf(int $index) : int
+	private function getIndexOppositeOf(int $index) : int
 	{
 		return 2*$this->centerPtr - $index;
 	}
@@ -112,7 +112,7 @@ class Palindrome
 	 * are the strings it checks. Thus, the outer loop takes Theta(n) and this inner loop takes
 	 * a TOTAL of n iterations for ~2n time.
 	 */
-	protected function incrementPalendromeLengthAtIndex(int $index)
+	private function incrementPalendromeLengthAtIndex(int $index)
 	{
 		do {
 
@@ -128,7 +128,7 @@ class Palindrome
 		} while (1);
 	}
 
-	protected function retargetPointersForIndex(int $index)
+	private function retargetPointersForIndex(int $index)
 	{
 		$rightSideOfPalendrome = $index + $this->getLengthAtIndex($index);
 		if ($rightSideOfPalendrome > $this->rightPtr) {
@@ -137,7 +137,7 @@ class Palindrome
 		}
 	}
 
-	protected function getLongestPalindrome() : String
+	private function getLongestPalindrome() : String
 	{
 		$maxLen = 0;
 		$centerIndex = 0;

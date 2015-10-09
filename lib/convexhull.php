@@ -49,7 +49,7 @@ class ConvexHull
 	/**
 	 * Operates in Theta(n) time.
 	 */
-	protected function prepareCoordinatesList()
+	private function prepareCoordinatesList()
 	{
 		$lowestCoordinate = $this->findLowestYCoordinate();
 		$this->swapValues(0, $lowestCoordinate);
@@ -59,7 +59,7 @@ class ConvexHull
 	/**
 	 * Operates in Theta(n) time.
 	 */
-	protected function findLowestYCoordinate() : int
+	private function findLowestYCoordinate() : int
 	{
 		$count = $this->cartesianPoints->count();
 		$lowestPoint = 0;
@@ -74,14 +74,14 @@ class ConvexHull
 		return $lowestPoint;
 	}
 
-	protected function swapValues(int $indexA, int $indexB)
+	private function swapValues(int $indexA, int $indexB)
 	{
 		$oldA = $this->cartesianPoints[$indexA];
 		$this->cartesianPoints[$indexA] = $this->cartesianPoints[$indexB];
 		$this->cartesianPoints[$indexB] = $oldA;
 	}
 
-	protected function orderByPolarAngle()
+	private function orderByPolarAngle()
 	{
 		$this->enqueuePointsOrderedByAngle();
 		$this->importCartesianPointOrderedByAngle();
@@ -90,7 +90,7 @@ class ConvexHull
 	/**
 	 * Operates in Theta(n) time.
 	 */
-	protected function enqueuePointsOrderedByAngle()
+	private function enqueuePointsOrderedByAngle()
 	{
 		$count = $this->cartesianPoints->count();
 		for ($i = 1; $i < $count; $i++) {
@@ -99,7 +99,7 @@ class ConvexHull
 		}
 	}
 
-	protected function getAngleBetweenPoints(Vector<int> $point1, Vector<int> $point2) : float
+	private function getAngleBetweenPoints(Vector<int> $point1, Vector<int> $point2) : float
 	{
 		$deltaY = $point2[1] - $point1[1];
 		$deltaX = $point2[0] - $point1[0];
@@ -110,7 +110,7 @@ class ConvexHull
 	/**
 	 * Operates in Theta(n) time.
 	 */
-	protected function importCartesianPointOrderedByAngle()
+	private function importCartesianPointOrderedByAngle()
 	{
 		$count = $this->priorityQueue->count();
 		$this->cartesianPoints = Vector{$this->cartesianPoints[0]};
@@ -122,7 +122,7 @@ class ConvexHull
 	/**
 	 * Operates in Theta(n) time.
 	 */
-	protected function prependLastPointToList()
+	private function prependLastPointToList()
 	{
 		$numPoints = $this->cartesianPoints->count();
 		$formatted = Vector{
@@ -136,12 +136,12 @@ class ConvexHull
 		$this->cartesianPoints = $formatted;
 	}
 
-	protected function getPreviousSourceNode() : int
+	private function getPreviousSourceNode() : int
 	{
 		return $this->sourceNode === 0 ? $this->numPoints-1 : $this->sourceNode-1;
 	}
 
-	protected function isCcwTurn(int $destNode) : bool
+	private function isCcwTurn(int $destNode) : bool
 	{
 		$prevSourcePoint = $this->cartesianPoints[$this->getPreviousSourceNode()];
 		$sourcePoint = $this->cartesianPoints[$this->sourceNode];
@@ -149,7 +149,7 @@ class ConvexHull
 		return $this->pointsAreCcw($prevSourcePoint, $sourcePoint, $destPoint);
 	}
 
-	protected function pointsAreCcw(Vector $point1, Vector $point2, Vector $point3) : bool
+	private function pointsAreCcw(Vector $point1, Vector $point2, Vector $point3) : bool
 	{
 		$point2XMinusPoint1X = $point2[0] - $point1[0];
 		$point3YMinusPoint1Y = $point3[1] - $point1[1];
@@ -160,7 +160,7 @@ class ConvexHull
 		return $turn >= 0;
 	}
 
-	protected function decrementSourceNode()
+	private function decrementSourceNode()
 	{
 		if ($this->sourceNode > 0) {
 			$this->sourceNode--;

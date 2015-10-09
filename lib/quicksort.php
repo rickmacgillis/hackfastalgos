@@ -36,7 +36,7 @@ class QuickSort
 	 * Operates in O(log n) on average or O(n) time in the worst case when
 	 * the vector remains ordered.
 	 */
-	protected function sortRecurse(int $start, int $end)
+	private function sortRecurse(int $start, int $end)
 	{
 		if ($start < $end) {
 

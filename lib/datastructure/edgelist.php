@@ -102,7 +102,7 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		$this->queueToEdgeList();
 	}
 
-	protected function throwIfEdgeIsTheWrongFormat(Vector $edge)
+	private function throwIfEdgeIsTheWrongFormat(Vector $edge)
 	{
 		if ($edge->count() === 3 && $this->listType === static::NOT_WEIGHTED) {
 			$this->throwEdgeIsWeightedException();
@@ -113,17 +113,17 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function throwEdgeIsWeightedException()
+	private function throwEdgeIsWeightedException()
 	{
 		throw new EdgeListEdgeIsWeightedException();
 	}
 
-	protected function throwEdgeIsNotWeightedException()
+	private function throwEdgeIsNotWeightedException()
 	{
 		throw new EdgeListEdgeIsNotWeightedException();
 	}
 
-	protected function throwIfListNotEmpty()
+	private function throwIfListNotEmpty()
 	{
 		if ($this->edgeListData->isEmpty() === false) {
 			throw new EdgeListNotEmptyException();
@@ -133,7 +133,7 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 	/**
 	 * Operates in O(E log n) or Omega(E) time.
 	 */
-	protected function queueEdgesByPriorityIndex(int $priorityIndex)
+	private function queueEdgesByPriorityIndex(int $priorityIndex)
 	{
 		$edgeCount = $this->edgeListData->count();
 		for ($i = 0; $i < $edgeCount; $i++) {
@@ -145,7 +145,7 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 	/**
 	 * Operates in O(E log n) or Omega(E) time.
 	 */
-	protected function queueToEdgeList()
+	private function queueToEdgeList()
 	{
 		$numEdges = $this->edgeQueue->count();
 		$this->edgeListData = Vector{};
@@ -154,7 +154,7 @@ class EdgeList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function throwExceptionIfNotWeightedList()
+	private function throwExceptionIfNotWeightedList()
 	{
 		if ($this->isWeighted() === false) {
 			throw new EdgeListNotWeightedListException();

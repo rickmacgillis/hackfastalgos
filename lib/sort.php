@@ -191,7 +191,7 @@ class Sort
 		return $vector;
 	}
 
-	protected static function swapValues(Vector<int> $vector, int $indexA, int $indexB) : Vector<int>
+	private static function swapValues(Vector<int> $vector, int $indexA, int $indexB) : Vector<int>
 	{
 		$oldA = $vector[$indexA];
 		$vector[$indexA] = $vector[$indexB];
@@ -205,7 +205,7 @@ class Sort
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Shellsort#Gap_sequences
 	 */
-	protected static function getTokundaGaps(Vector<int> $vector) : Vector<int>
+	private static function getTokundaGaps(Vector<int> $vector) : Vector<int>
 	{
 		$count = $vector->count();
 		$gaps = Vector{};

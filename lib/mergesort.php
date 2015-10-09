@@ -28,7 +28,7 @@ class MergeSort
 		return $this->mergeSortAsync(0, $this->vector->count()-1);
 	}
 
-	protected async function mergeSortAsync<T>(int $start, int $end) : Awaitable<Vector<T>>
+	private async function mergeSortAsync<T>(int $start, int $end) : Awaitable<Vector<T>>
 	{
 		if ($start < $end) {
 
@@ -44,7 +44,7 @@ class MergeSort
 		return $this->vector;
 	}
 
-	protected async function mergeSortHalves(int $start, int $end) : Awaitable<Vector<int>>
+	private async function mergeSortHalves(int $start, int $end) : Awaitable<Vector<int>>
 	{
 		$mid = (int) floor(($start+$end)/2);
 		$this->mergeSortAsync($start, $mid);
@@ -53,7 +53,7 @@ class MergeSort
 		return Vector{$start, $mid, $end};
 	}
 
-	protected function merge<T>(int $startIndex, int $middleindex, int $endIndex) : Vector<T>
+	private function merge<T>(int $startIndex, int $middleindex, int $endIndex) : Vector<T>
 	{
 		$left	= $this->generateSubVector($startIndex, $middleindex);
 		$right	= $this->generateSubVector($middleindex+1, $endIndex);
@@ -68,7 +68,7 @@ class MergeSort
 		return $this->vector;
 	}
 
-	protected function importDataFromBothSubVectors<T>(Vector<T> $subvector1, Vector<T> $subvector2, int $startIndex) : Vector<int>
+	private function importDataFromBothSubVectors<T>(Vector<T> $subvector1, Vector<T> $subvector2, int $startIndex) : Vector<int>
 	{
 		$i = $j = 0;
 		$k = $startIndex;
@@ -87,7 +87,7 @@ class MergeSort
 		return Vector{$i, $j, $k};
 	}
 
-	protected function importDataFromSubVector<T>(Vector<T> $subvector, int $firstVectorKey, int $firstSubVectorKey) : int
+	private function importDataFromSubVector<T>(Vector<T> $subvector, int $firstVectorKey, int $firstSubVectorKey) : int
 	{
 		$j = $firstSubVectorKey;
 		$k = $firstVectorKey;
@@ -103,7 +103,7 @@ class MergeSort
 		return $k;
 	}
 
-	protected function generateSubVector<T>(int $startIndex, int $endIndex) : Vector<T>
+	private function generateSubVector<T>(int $startIndex, int $endIndex) : Vector<T>
 	{
 		$subVector	= Vector{};
 
@@ -114,7 +114,7 @@ class MergeSort
 		return $subVector;
 	}
 
-	protected static function compare<T>(T $item1, T $item2) : int
+	private static function compare<T>(T $item1, T $item2) : int
 	{
 		if ($item1 > $item2) {
 			return 1;

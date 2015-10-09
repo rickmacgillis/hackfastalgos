@@ -113,28 +113,28 @@ class Heap implements \Countable
 		return $this->getRootItemData();
 	}
 
-	protected function throwIfNotMinHeap()
+	private function throwIfNotMinHeap()
 	{
 		if ($this->heapType === static::MAX_HEAP) {
 			throw new HeapNotMinHeapException();
 		}
 	}
 
-	protected function throwIfNotMaxHeap()
+	private function throwIfNotMaxHeap()
 	{
 		if ($this->heapType === static::MIN_HEAP) {
 			throw new HeapNotMaxHeapException();
 		}
 	}
 
-	protected function throwIfHeapNotEmpty()
+	private function throwIfHeapNotEmpty()
 	{
 		if ($this->count() !== 0) {
 			throw new HeapNotEmptyException();
 		}
 	}
 
-	protected function throwIfEmptyHeap()
+	private function throwIfEmptyHeap()
 	{
 		if ($this->count() === 0) {
 			throw new HeapEmptyException();
@@ -146,7 +146,7 @@ class Heap implements \Countable
 	 *
 	 * Operates in O(log n) or Omega(1) time.
 	 */
-	protected function sink(int $startNode)
+	private function sink(int $startNode)
 	{
 		/*
 		 * Find the child nodes for the root node, then check which is smaller.
@@ -186,7 +186,7 @@ class Heap implements \Countable
 	 *
 	 * Operates in O(log n) or Omega(1) time.
 	 */
-	protected function swim(int $startNode)
+	private function swim(int $startNode)
 	{
 		/*
 		 * Find the parent for the child node. If it's parent is greater than
@@ -210,7 +210,7 @@ class Heap implements \Countable
 		 }
 	}
 
-	protected function getParentForChild(int $child) : int
+	private function getParentForChild(int $child) : int
 	{
 		if ($child === 0) {
 			return 0;
@@ -219,7 +219,7 @@ class Heap implements \Countable
 		return $child % 2 === 1 ? $child >> 1 : ($child >> 1) - 1;
 	}
 
-	protected function getLeftChildForParent(int $parent) : int
+	private function getLeftChildForParent(int $parent) : int
 	{
 		if ($parent === 0) {
 			return 1;
@@ -228,7 +228,7 @@ class Heap implements \Countable
 		return ($parent << 1) + 1;
 	}
 
-	protected function getRightChildForParent(int $parent) : int
+	private function getRightChildForParent(int $parent) : int
 	{
 		if ($parent === 0) {
 			return 2;
@@ -237,14 +237,14 @@ class Heap implements \Countable
 		return ($parent << 1) + 2;
 	}
 
-	protected function swap(int $key1, int $key2)
+	private function swap(int $key1, int $key2)
 	{
 		$tmp = $this->heapData[$key1];
 		$this->heapData[$key1] = $this->heapData[$key2];
 		$this->heapData[$key2] = $tmp;
 	}
 
-	protected function findKeyForItem<T>(T $item) : int
+	private function findKeyForItem<T>(T $item) : int
 	{
 		foreach ($this->heapData as $key => $value) {
 			if ($this->itemsAreIdentical($item, $value)) {

@@ -54,7 +54,7 @@ class MostFrequentWord
 		return $this->queue->dequeue();
 	}
 
-	protected function incrementWordCount(string $word)
+	private function incrementWordCount(string $word)
 	{
 		if ($this->freqData->containsKey($word)) {
 			$this->freqData[$word]++;

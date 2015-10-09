@@ -40,7 +40,7 @@ class Partition
 	/**
 	 * Operates in Theta(n) time.
 	 */
-	protected function reorderVector()
+	private function reorderVector()
 	{
 		$pivotValue = $this->vector[$this->pivot];
 
@@ -61,7 +61,7 @@ class Partition
 		}
 	}
 
-	protected function swap(int $index1, int $index2)
+	private function swap(int $index1, int $index2)
 	{
 		$bak = $this->vector[$index2];
 		$this->vector[$index2] = $this->vector[$index1];

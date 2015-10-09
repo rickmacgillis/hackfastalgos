@@ -124,7 +124,7 @@ class BST implements \Countable, \Iterator
 		// Rewind to the last proper value.
 	}
 
-	protected function compare<T>(T $item1, T $item2) : int
+	private function compare<T>(T $item1, T $item2) : int
 	{
 		if ($item1 < $item2) {
 			return -1;

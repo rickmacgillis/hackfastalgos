@@ -168,66 +168,66 @@ class DoublyLinkedList implements \Iterator, \Countable
 		$this->dllData->removeKey($node);
 	}
 
-	protected function throwIfInvalidNode(int $node)
+	private function throwIfInvalidNode(int $node)
 	{
 		if (!$this->nodeExists($node)) {
 			throw new DoublyLinkedListInvalidIndexException();
 		}
 	}
 
-	protected function nodeExists(int $node) : bool
+	private function nodeExists(int $node) : bool
 	{
 		return $this->dllData->containsKey($node);
 	}
 
-	protected function setPreviousNode(int $node, ?int $newPreviousNode)
+	private function setPreviousNode(int $node, ?int $newPreviousNode)
 	{
 		$this->dllData[$node][0] = $newPreviousNode;
 	}
 
-	protected function setNextNode(int $node, ?int $nextNode)
+	private function setNextNode(int $node, ?int $nextNode)
 	{
 		$this->dllData[$node][2] = $nextNode;
 	}
 
-	protected function getPreviousNode(int $node) : ?int
+	private function getPreviousNode(int $node) : ?int
 	{
 		return $this->dllData[$node][0];
 	}
 
-	protected function getNextNode(int $node) : ?int
+	private function getNextNode(int $node) : ?int
 	{
 		return $this->dllData[$node][2];
 	}
 
-	protected function isFirstNode(int $node) : bool
+	private function isFirstNode(int $node) : bool
 	{
 		return $this->dllData[$node][0] === null;
 	}
 
-	protected function isLastNode(int $node) : bool
+	private function isLastNode(int $node) : bool
 	{
 		return $this->dllData[$node][2] === null;
 	}
 
-	protected function createNode<T>(?int $previousNode, T $data, ?int $nextNode)
+	private function createNode<T>(?int $previousNode, T $data, ?int $nextNode)
 	{
 		$this->dllData[$this->openIndex] = tuple($previousNode, $data, $nextNode);
 	}
 
-	protected function createNodeBeforeNext<T>(T $data, int $nextNode)
+	private function createNodeBeforeNext<T>(T $data, int $nextNode)
 	{
 		$nextNodeData = $this->dllData[$nextNode];
 		$this->createNode($nextNodeData[0], $data, $nextNode);
 	}
 
-	protected function createNodeAfterPrevious<T>(T $data, int $previousNode)
+	private function createNodeAfterPrevious<T>(T $data, int $previousNode)
 	{
 		$previousNodeData = $this->dllData[$previousNode];
 		$this->createNode($previousNode, $data, $previousNodeData[2]);
 	}
 
-	protected function insertAtBeginningIfEmpty<T>(T $data, Callable $notEmpty)
+	private function insertAtBeginningIfEmpty<T>(T $data, Callable $notEmpty)
 	{
 		if ($this->count() === 0) {
 			$this->insertBeginning($data);

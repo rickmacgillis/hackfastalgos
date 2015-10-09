@@ -110,14 +110,14 @@ class GraphFormat
 		$this->sortMode = static::SORT_WEIGHTS;
 	}
 
-	protected function throwIfFromFormatAlreadySet()
+	private function throwIfFromFormatAlreadySet()
 	{
 		if ($this->getFromFormat() !== null) {
 			throw new GraphFormatFromTypeAlreadySetException();
 		}
 	}
 
-	protected function getFromFormat() : ?string
+	private function getFromFormat() : ?string
 	{
 		if ($this->edgeList !== null) {
 			return 'edgeList';
@@ -134,27 +134,27 @@ class GraphFormat
 		return null;
 	}
 
-	protected function throwIfFromFormatNotSet()
+	private function throwIfFromFormatNotSet()
 	{
 		if ($this->getFromFormat() === null) {
 			throw new GraphFormatFromTypeNotSetException();
 		}
 	}
 
-	protected function edgeListToAdjList<T>()
+	private function edgeListToAdjList<T>()
 	{
 		$this->createEmptyAdjListOfWeightedType($this->edgeList->isWeighted());
 		$this->insertEdgeListEdgesIntoObject($this->adjList);
 		$this->sortObjectIfSortingEnabled($this->adjList);
 	}
 
-	protected function createEmptyAdjListOfWeightedType(bool $isWeighted)
+	private function createEmptyAdjListOfWeightedType(bool $isWeighted)
 	{
 		$this->adjList = new DataStructure\AdjList();
 		$this->setObjectWeighting($this->adjList, $isWeighted);
 	}
 
-	protected function setObjectWeighting<T>(T $obj, bool $isWeighted)
+	private function setObjectWeighting<T>(T $obj, bool $isWeighted)
 	{
 		if ($isWeighted === true) {
 			$obj->setWeighted();
@@ -168,7 +168,7 @@ class GraphFormat
 	 * of the adjacency matrix. E is the number of edges.
 	 * Operates in Theta(E) time for adjacency lists.
 	 */
-	protected function insertEdgeListEdgesIntoObject<T>(T $object)
+	private function insertEdgeListEdgesIntoObject<T>(T $object)
 	{
 		$edgeListVector = $this->edgeList->toVector();
 		$edgeListCount = $edgeListVector->count();
@@ -178,7 +178,7 @@ class GraphFormat
 		}
 	}
 
-	protected function sortObjectIfSortingEnabled<T>(T $object)
+	private function sortObjectIfSortingEnabled<T>(T $object)
 	{
 		switch ($this->sortMode) {
 			case static::SORT_VERTEX: $object->sortByVertex(); break;
@@ -186,26 +186,26 @@ class GraphFormat
 		}
 	}
 
-	protected function edgeListToAdjMatrix()
+	private function edgeListToAdjMatrix()
 	{
 		$this->createEmptyAdjMatrixOfWeightedType($this->edgeList->isWeighted());
 		$this->insertEdgeListEdgesIntoObject($this->adjMatrix);
 	}
 
-	protected function createEmptyAdjMatrixOfWeightedType(bool $isWeighted)
+	private function createEmptyAdjMatrixOfWeightedType(bool $isWeighted)
 	{
 		$this->adjMatrix = new DataStructure\AdjMatrix();
 		$this->setObjectWeighting($this->adjMatrix, $isWeighted);
 	}
 
-	protected function adjListToEdgeList<T>()
+	private function adjListToEdgeList<T>()
 	{
 		$this->createEmptyEdgeListOfWeightedType($this->adjList->isWeighted());
 		$this->insertAdjListEdgesIntoObject($this->edgeList);
 		$this->sortObjectIfSortingEnabled($this->edgeList);
 	}
 
-	protected function insertAdjListEdgesIntoObject<T>(T $object)
+	private function insertAdjListEdgesIntoObject<T>(T $object)
 	{
 		$adjListMap = $this->adjList->toMap();
 		foreach ($adjListMap as $firstCoord => $adjEdges) {
@@ -221,13 +221,13 @@ class GraphFormat
 		}
 	}
 
-	protected function createEmptyEdgeListOfWeightedType(bool $isWeighted)
+	private function createEmptyEdgeListOfWeightedType(bool $isWeighted)
 	{
 		$this->edgeList = new DataStructure\EdgeList();
 		$this->setObjectWeighting($this->edgeList, $isWeighted);
 	}
 
-	protected function getEdgeFromAdjEdgeVector(Vector $adjEdge, int $firstCoord) : Vector
+	private function getEdgeFromAdjEdgeVector(Vector $adjEdge, int $firstCoord) : Vector
 	{
 		if ($adjEdge->count() === 2) {
 			return Vector{$firstCoord, $adjEdge[0], $adjEdge[1]};
@@ -236,20 +236,20 @@ class GraphFormat
 		return Vector{$firstCoord, $adjEdge[0]};
 	}
 
-	protected function adjListToAdjMatrix<T>()
+	private function adjListToAdjMatrix<T>()
 	{
 		$this->createEmptyAdjMatrixOfWeightedType($this->adjList->isWeighted());
 		$this->insertAdjListEdgesIntoObject($this->adjMatrix);
 	}
 
-	protected function adjMatrixToEdgeList()
+	private function adjMatrixToEdgeList()
 	{
 		$this->createEmptyEdgeListOfWeightedType($this->adjMatrix->isWeighted());
 		$this->insertAdjMatrixEdgesIntoObject($this->edgeList);
 		$this->sortObjectIfSortingEnabled($this->edgeList);
 	}
 
-	protected function insertAdjMatrixEdgesIntoObject<T>(T $object)
+	private function insertAdjMatrixEdgesIntoObject<T>(T $object)
 	{
 		$matrixVector = $this->adjMatrix->toVector();
 		$matrixSize = $matrixVector->count();
@@ -262,7 +262,7 @@ class GraphFormat
 		}
 	}
 
-	protected function insertEdgeOnObjectIfExistsInMatrix<T>(Vector $edge, T $object)
+	private function insertEdgeOnObjectIfExistsInMatrix<T>(Vector $edge, T $object)
 	{
 		$edgeWeight = $this->adjMatrix->getEdgeWeight($edge);
 		if ($edgeWeight !== $this->adjMatrix->getNoEdgeValue()) {
@@ -273,7 +273,7 @@ class GraphFormat
 		}
 	}
 
-	protected function adjMatrixToAdjList<T>()
+	private function adjMatrixToAdjList<T>()
 	{
 		$this->createEmptyAdjListOfWeightedType($this->adjMatrix->isWeighted());
 		$this->insertAdjMatrixEdgesIntoObject($this->adjList);

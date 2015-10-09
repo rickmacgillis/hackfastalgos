@@ -48,7 +48,7 @@ class Queue implements \Countable
 		return $first;
 	}
 
-	protected function throwIfEmptyQueue()
+	private function throwIfEmptyQueue()
 	{
 		if (empty($this->queueData)) {
 			throw new QueueEmptyException();

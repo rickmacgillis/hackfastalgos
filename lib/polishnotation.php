@@ -44,19 +44,19 @@ class PolishNotation
 		return $this->stack->pop();
 	}
 
-	protected function addFloatNumberToStack(float $number)
+	private function addFloatNumberToStack(float $number)
 	{
 		$this->stack[] = $number;
 	}
 
-	protected function calculateAndAddToStack(string $operator)
+	private function calculateAndAddToStack(string $operator)
 	{
 		$operand1 = $this->stack->pop();
 		$operand2 = $this->stack->pop();
 		$this->addFloatNumberToStack($this->calculateWithStringOperator($operator, $operand1, $operand2));
 	}
 
-	protected function calculateWithStringOperator(string $operator, float $num1, float $num2) : float
+	private function calculateWithStringOperator(string $operator, float $num1, float $num2) : float
 	{
 		switch ($operator) {
 

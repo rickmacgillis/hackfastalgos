@@ -102,32 +102,32 @@ class UnionFind
 		$this->totalSets--;
 	}
 
-	protected function setItemData(int $item, int $parent, int $rank)
+	private function setItemData(int $item, int $parent, int $rank)
 	{
 		$this->unionFindData[$item] = Vector{$parent, $rank};
 	}
 
-	protected function itemExists(int $item) : bool
+	private function itemExists(int $item) : bool
 	{
 		return $this->unionFindData->containsKey($item);
 	}
 
-	protected function getParent(int $item) : int
+	private function getParent(int $item) : int
 	{
 		return $this->unionFindData[$item][0];
 	}
 
-	protected function setParent(int $item, int $parent)
+	private function setParent(int $item, int $parent)
 	{
 		$this->unionFindData[$item][0] = $this->find($parent);
 	}
 
-	protected function getRank(int $item) : int
+	private function getRank(int $item) : int
 	{
 		return $this->unionFindData[$item][1];
 	}
 
-	protected function setRank(int $item, int $rank)
+	private function setRank(int $item, int $rank)
 	{
 		$this->unionFindData[$item][1] = $rank;
 	}

@@ -35,7 +35,7 @@ class MurmurHash3
 		return $this->hash;
 	}
 
-	protected function makeHash()
+	private function makeHash()
 	{
 		$keyLen = strlen($this->key);
 		for ($this->offset = 0, $bytes = $keyLen - ($this->remainder = $keyLen & 3) ; $this->offset < $bytes;) {
@@ -53,7 +53,7 @@ class MurmurHash3
 		}
 	}
 
-	protected function make8BitKeyMask()
+	private function make8BitKeyMask()
 	{
 		$this->keyHash = ((ord($this->key[$this->offset]) & 0xff))
 			| ((ord($this->key[++$this->offset]) & 0xff) << 8)
@@ -61,7 +61,7 @@ class MurmurHash3
 			| ((ord($this->key[++$this->offset]) & 0xff) << 24);
 	}
 
-	protected function handleEdgeCases()
+	private function handleEdgeCases()
 	{
 		$this->keyHash = 0;
 
@@ -86,7 +86,7 @@ class MurmurHash3
 		}
 	}
 
-	protected function finalize32BitHash()
+	private function finalize32BitHash()
 	{
 		$this->hash ^= strlen($this->key);
 		$this->hash ^= $this->hash >> 16;
@@ -96,7 +96,7 @@ class MurmurHash3
 		$this->hash ^= $this->hash >> 16;
 	}
 
-	protected function multiplyHashBy(int $hash, int $multiplier) : int
+	private function multiplyHashBy(int $hash, int $multiplier) : int
 	{
 		return ((($hash & 0xffff) * $multiplier) + (((($hash >> 16) * $multiplier) & 0xffff) << 16)) & 0xffffffff;
 	}

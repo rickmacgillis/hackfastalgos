@@ -115,17 +115,17 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		$this->queueToAdjList();
 	}
 
-	protected function startingVertexExists(int $vertex) : bool
+	private function startingVertexExists(int $vertex) : bool
 	{
 		return $this->adjListData->containsKey($vertex);
 	}
 
-	protected function getAdjacentEdgesForVertex(int $vertex) : Vector
+	private function getAdjacentEdgesForVertex(int $vertex) : Vector
 	{
 		return $this->adjListData[$vertex];
 	}
 
-	protected function adjEdgeIsTheSameAsExistingEdge(Vector $adjEdge, Vector $existingEdge) : bool
+	private function adjEdgeIsTheSameAsExistingEdge(Vector $adjEdge, Vector $existingEdge) : bool
 	{
 		if ($this->isWeighted() === true) {
 			return $existingEdge[0] === $adjEdge[1] && $existingEdge[1] === $adjEdge[2];
@@ -134,31 +134,31 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		return $existingEdge[0] === $adjEdge[1];
 	}
 
-	protected function isWeightedEdge(Vector $edge) : bool
+	private function isWeightedEdge(Vector $edge) : bool
 	{
 		return $edge->count() === 3;
 	}
 
-	protected function insertWeightedEdge(Vector $edge)
+	private function insertWeightedEdge(Vector $edge)
 	{
 		$this->insertStartingVertexIfNotExists($edge[0]);
 		$this->adjListData[$edge[0]][] = Vector{$edge[1], $edge[2]};
 	}
 
-	protected function insertNonWeightedEdge(Vector $edge)
+	private function insertNonWeightedEdge(Vector $edge)
 	{
 		$this->insertStartingVertexIfNotExists($edge[0]);
 		$this->adjListData[$edge[0]][] = Vector{$edge[1]};
 	}
 
-	protected function insertStartingVertexIfNotExists(int $vertex)
+	private function insertStartingVertexIfNotExists(int $vertex)
 	{
 		if ($this->startingVertexExists($vertex) === false) {
 			$this->adjListData[$vertex] = Vector{};
 		}
 	}
 
-	protected function throwIfWrongEdgeType(Vector $edge)
+	private function throwIfWrongEdgeType(Vector $edge)
 	{
 		if ($edge->count() === 3 && $this->listType === static::NOT_WEIGHTED) {
 			$this->throwEdgeIsWeightedException();
@@ -169,17 +169,17 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function throwEdgeIsWeightedException()
+	private function throwEdgeIsWeightedException()
 	{
 		throw new AdjListEdgeIsWeightedException();
 	}
 
-	protected function throwEdgeIsNotWeightedException()
+	private function throwEdgeIsNotWeightedException()
 	{
 		throw new AdjListEdgeIsNotWeightedException();
 	}
 
-	protected function throwIfListNotEmpty()
+	private function throwIfListNotEmpty()
 	{
 		if ($this->adjListData->isEmpty() === false) {
 			throw new AdjListNotEmptyException();
@@ -189,7 +189,7 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 	/**
 	 * Operates in O(E log n) or Omega(E) time.
 	 */
-	protected function queueEdgesByPriorityIndex(?int $priorityIndex)
+	private function queueEdgesByPriorityIndex(?int $priorityIndex)
 	{
 		foreach ($this->adjListData as $vertex => $adjEdges) {
 
@@ -205,7 +205,7 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function getEdgeFromVertexAndAdjacentEdge(int $vertex, Vector $adjEdge) : Vector
+	private function getEdgeFromVertexAndAdjacentEdge(int $vertex, Vector $adjEdge) : Vector
 	{
 		$edge = Vector{$vertex, $adjEdge[0]};
 		if ($this->isWeighted()) {
@@ -217,7 +217,7 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 	/**
 	 * Operates in O(E log n) or Omega(E) time.
 	 */
-	protected function queueToAdjList()
+	private function queueToAdjList()
 	{
 		$numEdges = $this->edgeQueue->count();
 		$this->adjListData = Map{};
@@ -226,7 +226,7 @@ class AdjList implements \HackFastAlgos\Interfaces\GraphFormat
 		}
 	}
 
-	protected function throwExceptionIfNotWeightedList()
+	private function throwExceptionIfNotWeightedList()
 	{
 		if ($this->isWeighted() === false) {
 			throw new AdjListNotWeightedListException();
