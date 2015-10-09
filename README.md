@@ -92,11 +92,13 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **BPlusTree**
 * **BST** - BST is an implementation of a Binary Search Tree.
 * **BTree**
+* **Dictionary**
 * **DoublyLinkedList**
 * **EdgeList**
 * **GameTree**
 * **HashTable**
 * **Heap** - An implementation of a binary heap supporting both MinHeap and MaxHeap types
+* **indexer** - An indexing client
 * **IntervalTree** - An implementation of an Interval Search Tree
 * **KDTree** - An implementation of a K-dimensional tree
 * **LRUCache**
@@ -104,6 +106,7 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **Queue**
 * **RBTree** - RBTree is an implementation of a Left-Leaning Red-Black Tree.
 * **Schedule**
+* **Set**
 * **SplayTree**
 * **Stack**
 * **TernarySearchTree**
