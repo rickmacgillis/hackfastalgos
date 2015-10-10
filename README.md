@@ -96,7 +96,7 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **DoublyLinkedList**
 * **EdgeList**
 * **GameTree**
-* **HashTable**
+* **HashTableOA** - An implementation of a hash table using the open addressing strategy
 * **Heap** - An implementation of a binary heap supporting both MinHeap and MaxHeap types
 * **indexer** - An indexing client
 * **IntervalTree** - An implementation of an Interval Search Tree
