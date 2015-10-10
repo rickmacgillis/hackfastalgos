@@ -90,28 +90,36 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **Bag**
 * **BloomFilter**
 * **BPlusTree**
-* **BST** - BST is an implementation of a Binary Search Tree.
+* **BST**
+	* BST is an implementation of a Binary Search Tree.
 * **BTree**
 * **Dictionary**
 * **DoublyLinkedList**
 * **EdgeList**
 * **GameTree**
-* **HashTableOA** - An implementation of a hash table using the open addressing strategy
-* **Heap** - An implementation of a binary heap supporting both MinHeap and MaxHeap types
-* **indexer** - An indexing client
-* **IntervalTree** - An implementation of an Interval Search Tree
-* **KDTree** - An implementation of a K-dimensional tree
+* **HashTableOA**
+	* An implementation of a hash table using the open addressing strategy
+* **Heap**
+	* An implementation of a binary heap supporting both MinHeap and MaxHeap types
+* **indexer**
+	* An indexing client
+* **IntervalTree**
+	* An implementation of an Interval Search Tree
+* **KDTree**
+	* An implementation of a K-dimensional tree
 * **LRUCache**
 * **PriorityQueue**
 * **Queue**
-* **RBTree** - RBTree is an implementation of a Left-Leaning Red-Black Tree.
+* **RBTree**
+	* RBTree is an implementation of a Left-Leaning Red-Black Tree.
 * **Schedule**
 * **Set**
 * **SplayTree**
 * **Stack**
 * **TernarySearchTree**
 * **TwoThreeTree**
-* **UnionFind** - The union-find data structure is also named the disjoint-set or merge-find.
+* **UnionFind**
+	* The union-find data structure is also named the disjoint-set or merge-find.
 
 Notes on Slower Algorithms
 --------------------------
@@ -119,8 +127,7 @@ Notes on Slower Algorithms
 There are a number of "slower" algorithms included in this library, so let me explain why I've chosen to include them.
 First, I'll define what I mean when I'm discussing the speed of the algorithms.
 
-When measuring the speed of an algorithm, computer scientists talk in [asymptotic notation](https://www.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/asymptotic-notation). There
-are three types of asymptotic notation: Big-O, Big-Omega, and Big-Theta.
+When measuring the speed of an algorithm, computer scientists talk in [asymptotic notation](https://www.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/asymptotic-notation). There are three types of asymptotic notation: Big-O, Big-Omega, and Big-Theta.
 
 Big-O is the most popular, as it signifies the upper-bound of the running time, meaning that in the worst-case
 situation, the algorithm will not run any slower than the Big-O time. Big-Omega signifies the opposite of Big-O. It
@@ -150,8 +157,7 @@ Contributing
 
 When creating a pull-request, check the following.
 
-1. Be sure to add a proper doc block to each method you create, even if it's a protected or private method. Especially
-include a summary, @param, and @return information.
+1. Keep to the Agile standards.
 2. Keep with the coding standards you see in front of you. This project uses [PSR-1](http://www.php-fig.org/psr/psr-1/)
 and [PSR-2](http://www.php-fig.org/psr/psr-2/) coding standards.
 3. In your doc block, remember to signify the asymptotic notation for your algorithm. Use the most strict notation possible.
@@ -159,9 +165,9 @@ and [PSR-2](http://www.php-fig.org/psr/psr-2/) coding standards.
 ensure the quality of your code, you must use typing.
 5. If you're creating a new object, use the "HackFastAlgos" namespace to prevent code conflicts with other projects.
 6. Each file is named the same as the class it contains, and only one class may reside in a given file. The exception
-to the rule is that you may include an exception class *before* your main class.
-7. Always throw *custom* exceptions for every type of exception. Name your exceptions in the following format. `<CLASS><TYPE>Exception`
-(Ex. `DoublyLinkedListInvalidIndexException`)
+to the rule is that you may include exception classes *before* your main class.
+7. Always throw *custom* exceptions for every type of exception. Name your exceptions in the following format.
+`<CLASS><TYPE>Exception` (Ex. `DoublyLinkedListInvalidIndexException`)
 
 This Library In Other Languages
 -------------------------------
