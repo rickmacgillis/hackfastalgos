@@ -7,15 +7,17 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class HashTableOAOutOfBoundsException extends \Exception{}
-
 class HashTableOA extends HashTable
 {
-	private array $hashTableData = [];
-	private int $totalItems = 0;
-	private int $openAddrProbe = 23;
-	private int $iterationPtr = 0;
+	protected int $totalItems = 0;
+	protected int $iterationPtr = 0;
 
+	private array $hashTableData = [];
+	private int $openAddrProbe = 23;
+
+	/**
+	 * Operates in O(n) or Omega(1) time. (O(n) is when everything hashes to the same address.)
+	 */
 	public function insert<T>(T $key, T $value)
 	{
 		$hash = $this->hash($key);
@@ -24,28 +26,16 @@ class HashTableOA extends HashTable
 		$this->totalItems++;
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time. (O(n) is when everything hashes to the same address.)
+	 */
 	public function delete<T>(T $key)
 	{
 		$hashForKey = $this->getHashForKey($key);
-		$this->hashTableData[$hashForKey] = Vector{null, null};
-		$this->totalItems--;
-	}
-
-	public function contains<T>(T $key) : bool
-	{
-		try {
-			$this->lookup($key);
-			return true;
-		} catch (HashTableOAOutOfBoundsException $e) {
-			return false;
+		if (!$this->isOpenAddress($hashForKey)) {
+			$this->hashTableData[$hashForKey] = Vector{null, null};
+			$this->totalItems--;
 		}
-	}
-
-	public function lookup<T>(T $key) : T
-	{
-		$hash = $this->hash($key);
-		$value = $this->getValueForKey<T>($key);
-		return $value;
 	}
 
 	public function count() : int
@@ -63,14 +53,6 @@ class HashTableOA extends HashTable
 	{
 		$hash = key($this->hashTableData);
 		return $this->hashTableData[$hash][0];
-	}
-
-	public function valid() : bool
-	{
-		if ($this->iterationPtr < 0 || $this->iterationPtr >= $this->totalItems) {
-			return false;
-		}
-		return true;
 	}
 
 	public function next()
@@ -91,6 +73,9 @@ class HashTableOA extends HashTable
 		reset($this->hashTableData);
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time. (O(n) is when everything hashes to the same address.)
+	 */
 	private function getHashForKey<T>(T $key) : int
 	{
 		$hash = $this->hash($key);
@@ -112,9 +97,11 @@ class HashTableOA extends HashTable
 		return $hash;
 	}
 
-	private function getValueForKey<T>(T $key) : T
+	/**
+	 * Operates in O(n) or Omega(1) time. (O(n) is when everything hashes to the same address.)
+	 */
+	protected function getValueForKey<T>(T $key, int $hash) : T
 	{
-		$hash = $this->hash($key);
 		while ($this->keyIsNotAtAddress($key, $hash)) {
 			$hash = $this->getNextAddress($hash);
 		}
@@ -124,7 +111,7 @@ class HashTableOA extends HashTable
 
 	private function isOpenAddress(int $hash) : bool
 	{
-		return empty($this->hashTableData[$hash]) || $this->hashTableData[$hash] === null;
+		return empty($this->hashTableData[$hash]) || $this->hashTableData[$hash] === Vector{null, null};
 	}
 
 	private function getKeyFromHash<T>(int $hash) : T
@@ -142,7 +129,7 @@ class HashTableOA extends HashTable
 	private function throwIfInvalidAddress(int $hash)
 	{
 		if ($this->isOpenAddress($hash)) {
-			throw new HashTableOAOutOfBoundsException();
+			throw new HashTableOutOfBoundsException();
 		}
 	}
 }

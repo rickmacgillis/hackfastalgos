@@ -30,7 +30,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 
 	public function current<T>() : T
 	{
-		if ($this->pointer == null || !$this->dllData->containsKey($this->pointer)) {
+		if ($this->pointer === null || !$this->dllData->containsKey($this->pointer)) {
 			throw new DoublyLinkedListInvalidIndexException();
 		}
 
@@ -39,7 +39,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 
 	public function valid() : bool
 	{
-		return $this->pointer == null ? false : $this->dllData->containsKey($this->pointer);
+		return $this->pointer === null ? false : $this->dllData->containsKey($this->pointer);
 	}
 
 	public function key() : int

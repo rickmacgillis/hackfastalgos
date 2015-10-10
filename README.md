@@ -97,6 +97,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **DoublyLinkedList**
 * **EdgeList**
 * **GameTree**
+* **HashTableChain**
+	* An implementation of a hash table using a doubly linked list
 * **HashTableOA**
 	* An implementation of a hash table using the open addressing strategy
 * **Heap**
