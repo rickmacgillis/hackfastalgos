@@ -93,7 +93,6 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **BST**
 	* BST is an implementation of a Binary Search Tree.
 * **BTree**
-* **Dictionary**
 * **DoublyLinkedList**
 * **EdgeList**
 * **GameTree**
