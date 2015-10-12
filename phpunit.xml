@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit colors="true" stopOnFailure="false" bootstrap="./autoload.php">
+<phpunit
+	colors="true"
+	stopOnFailure="false"
+	bootstrap="./autoload.php"
+	processIsolation="false"
+>
 	<testsuites>
 		<testsuite name="HackFastAlgos">
 			<directory suffix=".php">./tests</directory>

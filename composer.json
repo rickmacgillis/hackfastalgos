@@ -18,10 +18,10 @@
 	},
 
 	"require": {
-		"hhvm": "~3.5.0"
+		"hhvm": "~3.9.1"
 	},
 
 	"require-dev": {
-		"phpunit/phpunit": "~4.8.6"
+		"phpunit/phpunit": "~5.0.4"
 	}
 }
