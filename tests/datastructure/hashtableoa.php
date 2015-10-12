@@ -11,6 +11,6 @@ class HashTableOATest extends \HashTableTest
 	 */
 	public function createHashTable()
 	{
-		$this->hashTable = new DataStructure\HashTableOA(10);
+		$this->hashTable = new DataStructure\HashTableOA(10, 1);
 	}
 }

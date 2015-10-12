@@ -25,10 +25,10 @@ abstract class HashTableTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanGetCorrectValueForKeyWhenCollisionOccurs()
 	{
-		$this->hashTable->insert('213398ac-92b6-4752-ab77-faecf37d4c9a', 'cataract oh cataract');
-		$this->hashTable->insert('d6172a08-a11a-4dda-d4fa-25cd1135e8e8', 'periti - holy holy ho!');
+		$this->hashTable->insert('28b4768b-d3ae-4adb-bb5b-a07a5bbb1334', 'cataract oh cataract');
+		$this->hashTable->insert('0452dec8-9c26-45a1-a2bc-0811ba4ecdc8', 'periti - holy holy ho!');
 
-		$this->assertSame('periti - holy holy ho!', $this->hashTable->lookup('d6172a08-a11a-4dda-d4fa-25cd1135e8e8'));
+		$this->assertSame('periti - holy holy ho!', $this->hashTable->lookup('0452dec8-9c26-45a1-a2bc-0811ba4ecdc8'));
 	}
 
 	public function testWillThrowExceptionWhenKeyIsOutOfBounds()
@@ -80,11 +80,11 @@ abstract class HashTableTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanDeleteItemAndRetrieveAnitemAddedDuringCollisionResolution()
 	{
-		$this->hashTable->insert('213398ac-92b6-4752-ab77-faecf37d4c9a', 'cataract oh cataract');
-		$this->hashTable->insert('d6172a08-a11a-4dda-d4fa-25cd1135e8e8', 'periti - holy holy ho!');
-		$this->hashTable->delete('213398ac-92b6-4752-ab77-faecf37d4c9a');
+		$this->hashTable->insert('28b4768b-d3ae-4adb-bb5b-a07a5bbb1334', 'cataract oh cataract');
+		$this->hashTable->insert('0452dec8-9c26-45a1-a2bc-0811ba4ecdc8', 'periti - holy holy ho!');
+		$this->hashTable->delete('28b4768b-d3ae-4adb-bb5b-a07a5bbb1334');
 
-		$this->assertTrue($this->hashTable->contains('d6172a08-a11a-4dda-d4fa-25cd1135e8e8'));
+		$this->assertTrue($this->hashTable->contains('0452dec8-9c26-45a1-a2bc-0811ba4ecdc8'));
 	}
 
 	public function testCanGetNumberOfItems()
@@ -97,8 +97,8 @@ abstract class HashTableTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanIterateThroughHashTable()
 	{
-		$this->hashTable->insert('213398ac-92b6-4752-ab77-faecf37d4c9a', 'cataract oh cataract');
-		$this->hashTable->insert('d6172a08-a11a-4dda-d4fa-25cd1135e8e8', 'periti - holy holy ho!');
+		$this->hashTable->insert('28b4768b-d3ae-4adb-bb5b-a07a5bbb1334', 'cataract oh cataract');
+		$this->hashTable->insert('0452dec8-9c26-45a1-a2bc-0811ba4ecdc8', 'periti - holy holy ho!');
 		$this->hashTable->insert('my key', 'he likes it');
 
 		$this->hashTable->rewind();
@@ -109,7 +109,7 @@ abstract class HashTableTest extends \PHPUnit_Framework_TestCase
 
 		$this->hashTable->rewind();
 		$this->assertTrue($this->hashTable->valid());
-		$this->assertSame('213398ac-92b6-4752-ab77-faecf37d4c9a', $this->hashTable->key());
+		$this->assertSame('28b4768b-d3ae-4adb-bb5b-a07a5bbb1334', $this->hashTable->key());
 		$this->assertSame('cataract oh cataract', $this->hashTable->current());
 
 		$this->hashTable->next();

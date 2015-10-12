@@ -7,7 +7,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 	public function testCanAddItemToSet()
 	{
 		$set = new DataStructure\Set(1);
-		$set->add('entry');
+		$set->insert('entry');
 
 		$this->assertTrue($set->contains('entry'));
 	}
@@ -15,7 +15,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 	public function testCanRemoveItem()
 	{
 		$set = new DataStructure\Set(1);
-		$set->add('entry');
+		$set->insert('entry');
 		$set->delete('entry');
 
 		$this->assertFalse($set->contains('entry'));
@@ -26,7 +26,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 		$set = new DataStructure\Set(1);
 		$this->assertSame(0, $set->count());
 
-		$set->add('entry');
+		$set->insert('entry');
 		$this->assertSame(1, $set->count());
 
 		$set->delete('entry');
@@ -36,9 +36,9 @@ class SetTest extends \PHPUnit_Framework_TestCase
 	public function testCanIterateThroughSet()
 	{
 		$set = new DataStructure\Set(3);
-		$set->add('entry1');
-		$set->add('entry2');
-		$set->add('entry3');
+		$set->insert('entry1');
+		$set->insert('entry2');
+		$set->insert('entry3');
 
 		$set->rewind();
 		$this->assertTrue($set->valid());
@@ -48,7 +48,6 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
 		$set->rewind();
 		$this->assertTrue($set->valid());
-
 		$this->assertSame('entry1', $set->key());
 		$this->assertSame('entry1', $set->current());
 

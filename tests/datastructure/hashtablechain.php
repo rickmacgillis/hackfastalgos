@@ -11,6 +11,6 @@ class HashTableChainTest extends \HashTableTest
 	 */
 	public function createHashTable()
 	{
-		$this->hashTable = new DataStructure\HashTableChain(10);
+		$this->hashTable = new DataStructure\HashTableChain(10, 1);
 	}
 }

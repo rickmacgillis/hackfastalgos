@@ -1,0 +1,15 @@
+This library's main purpose is to aid software developers in their conquest of learning algorithms and data
+structures. If you intend to use the library as a learning or teaching tool, be advised that there are often multiple
+ways to write the algorithm concepts. For instance, MergeSort does not need to run its recursion asynchronously, and
+certain programming languages do not support asynchronous work-flows. The anthem of any good algorithm designer is,
+"Can we make it better (faster/more memory efficient/more memory focused)?"
+
+Companies rely on speed and space-efficient code to keep their websites and projects running smoothly. You'll find
+that some of these algorithms are only either efficient on large data sets (Ex. Lots of array elements) or require
+appropriate parameters for the task at hand. (Such as the configuration of Quick Sort's parameters) I've commented
+on each algorithm's running times and storage requirements by using asymptotic notation.
+
+Keep in mind that HHVM is written primarily in C++ and C, and has a lot of built-in functionality that uses these
+algorithms. (Ex. sort() uses an implementation of Quick Sort) Therefore, it's often faster to use the built in
+functionality. However built in functions do not always give you the fine tuning capabilities required when working
+with larger datasets.

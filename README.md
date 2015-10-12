@@ -102,8 +102,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 	* An implementation of a hash table using the open addressing strategy
 * **Heap**
 	* An implementation of a binary heap supporting both MinHeap and MaxHeap types
-* **indexer**
-	* An indexing client
+* **Indexer**
+	* Find a word in a file, and get the surrounding context of that word in each file in which it appears
 * **IntervalTree**
 	* An implementation of an Interval Search Tree
 * **KDTree**

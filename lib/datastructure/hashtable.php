@@ -22,7 +22,11 @@ abstract class HashTable implements \Countable, \ArrayAccess, \Iterator
 	abstract public function prev();
 	abstract public function rewind();
 
-	public function __construct(private $hashTableSize, private int $ddosSeed = 0){}
+	public function __construct(private $hashTableSize, private int $ddosSeed = 0){
+		if ($this->ddosSeed === 0) {
+			$this->ddosSeed = \HackFastAlgos\Cryptography::getRandomNumber(0, 999999);
+		}
+	}
 
 	/**
 	 * Operates in O(n) or Omega(1) time. (O(n) is when everything hashes to the same address.)
