@@ -35,10 +35,13 @@ class MurmurHash3
 		return $this->hash;
 	}
 
+	/**
+	 * Operates in Theta(n) time.
+	 */
 	private function makeHash()
 	{
 		$keyLen = strlen($this->key);
-		for ($this->offset = 0, $bytes = $keyLen - ($this->remainder = $keyLen & 3) ; $this->offset < $bytes;) {
+		for ($this->offset = 0, $bytes = $keyLen - ($this->remainder = $keyLen & 3); $this->offset < $bytes;) {
 
 			$this->make8BitKeyMask();
 			$this->offset++;

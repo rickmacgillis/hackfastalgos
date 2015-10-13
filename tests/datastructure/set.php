@@ -60,6 +60,10 @@ class SetTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('entry3', $set->key());
 		$this->assertSame('entry3', $set->current());
 
+		/**
+		 * @TODO Using Set with hashTableChain results in this entry being wrong sometimes.
+		 * - Currently testing with HashTableOA to see if the issue persists before troubleshooting further
+		 */
 		$set->prev();
 		$this->assertSame('entry2', $set->key());
 		$this->assertSame('entry2', $set->current());

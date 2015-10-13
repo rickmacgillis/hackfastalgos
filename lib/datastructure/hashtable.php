@@ -75,6 +75,9 @@ abstract class HashTable implements \Countable, \ArrayAccess, \Iterator
 		$this->delete($key);
 	}
 
+	/**
+	 * Runs in Theta(n) time.
+	 */
 	protected function hash<T>(T $key) : int
 	{
 		$murmur = new \HackFastAlgos\MurmurHash3();
@@ -84,6 +87,6 @@ abstract class HashTable implements \Countable, \ArrayAccess, \Iterator
 
 	private function getReducedHashValue(int $hash) : int
 	{
-		return $hash % ($this->hashTableSize * 8);
+		return $hash % ($this->hashTableSize * 2);
 	}
 }

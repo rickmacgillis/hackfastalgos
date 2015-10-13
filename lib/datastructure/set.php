@@ -7,7 +7,7 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class Set extends HashTableChain implements \Iterator, \Countable
+class Set extends HashTableOA implements \Iterator, \Countable
 {
 	public function insert<T>(T $item, T $itemOverride = 0)
 	{

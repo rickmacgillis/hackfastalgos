@@ -7,7 +7,7 @@
 
 class Geometry
 {
-	public static function OneDrangeSearch()
+	public static function OneDRangeSearch()
 	{
 		/*
 		 * Use a KD-Tree to find the number of points in a given range. Also create a method to retrieve

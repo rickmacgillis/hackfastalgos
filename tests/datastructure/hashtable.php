@@ -27,7 +27,7 @@ abstract class HashTableTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->hashTable->insert('28b4768b-d3ae-4adb-bb5b-a07a5bbb1334', 'cataract oh cataract');
 		$this->hashTable->insert('0452dec8-9c26-45a1-a2bc-0811ba4ecdc8', 'periti - holy holy ho!');
-
+		
 		$this->assertSame('periti - holy holy ho!', $this->hashTable->lookup('0452dec8-9c26-45a1-a2bc-0811ba4ecdc8'));
 	}
 

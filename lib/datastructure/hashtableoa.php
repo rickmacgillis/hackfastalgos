@@ -20,7 +20,6 @@ class HashTableOA extends HashTable
 	 */
 	public function insert<T>(T $key, T $value)
 	{
-		$hash = $this->hash($key);
 		$hashForKey = $this->getHashForKey($key);
 		$this->hashTableData[$hashForKey] = Vector{$key, $value};
 		$this->totalItems++;
