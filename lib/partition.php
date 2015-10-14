@@ -10,6 +10,7 @@ namespace HackFastAlgos;
 class Partition
 {
 	private int $pivot = 0;
+	private int $pivotValue = 0;
 	private int $left = 0;
 	private int $right = 0;
 
@@ -18,11 +19,14 @@ class Partition
 	/**
 	 * Operates in Theta(n) time.
 	 */
-	public function partition(int $left = 0, ?int $right = null) : Vector<int>
+	public function partition(int $left = 0, ?int $right = null, ?int $pivot = null) : Vector<int>
 	{
+		$this->pivot = $pivot === null ? $left : $pivot;
+		$this->pivotValue = $this->vector[$this->pivot];
+		$this->swap($this->pivot, $left);
+
 		$this->right = ($right === null) ? $this->vector->count()-1 : $right;
 		$this->left = $left;
-		$this->pivot = $left;
 
 		$this->reorderVector();
 
@@ -42,15 +46,13 @@ class Partition
 	 */
 	private function reorderVector()
 	{
-		$pivotValue = $this->vector[$this->pivot];
-
 		while ($this->left < $this->right) {
 
-			while ($this->left < $this->right && $this->vector[$this->left] <= $pivotValue) {
+			while ($this->left < $this->right && $this->vector[$this->left] <= $this->pivotValue) {
 				$this->left++;
 			}
 
-			while ($this->vector[$this->right] > $pivotValue) {
+			while ($this->vector[$this->right] > $this->pivotValue) {
 				$this->right--;
 			}
 

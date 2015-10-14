@@ -50,8 +50,8 @@ algorithms defined in that class.
 	* Strassen's Matrix Multiplication
 * **MedianHeap**
 	* Get the median number in a stream if integers.
+* **MedianOfMedians**
 * **MergeSort**
-	* An implementation of Merge Sort
 * **MostFrequentWord**
 	* Calculate the most frequent word in the given text.
 * **MurmurHash3**
@@ -63,12 +63,11 @@ algorithms defined in that class.
 	* Partition a vector around an integer.
 * **PolishNotation**
 	* An implementation of Polish Prefix Notation
+* **QuickSelect**
 * **QuickSort**
-	* Implementation of Quick Sort
 * **Search**
 	* Binary search
 	* Brute force search
-* **Select**
 * **Sort**
 	* Selection Sort
 	* Bubble Sort
