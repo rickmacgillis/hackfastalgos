@@ -16,7 +16,7 @@ class Sort
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Selection_sort
 	 */
-	public static function selectionSort<T>(Vector<T> $vector, Callable $callback) : Vector<T>
+	public static function selectionSort(Vector<int> $vector) : Vector<int>
 	{
 		$vectorLen = $vector->count();
 
@@ -26,7 +26,7 @@ class Sort
 			// Loop through the sub-vector to find any values less than $i, and swap them.
 			for ($j = $i+1; $j < $vectorLen; $j++) {
 
-				if ($callback($vector[$i], $vector[$j]) > 0) {
+				if (static::compare($vector[$i], $vector[$j]) > 0) {
 
 					$vector = static::swapValues($vector, $i, $j);
 
@@ -47,7 +47,7 @@ class Sort
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Bubble_sort
 	 */
-	public static function bubbleSort<T>(Vector<T> $vector, Callable $compareCallback) : Vector<T>
+	public static function bubbleSort(Vector<int> $vector) : Vector<int>
 	{
 		$sortLen = $vector->count();
 		while ($sortLen > 0) {
@@ -56,7 +56,7 @@ class Sort
 
 			for ($i = 1; $i < $sortLen; $i++) {
 
-				if ($compareCallback($vector[$i-1], $vector[$i]) > 0) {
+				if (static::compare($vector[$i-1], $vector[$i]) > 0) {
 
 					static::swapValues($vector, $i-1, $i);
 					$newLen = $i;
@@ -79,17 +79,17 @@ class Sort
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Insertion_sort
 	 */
-	public static function insertSort<T>(Vector<T> $vector, Callable $compareCallback) : Vector<T>
+	public static function insertSort(Vector<int> $vector, int $left = 0, ?int $right = null) : Vector<int>
 	{
-		$vectorLen = $vector->count();
-		for ($i = 1; $i < $vectorLen; $i++) {
+		$vectorLen = $right === null ? $vector->count()-1 : $right;
+		for ($i = $left+1; $i <= $vectorLen; $i++) {
 
 			$key = $vector[$i];
 			$j = $i;
 
-			while ($j > 0) {
+			while ($j > $left) {
 
-				if ($compareCallback($vector[$j-1], $key) <= 0) {
+				if (static::compare($vector[$j-1], $key) <= 0) {
 					break;
 				}
 
@@ -109,7 +109,7 @@ class Sort
 	 * Learn more @link https://en.wikipedia.org/wiki/Shellsort
 	 * Operates in O(n^2) and Omega(n log^2 n) time.
 	 */
-	public static function shellSort(Vector<T> $vector, Callable $compareCallback) : Vector<T>
+	public static function shellSort(Vector<int> $vector) : Vector<int>
 	{
 		$gaps = static::getTokundaGaps($vector);
 		while (!$gaps->isEmpty()){
@@ -120,7 +120,7 @@ class Sort
 
 				$key = $vector[$i];
 
-				for ($j = $i; $j >= $gap && $compareCallback($vector[$j-$gap], $key) > 0; $j -= $gap) {
+				for ($j = $i; $j >= $gap && static::compare($vector[$j-$gap], $key) > 0; $j -= $gap) {
 		            $vector[$j] = $vector[$j - $gap];
 		        }
 
@@ -218,5 +218,16 @@ class Sort
 		}
 
 		return $gaps;
+	}
+
+	private static function compare(int $a, int $b)
+	{
+		if ($a > $b) {
+			return 1;
+		} elseif ($a < $b){
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 }

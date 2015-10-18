@@ -50,7 +50,6 @@ algorithms defined in that class.
 	* Strassen's Matrix Multiplication
 * **MedianHeap**
 	* Get the median number in a stream if integers.
-* **MedianOfMedians**
 * **MergeSort**
 * **MostFrequentWord**
 	* Calculate the most frequent word in the given text.

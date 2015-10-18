@@ -11,13 +11,18 @@ namespace HackFastAlgos;
 class QuickSelect
 {
 	private int $pivot = 0;
+	private ?Partition $partition = null;
 
 	public function __construct(private Vector<int> $vector)
 	{
 		$this->vector = \HackFastAlgos\Sort::fyShuffle($this->vector);
+		$this->partition = new Partition($this->vector);
 	}
 
-	public function quickSelect(int $kthSmallest, int $left = 0, ?int $right = null) : int
+	/**
+	 * Operates in O(n^2) or Omega(1) time. (Omega(n) for a vector larger than one element)
+	 */
+	public function select(int $kthSmallest, int $left = 0, ?int $right = null) : int
 	{
 		$right = $right === null ? $this->vector->count()-1 : $right;
 
@@ -25,25 +30,32 @@ class QuickSelect
 			return $this->vector[$left];
 		}
 
-		$this->partitionAndSetPivot($left, $right);
+		$this->partition($left, $right);
+		$this->pivot = $this->getPivot();
 
 		if ($kthSmallest === $this->pivot) {
 			return $this->vector[$this->pivot];
 		}
 
 		if ($kthSmallest < $this->pivot) {
-			return $this->quickSelect($kthSmallest, $left, $this->pivot -1);
+			return $this->select($kthSmallest, $left, $this->pivot -1);
 		}
 
 		if ($kthSmallest > $this->pivot) {
-			return $this->quickSelect($kthSmallest, $this->pivot + 1, $right);
+			return $this->select($kthSmallest, $this->pivot + 1, $right);
 		}
 	}
 
-	private function partitionAndSetPivot(int $left, int $right)
+	/**
+	 * Operates in Theta(n) time.
+	 */
+	private function partition(int $left, int $right)
 	{
-		$partition = new Partition($this->vector);
-		$partition->partition($left, $right);
-		$this->pivot = $partition->getPivot();
+		$this->partition->partition($left, $right);
+	}
+
+	private function getPivot() : int
+	{
+		return $this->partition->getPivot();
 	}
 }
