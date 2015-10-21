@@ -9,13 +9,14 @@
 namespace HackFastAlgos\DataStructure;
 
 class BSTItemNotFoundException extends \Exception{}
+class BSTItemExistsException extends \Exception{}
 
 newtype BSTParent		= int;
 newtype BSTLeftChild	= int;
 newtype BSTRightChild	= int;
 newtype Relations		= Vector<(?BSTParent, ?BSTLeftChild, ?BSTRightChild)>;
 
-class BST implements \Countable, \Iterator
+class BST implements \Countable
 {
 	private Vector<(T, Relations)> $bstData = Vector{};
 	private int $iteratorPtr = 0;
@@ -25,11 +26,14 @@ class BST implements \Countable, \Iterator
 		if (!$this->bstData->containsKey(0)) {
 
 			$relations = $this->makeRelations(null, null, null);
-			$this->bstData[] = Vector{$item, $relations};
+			$this->addItemToTree($item, $relations);
 
 		} else {
 
-			// Keep the tree statistics balanced.
+			$parentIndex = $this->getParentForNewItemStartingAt($item, 0);
+			$relations = $this->makeRelations($parentIndex, null, null);
+			$this->addItemToTree($item, $relations);
+			$this->addLastChildToParent($parentIndex);
 
 		}
 	}
@@ -67,65 +71,88 @@ class BST implements \Countable, \Iterator
 		}
 	}
 
-	public function rotateLeft(int $node)
-	{
-		// https://en.wikipedia.org/wiki/Tree_rotation
-		// Swap $node with its right child.
-	}
-
-	public function rotateRight(int $node)
-	{
-		// https://en.wikipedia.org/wiki/Tree_rotation
-		// Swap $node with its left child.
-	}
-
 	public function count() : int
 	{
 		return $this->bstData->count();
 	}
 
-	public function rewind()
-	{
-		$this->iteratorPtr = $this->getMinIndex();
-	}
-
-	public function current() : int
-	{
-		return $this->getItemAtIndex($this->iteratorPtr);
-	}
-
-	public function key() : int
-	{
-		return $this->iteratorPtr;
-	}
-
-	public function valid() : bool
-	{
-		return $this->bstData->containsKey($this->iteratorPtr);
-	}
-
-	public function next()
-	{
-		$originalPtr = $this->iteratorPtr;
-		$this->useSmallestChild();
-
-		if ($originalPtr === $this->iteratorPtr) {
-			$this->useParent();
-		}
-
-		if ($originalPtr === $this->iteratorPtr) {
-			$this->iterationPtr = -1;
-		}
-	}
-
-	public function prev()
-	{
-		// Rewind to the last proper value.
-	}
-
 	private function makeRelations(?BSTParent $parent, ?BSTLeftChild $leftChild, ?BSTRightChild $rightChild) : array
 	{
 		return tuple($parent, $leftChild, $rightChild);
+	}
+
+	private function getParentForNewItemStartingAt<T>(T $newItem, int $parentIndex) : int
+	{
+		$compareItem = $this->getItemAtIndex($parentIndex);
+		$comparison = $this->compare($newItem, $compareItem);
+
+		$newItemsParent = $this->getChildFromComparison($comparison, $parentIndex);
+
+		if ($newItemsParent !== $parentIndex) {
+			return $this->getParentForNewItemStartingAt($newItem, $newItemsParent);
+		}
+
+		return $parentIndex;
+	}
+
+	private function getChildFromComparison(int $comparison, int $parent) : int
+	{
+		$parentIndex = $parent;
+
+		if ($comparison === -1) {
+
+			$leftChild = $this->getLeftChild($parent);
+			$parentIndex = $leftChild === null ? $parent : $leftChild;
+
+		} elseif ($comparison === 1) {
+
+			$rightChild = $this->getRightChild($parent);
+			$parentIndex = $rightChild === null ? $parent : $rightChild;
+
+		} else {
+			$this->throwItemExistsException();
+		}
+
+		return $parentIndex;
+	}
+
+	private function throwItemExistsException()
+	{
+		throw new BSTItemExistsException();
+	}
+
+	private function addItemToTree<T>(T $item, array $relations)
+	{
+		$this->bstData[] = Vector{$item, $relations};
+	}
+
+	private function addLastChildToParent(int $parent)
+	{
+		$lastChildIndex = $this->count()-1;
+		if ($this->compareValuesByIndex($lastChildIndex, $parent) < 0) {
+			$this->setLeftChildForParent($lastChildIndex, $parent);
+		} else {
+			$this->setRightChildForParent($lastChildIndex, $parent);
+		}
+	}
+
+	private function setLeftChildForParent(int $childIndex, int $parentIndex)
+	{
+		$relations = $this->getRelations($parentIndex);
+		$relations[1] = $childIndex;
+		$this->setItemRelations($parentIndex, $relations);
+	}
+
+	private function setItemRelations(int $itemIndex, array $relations)
+	{
+		$this->bstData[$itemIndex][1] = $relations;
+	}
+
+	private function setRightChildForParent(int $childIndex, int $parentIndex)
+	{
+		$relations = $this->getRelations($parentIndex);
+		$relations[2] = $childIndex;
+		$this->setItemRelations($parentIndex, $relations);
 	}
 
 	private function getMinIndexStartingAt(int $index) : int
@@ -155,10 +182,10 @@ class BST implements \Countable, \Iterator
 				return $startingIndex;
 
 			case -1:
-				return $this->getItemIndex($item, $this->getLeftChild());
+				return $this->getItemIndex($item, $this->getLeftChild($startingIndex));
 
 			case 1:
-				return $this->getItemIndex($item, $this->getRightChild());
+				return $this->getItemIndex($item, $this->getRightChild($startingIndex));
 
 		}
 	}
@@ -188,7 +215,7 @@ class BST implements \Countable, \Iterator
 
 	private function getRelations(int $index) : array
 	{
-		return $this->bstData[$index][2];
+		return $this->bstData[$index][1];
 	}
 
 	private function compareValuesByIndex(int $item1, int $item2) : int
@@ -207,48 +234,5 @@ class BST implements \Countable, \Iterator
 		}
 
 		return 0;
-	}
-
-	private function candidateIsGreaterThanCurrent(?int $candidate) : bool
-	{
-		if ($candidate !== null) {
-			if ($this->compareValuesByIndex($candidate, $this->iteratorPtr) > 0) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private function useSmallestChild()
-	{
-		$originalPtr = $this->iteratorPtr;
-		$this->useSmallestLeftChildStartingAt($this->iteratorPtr);
-
-		$rightChild = $this->getRightChild($this->iteratorPtr);
-		if ($rightChild !== null && $originalPtr === $this->iteratorPtr) {
-			$this->useSmallestLeftChildStartingAt($rightChild);
-		}
-	}
-
-	private function useSmallestLeftChildStartingAt(int $index)
-	{
-		$smallestLeftChild = $this->getMinIndexStartingAt($index);
-		if ($this->candidateIsGreaterThanCurrent($smallestLeftChild) === true) {
-			$this->iteratorPtr = $smallestLeftChild;
-		}
-	}
-
-	private function useParent()
-	{
-		$parent = $this->getparent($this->iteratorPtr);
-		if ($parent !== null) {
-
-			$this->iteratorPtr = $parent;
-			if ($this->compareValuesByIndex($parent, $this->iteratorPtr) < 0) {
-				$this->next();
-			}
-
-		}
 	}
 }
