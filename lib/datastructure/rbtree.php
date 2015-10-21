@@ -15,12 +15,12 @@ class RBTree
 {
 	protected function rotateLeft()
 	{
-
+		// https://en.wikipedia.org/wiki/Tree_rotation
 	}
 
 	protected function rotateRight()
 	{
-
+		// https://en.wikipedia.org/wiki/Tree_rotation
 	}
 
 	protected function flipColors()
