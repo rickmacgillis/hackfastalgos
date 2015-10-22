@@ -13,17 +13,17 @@ namespace HackFastAlgos\DataStructure;
 
 class RBTree
 {
-	protected function rotateLeft()
+	private function rotateLeft()
 	{
 		// https://en.wikipedia.org/wiki/Tree_rotation
 	}
 
-	protected function rotateRight()
+	private function rotateRight()
 	{
 		// https://en.wikipedia.org/wiki/Tree_rotation
 	}
 
-	protected function flipColors()
+	private function flipColors()
 	{
 
 	}

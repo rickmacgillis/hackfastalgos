@@ -19,7 +19,7 @@ newtype Relations		= Vector<(?BSTParent, ?BSTLeftChild, ?BSTRightChild)>;
 class BST implements \Countable
 {
 	private Vector<(T, Relations)> $bstData = Vector{};
-	private int $iteratorPtr = 0;
+	private int $totalItems = 0;
 
 	public function insert<T>(T $item)
 	{
@@ -27,12 +27,14 @@ class BST implements \Countable
 
 			$relations = $this->makeRelations(null, null, null);
 			$this->addItemToTree($item, $relations);
+			$this->totalItems++;
 
 		} else {
 
 			$parentIndex = $this->getParentForNewItemStartingAt($item, 0);
 			$relations = $this->makeRelations($parentIndex, null, null);
 			$this->addItemToTree($item, $relations);
+			$this->totalItems++;
 			$this->addLastChildToParent($parentIndex);
 
 		}
@@ -47,18 +49,32 @@ class BST implements \Countable
 
 	public function delete<T>(T $item)
 	{
-		// Delete an item from the tree
+		$index = $this->getItemIndex($item);
+
+		$parent = $this->getParent($index);
+		$leftChild = $this->getLeftChild($index);
+		$rightChild = $this->getRightChild($index);
+
+		if ($this->hasChildren($index)) {
+
+			// Finish this
+
+		}
+
+		$this->bstData[$index] = null;
+		$this->totalItems--;
 	}
 
 	public function getMin<T>() : T
 	{
 		$mindex = $this->getMinIndexStartingAt(0);
-		return $mindex[0];
+		return $this->getItemAtIndex($mindex);
 	}
 
 	public function getMax<T>() : T
 	{
-		// Return the maximum value in the heap (Lowest right child)
+		$maxdex = $this->getMaxIndexStartingAt(0);
+		return $this->getItemAtIndex($maxdex);
 	}
 
 	public function itemExists<T>(T $item) : bool
@@ -73,7 +89,7 @@ class BST implements \Countable
 
 	public function count() : int
 	{
-		return $this->bstData->count();
+		return $this->totalItems;
 	}
 
 	private function makeRelations(?BSTParent $parent, ?BSTLeftChild $leftChild, ?BSTRightChild $rightChild) : array
@@ -123,7 +139,7 @@ class BST implements \Countable
 
 	private function addItemToTree<T>(T $item, array $relations)
 	{
-		$this->bstData[] = Vector{$item, $relations};
+		$this->bstData[] = tuple($item, $relations);
 	}
 
 	private function addLastChildToParent(int $parent)
@@ -155,10 +171,43 @@ class BST implements \Countable
 		$this->setItemRelations($parentIndex, $relations);
 	}
 
+	private function isLeftChild(int $index)
+	{
+		$parent = $this->getParent($index);
+		$leftChild = $this->getLeftChild($parent);
+
+		return $index === $leftChild;
+	}
+
+	private function isRightChild(int $index)
+	{
+		$parent = $this->getParent($index);
+		$rightChild = $this->getRightChild($parent);
+
+		return $index === $rightChild;
+	}
+
+	private function hasChildren(int $index) : bool
+	{
+		$leftChild = $this->getLeftChild($index);
+		$rightChild = $this->getRightChild($index);
+
+		return $leftChild !== null || $rightChild !== null;
+	}
+
 	private function getMinIndexStartingAt(int $index) : int
 	{
 		while (($leftChild = $this->getLeftChild($index)) !== null) {
 			$index = $leftChild;
+		}
+
+		return $index;
+	}
+
+	private function getMaxIndexStartingAt(int $index) : int
+	{
+		while (($rightChild = $this->getRightChild($index)) !== null) {
+			$index = $rightChild;
 		}
 
 		return $index;
@@ -176,7 +225,7 @@ class BST implements \Countable
 		}
 
 		$candidateItem = $this->getItemAtIndex($startingIndex);
-		switch ($this->compare($candidateItem, $item)) {
+		switch ($this->compare($item, $candidateItem)) {
 
 			case 0:
 				return $startingIndex;
