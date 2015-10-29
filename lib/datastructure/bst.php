@@ -14,12 +14,13 @@ class BSTItemExistsException extends \Exception{}
 newtype BSTParent		= int;
 newtype BSTLeftChild	= int;
 newtype BSTRightChild	= int;
-newtype Relations		= Vector<(?BSTParent, ?BSTLeftChild, ?BSTRightChild)>;
+newtype Relations		= (?BSTParent, ?BSTLeftChild, ?BSTRightChild);
 
 class BST implements \Countable
 {
-	private Vector<(T, Relations)> $bstData = Vector{};
+	private Map<int, array<T, Relations>> $bstData = Map{};
 	private int $totalItems = 0;
+	private int $nextIndex = 0;
 
 	public function insert<T>(T $item)
 	{
@@ -50,18 +51,7 @@ class BST implements \Countable
 	public function delete<T>(T $item)
 	{
 		$index = $this->getItemIndex($item);
-
-		$parent = $this->getParent($index);
-		$leftChild = $this->getLeftChild($index);
-		$rightChild = $this->getRightChild($index);
-
-		if ($this->hasChildren($index)) {
-
-			// Finish this
-
-		}
-
-		$this->bstData[$index] = null;
+		$this->deleteIndex($index);
 		$this->totalItems--;
 	}
 
@@ -79,6 +69,10 @@ class BST implements \Countable
 
 	public function itemExists<T>(T $item) : bool
 	{
+		if ($this->count() === 0) {
+			return false;
+		}
+
 		try {
 			$index = $this->getItemIndex($item);
 			return true;
@@ -137,9 +131,9 @@ class BST implements \Countable
 		throw new BSTItemExistsException();
 	}
 
-	private function addItemToTree<T>(T $item, array $relations)
+	private function addItemToTree<T>(T $item, Relations $relations)
 	{
-		$this->bstData[] = tuple($item, $relations);
+		$this->bstData[$this->nextIndex++] = [$item, $relations];
 	}
 
 	private function addLastChildToParent(int $parent)
@@ -152,7 +146,7 @@ class BST implements \Countable
 		}
 	}
 
-	private function setLeftChildForParent(int $childIndex, int $parentIndex)
+	private function setLeftChildForParent(?int $childIndex, int $parentIndex)
 	{
 		$relations = $this->getRelations($parentIndex);
 		$relations[1] = $childIndex;
@@ -164,27 +158,29 @@ class BST implements \Countable
 		$this->bstData[$itemIndex][1] = $relations;
 	}
 
-	private function setRightChildForParent(int $childIndex, int $parentIndex)
+	private function setRightChildForParent(?int $childIndex, int $parentIndex)
 	{
 		$relations = $this->getRelations($parentIndex);
 		$relations[2] = $childIndex;
 		$this->setItemRelations($parentIndex, $relations);
 	}
 
-	private function isLeftChild(int $index)
+	private function deleteIndex(int $index)
 	{
-		$parent = $this->getParent($index);
-		$leftChild = $this->getLeftChild($parent);
+		if ($this->hasChildren($index)) {
 
-		return $index === $leftChild;
-	}
+			if ($this->hasLeftChild($index)) {
+				$this->swapWithAndDeleteNextSmallestIndex($index);
+			} else {
+				$this->swapWithAndDeleteNextLargestIndex($index);
+			}
 
-	private function isRightChild(int $index)
-	{
-		$parent = $this->getParent($index);
-		$rightChild = $this->getRightChild($parent);
+		} else {
 
-		return $index === $rightChild;
+			$this->orphanChild($index);
+			$this->bstData->removeKey($index);
+
+		}
 	}
 
 	private function hasChildren(int $index) : bool
@@ -193,6 +189,65 @@ class BST implements \Countable
 		$rightChild = $this->getRightChild($index);
 
 		return $leftChild !== null || $rightChild !== null;
+	}
+
+	private function hasLeftChild(int $index) : bool
+	{
+		return $this->getLeftChild($index) !== null;
+	}
+
+	private function swapWithAndDeleteNextSmallestIndex(int $index)
+	{
+		$leftChild = $this->getLeftChild($index);
+		$nextSmallestIndex = $this->getNextSmallestIndexStartingAt($leftChild);
+		$newValue = $this->getItemAtIndex($nextSmallestIndex);
+		$this->setValueAtIndex($newValue, $index);
+		$this->deleteIndex($nextSmallestIndex);
+	}
+
+	private function getNextSmallestIndexStartingAt(int $index) : int
+	{
+		if (($nextSmallestIndex = $this->getRightChild($index)) !== null) {
+			return $this->getMaxIndexStartingAt($nextSmallestIndex);
+		} else {
+			return $index;
+		}
+	}
+
+	private function setValueAtIndex<T>(T $value, int $index)
+	{
+		$this->bstData[$index][0] = $value;
+	}
+
+	private function swapWithAndDeleteNextLargestIndex(int $index)
+	{
+		$rightChild = $this->getRightChild($index);
+		$nextLargestIndex = $this->getNextLargestIndexStartingAt($rightChild);
+		$newValue = $this->getItemAtIndex($nextLargestIndex);
+		$this->setValueAtIndex($newValue, $index);
+		$this->deleteIndex($nextLargestIndex);
+	}
+
+	private function getNextLargestIndexStartingAt(int $index) : int
+	{
+		if (($nextLargestIndex = $this->getLeftChild($index)) !== null) {
+			return $this->getMinIndexStartingAt($nextLargestIndex);
+		} else {
+			return $index;
+		}
+	}
+
+	private function orphanChild(int $childIndex)
+	{
+		if (($parent = $this->getParent($childIndex)) !== null) {
+
+			if ($this->getLeftChild($parent) === $childIndex) {
+				$this->setLeftChildForParent(null, $parent);
+			} else {
+				$this->setRightChildForParent(null, $parent);
+			}
+
+		}
 	}
 
 	private function getMinIndexStartingAt(int $index) : int

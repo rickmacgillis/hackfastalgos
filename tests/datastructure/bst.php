@@ -75,4 +75,39 @@ class BSTTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(0, $bst->count());
 		$this->assertFalse($bst->itemExists(10));
 	}
+
+	public function testCanDeleteRootFromBstWhenTreeIsFull()
+	{
+		$bst = new DataStructure\BST();
+		$bst->fromVector(Vector{10,4,32,6,1,8,66,100,3});
+
+		$this->assertSame(9, $bst->count());
+
+		$bst->delete(10);
+		$this->assertSame(8, $bst->count());
+		$this->assertFalse($bst->itemExists(10));
+		$this->assertTrue($bst->itemExists(4));
+		$this->assertTrue($bst->itemExists(32));
+	}
+
+	public function testCanDeleteMultipleItemsFromBstWhenTreeIsFull()
+	{
+		$bst = new DataStructure\BST();
+		$bst->fromVector(Vector{10,4,32,6,1,8,66,100,3});
+
+		$this->assertSame(9, $bst->count());
+
+		$bst->delete(4);
+		$this->assertSame(8, $bst->count());
+		$this->assertFalse($bst->itemExists(4));
+		$this->assertTrue($bst->itemExists(3));
+		$this->assertTrue($bst->itemExists(1));
+		$this->assertTrue($bst->itemExists(6));
+
+		$bst->delete(32);
+		$this->assertSame(7, $bst->count());
+		$this->assertFalse($bst->itemExists(32));
+		$this->assertTrue($bst->itemExists(66));
+		$this->assertTrue($bst->itemExists(100));
+	}
 }
