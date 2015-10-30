@@ -4,8 +4,9 @@
  *
  * Implementation of LZW (LZW is obsolete, it's included to demonstrate a very basic compression method.)
  *
- * Learn more @link https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
- * @link http://www.codeproject.com/Articles/15160/LZW-Compression-Algorithm-Implemented-in-Java
+ * Learn more
+ * @link https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
+ * @link http://www.cplusplus.com/articles/iL18T05o/
  */
 
 namespace HackFastAlgos;
