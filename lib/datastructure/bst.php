@@ -22,6 +22,9 @@ class BST implements \Countable
 	private int $totalItems = 0;
 	private int $nextIndex = 0;
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	public function insert<T>(T $item)
 	{
 		if (!$this->bstData->containsKey(0)) {
@@ -41,6 +44,9 @@ class BST implements \Countable
 		}
 	}
 
+	/**
+	 * Operates in Theta(n) time.
+	 */
 	public function fromVector<T>(Vector<T> $vector)
 	{
 		foreach ($vector as $item) {
@@ -48,6 +54,9 @@ class BST implements \Countable
 		}
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	public function delete<T>(T $item)
 	{
 		$index = $this->getItemIndex($item);
@@ -55,18 +64,27 @@ class BST implements \Countable
 		$this->totalItems--;
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	public function getMin<T>() : T
 	{
 		$mindex = $this->getMinIndexStartingAt(0);
 		return $this->getItemAtIndex($mindex);
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	public function getMax<T>() : T
 	{
 		$maxdex = $this->getMaxIndexStartingAt(0);
 		return $this->getItemAtIndex($maxdex);
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	public function itemExists<T>(T $item) : bool
 	{
 		if ($this->count() === 0) {
@@ -165,6 +183,9 @@ class BST implements \Countable
 		$this->setItemRelations($parentIndex, $relations);
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function deleteIndex(int $index)
 	{
 		if ($this->hasChildren($index)) {
@@ -196,6 +217,9 @@ class BST implements \Countable
 		return $this->getLeftChild($index) !== null;
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function swapWithAndDeleteNextSmallestIndex(int $index)
 	{
 		$leftChild = $this->getLeftChild($index);
@@ -205,6 +229,9 @@ class BST implements \Countable
 		$this->deleteIndex($nextSmallestIndex);
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function getNextSmallestIndexStartingAt(int $index) : int
 	{
 		if (($nextSmallestIndex = $this->getRightChild($index)) !== null) {
@@ -219,6 +246,9 @@ class BST implements \Countable
 		$this->bstData[$index][0] = $value;
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function swapWithAndDeleteNextLargestIndex(int $index)
 	{
 		$rightChild = $this->getRightChild($index);
@@ -228,6 +258,9 @@ class BST implements \Countable
 		$this->deleteIndex($nextLargestIndex);
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function getNextLargestIndexStartingAt(int $index) : int
 	{
 		if (($nextLargestIndex = $this->getLeftChild($index)) !== null) {
@@ -250,6 +283,9 @@ class BST implements \Countable
 		}
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function getMinIndexStartingAt(int $index) : int
 	{
 		while (($leftChild = $this->getLeftChild($index)) !== null) {
@@ -259,6 +295,9 @@ class BST implements \Countable
 		return $index;
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function getMaxIndexStartingAt(int $index) : int
 	{
 		while (($rightChild = $this->getRightChild($index)) !== null) {
@@ -273,6 +312,9 @@ class BST implements \Countable
 		return $this->bstData[$index][0];
 	}
 
+	/**
+	 * Operates in O(n) or Omega(1) time.
+	 */
 	private function getItemIndex<T>(T $item, ?int $startingIndex = 0) : ?int
 	{
 		if ($startingIndex === null) {
