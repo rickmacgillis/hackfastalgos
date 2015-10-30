@@ -12,12 +12,8 @@ namespace HackFastAlgos;
 class GraphHasEdgeLengthsException extends \Exception{}
 class GraphHasNegativeedgeLengthsException extends \Exception{}
 
-type EdgeList	= Vector<Vector<int>>;
-type AdjList	= Map<int,Vector<Vector<int>>>;
-type AdjMatrix	= Vector<Vector<int>>;
-type Node		= int;
-
-type ShortestPath	= Vector<shape (
+type Node = int;
+type ShortestPath = Vector<shape (
 
 	'distance'			=> Vector<int>,
 	'predecessor'		=> Vector<(int,int)>
@@ -26,32 +22,32 @@ type ShortestPath	= Vector<shape (
 
 class Graph
 {
-	public static function transformMatrix180(HFAMatrix $matrix) : HFAMatrix
+	public static function transformMatrix180(AdjMatrix $matrix) : AdjMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
 	}
 
-	public static function transformMatrix270(HFAMatrix $matrix) : HFAMatrix
+	public static function transformMatrix270(AdjMatrix $matrix) : AdjMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
 	}
 
-	public static function transformMatrix90(HFAMatrix $matrix) : HFAMatrix
+	public static function transformMatrix90(AdjMatrix $matrix) : AdjMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
 	}
 
-	public static function transformMatrixNeg90(HFAMatrix $matrix) : HFAMatrix
+	public static function transformMatrixNeg90(AdjMatrix $matrix) : AdjMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
 	}
 
-	public static function flipMatrixHorizontally(HFAMatrix $matrix) : HFAMatrix
+	public static function flipMatrixHorizontally(AdjMatrix $matrix) : AdjMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
 	}
 
-	public static function flipMatrixVertically(HFAMatrix $matrix) : HFAMatrix
+	public static function flipMatrixVertically(AdjMatrix $matrix) : AdjMatrix
 	{
 		// https://en.wikipedia.org/wiki/Transformation_matrix
 	}
@@ -73,7 +69,7 @@ class Graph
 		//static::closestSplitPoints($pairs, $delta);
 	}
 
-	public static function numberOfMinCuts(HFAAdjList<T> $adjList) : int
+	public static function numberOfMinCuts(AdjList $adjList) : int
 	{
 		// https://gist.github.com/MastaP/2314166
 		// https://en.wikipedia.org/wiki/Karger%27s_algorithm
@@ -86,20 +82,7 @@ class Graph
 		 */
 	}
 
-	public static function findBfsShortestPath(
-		HFAAdjList<T> $adjList,
-		HFANode $sourceNode,
-		HFANode $findNode
-	) : HFAShortestPath
-	{
-		// When we can't find a path, throw an exception.
-		// https://en.wikipedia.org/wiki/Breadth-first_search
-		if ($adjList[0]->count() > 2) {
-			throw new GraphHasEdgeLengthsException();
-		}
-	}
-
-	public static function findDijkstrasShortestPath(HFAAdjList $adjList, HFANode $sourceNode) : HFAShortestPath
+	public static function findDijkstrasShortestPath(AdjList $adjList, Node $sourceNode) : ShortestPath
 	{
 		// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 		// Mention that Dijkstra's algorithm uses BFS
@@ -109,10 +92,10 @@ class Graph
 
 	public static function findBellmanFordShortestPath(
 		Vector<int> $vertices,
-		HFAEdgeList $edgeList,
-		HFANode $sourceNode,
+		EdgeList $edgeList,
+		Node $sourceNode,
 		int $maxEdges = 0
-	) : HFAShortestPath
+	) : ShortestPath
 	{
 		// https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 		// Negative edge length safe
@@ -120,31 +103,31 @@ class Graph
 		// If $maxEdges is not 0, then limit the number of edges the algorithm traverses to find the shortest path.
 	}
 
-	public static function findFloydWarshallAPSP(HFAAdjList $adjList)
+	public static function findFloydWarshallAPSP(AdjList $adjList)
 	{
 		// https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
 		// Returns a Shortest Path Tree https://en.wikipedia.org/wiki/Shortest-path_tree
 	}
 
-	public static function findJohnsonsAPSP(HFAAdjList $adjList)
+	public static function findJohnsonsAPSP(AdjList $adjList)
 	{
 		// https://en.wikipedia.org/wiki/Johnson%27s_algorithm
 		// Returns a Shortest Path Tree https://en.wikipedia.org/wiki/Shortest-path_tree
 	}
 
-	public static function runDfsTopSort(HFAAdjList<T> $adjList, HFANode $sourceNode) : Vector<HFANode>
+	public static function runDfsTopSort(AdjList $adjList, Node $sourceNode) : Vector<Node>
 	{
 		// https://en.wikipedia.org/wiki/Depth-first_search
 		// https://en.wikipedia.org/wiki/Topological_sorting
 	}
 
-	public static function findAllKosarajuSCC(HFAAdjList<T> $adjList, HFANode $sourceNode) : Vector<HFANode>
+	public static function findAllKosarajuSCC(AdjList $adjList, Node $sourceNode) : Vector<Node>
 	{
 		// https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
 		// Returns an array of leader nodes
 	}
 
-	public static function findPrimMST(HFAAdjList $adjList) : int
+	public static function findPrimMST(AdjList $adjList) : int
 	{
 		// https://en.wikipedia.org/wiki/Prim%27s_algorithm
 		// Use a heap.
@@ -152,30 +135,25 @@ class Graph
 		// Returns the minimum possible total edge weights when connecting vertexes spanning the full tree. (MST)
 	}
 
-	public static function findKruskalMST(HFAAdjList $adjList) : int
+	public static function findKruskalMST(AdjList $adjList) : int
 	{
 		// https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
 		// Use Union-Find
 	}
 
-	public static function makeSingleLinkCluster(HFAAdjList $adjList) : HFAAdjList
+	public static function makeSingleLinkCluster(AdjList $adjList) : AdjList
 	{
 		// Use Kruskal's MST
 		// @TODO What format does it return?
 		// https://en.wikipedia.org/wiki/Single-linkage_clustering
 	}
 
-	public static function getVertexCover(HFAAdjList $adjList) : HFAAdjList
+	public static function getVertexCover(AdjList $adjList) : AdjList
 	{
 		// https://en.wikipedia.org/wiki/Vertex_cover
 	}
 
-	public static function calculateTSP(HFAAdjList $adjList) : Vector<int>
-	{
-		// https://en.wikipedia.org/wiki/Travelling_salesman_problem
-	}
-
-	public static function maxCuts(HFAAdjList $adjList) : int
+	public static function maxCuts(AdjList $adjList) : int
 	{
 		// https://en.wikipedia.org/wiki/Maximum_cut
 		// Papadimitriou's algorithm

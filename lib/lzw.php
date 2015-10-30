@@ -36,7 +36,6 @@ class LZW
 					$lookup = null;
 				}
 
-
 			}
 
 		}
