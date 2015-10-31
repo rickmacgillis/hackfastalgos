@@ -115,18 +115,6 @@ class Graph
 		// Returns a Shortest Path Tree https://en.wikipedia.org/wiki/Shortest-path_tree
 	}
 
-	public static function runDfsTopSort(AdjList $adjList, Node $sourceNode) : Vector<Node>
-	{
-		// https://en.wikipedia.org/wiki/Depth-first_search
-		// https://en.wikipedia.org/wiki/Topological_sorting
-	}
-
-	public static function findAllKosarajuSCC(AdjList $adjList, Node $sourceNode) : Vector<Node>
-	{
-		// https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
-		// Returns an array of leader nodes
-	}
-
 	public static function findPrimMST(AdjList $adjList) : int
 	{
 		// https://en.wikipedia.org/wiki/Prim%27s_algorithm

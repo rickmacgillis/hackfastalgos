@@ -38,11 +38,7 @@ class BFS
 
 	}
 
-	public static function findBfsShortestPath(
-		AdjList $adjList,
-		int $sourceNode,
-		int $findNode
-	) : ShortestPath
+	public static function findBfsShortestPath(AdjList $adjList, int $sourceNode, int $findNode) : ShortestPath
 	{
 		// When we can't find a path, throw an exception.
 		// https://en.wikipedia.org/wiki/Breadth-first_search

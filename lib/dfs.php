@@ -12,6 +12,8 @@
 
 namespace HackFastAlgos;
 
+class DFSGraphNotDagException extends \Exception{}
+
 class DFS
 {
 	public function __construct(private AdjList $adjList){}
@@ -46,6 +48,16 @@ class DFS
 		// Check if every vertex connects to a vertex in a different group. (Ex. All men connect to women and visa versa.)
 	}
 
+	public function isDigraph() : bool
+	{
+
+	}
+
+	public function isDag()
+	{
+		return $this->isDigraph() && !$this->hasCycles();
+	}
+
 	public function hasCycles() : bool
 	{
 		// Check if there are any cycles in the graph.
@@ -55,5 +67,26 @@ class DFS
 	{
 		// https://en.wikipedia.org/wiki/Eulerian_path
 		// Every vertex must have an even number of degrees.
+	}
+
+	public static function findAllKosarajuSCC(AdjList $adjList, Node $sourceNode) : Vector<Node>
+	{
+		// https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
+		// http://algs4.cs.princeton.edu/42digraph/KosarajuSharirSCC.java.html
+		// Returns an array of leader nodes
+	}
+
+	public static function topSort(AdjList $adjList, Node $sourceNode) : Vector<Node>
+	{
+		$this->throwIfNotDag();
+
+		// https://en.wikipedia.org/wiki/Topological_sorting
+	}
+
+	private function throwIfNotDag()
+	{
+		if (!$this->isDag()) {
+			throw new DFSGraphNotDagException();
+		}
 	}
 }
