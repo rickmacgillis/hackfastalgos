@@ -133,12 +133,6 @@ class Sort
 		return $vector;
 	}
 
-	public static function quickSort3(Vector<int> $vector, int $pivot = 0, int $numRandom = 9, int $minArraySize = 10) : Vector<int>
-	{
-		// http://www.sorting-algorithms.com/static/QuicksortIsOptimal.pdf
-		// Shuffle first
-	}
-
 	/**
 	 * Heap sort is not a stable sorting method.
 	 * Learn more @link https://en.wikipedia.org/wiki/Heapsort
@@ -159,6 +153,7 @@ class Sort
 	public static function bucketSort(Vector<int> $vector, int $buckets) : Vector<int>
 	{
 		// https://en.wikipedia.org/wiki/Bucket_sort
+		// http://www.geeksforgeeks.org/bucket-sort-2/
 	}
 
 	public static function countingSort(Vector<int> $vector, int $maxValue) : Vector<int>
