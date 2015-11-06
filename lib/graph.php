@@ -22,36 +22,6 @@ type ShortestPath = Vector<shape (
 
 class Graph
 {
-	public static function transformMatrix180(AdjMatrix $matrix) : AdjMatrix
-	{
-		// https://en.wikipedia.org/wiki/Transformation_matrix
-	}
-
-	public static function transformMatrix270(AdjMatrix $matrix) : AdjMatrix
-	{
-		// https://en.wikipedia.org/wiki/Transformation_matrix
-	}
-
-	public static function transformMatrix90(AdjMatrix $matrix) : AdjMatrix
-	{
-		// https://en.wikipedia.org/wiki/Transformation_matrix
-	}
-
-	public static function transformMatrixNeg90(AdjMatrix $matrix) : AdjMatrix
-	{
-		// https://en.wikipedia.org/wiki/Transformation_matrix
-	}
-
-	public static function flipMatrixHorizontally(AdjMatrix $matrix) : AdjMatrix
-	{
-		// https://en.wikipedia.org/wiki/Transformation_matrix
-	}
-
-	public static function flipMatrixVertically(AdjMatrix $matrix) : AdjMatrix
-	{
-		// https://en.wikipedia.org/wiki/Transformation_matrix
-	}
-
 	public static function findClosestPoints(Vector<Pair<int,int>> $pairs)
 	{
 		// https://en.wikipedia.org/wiki/Closest_pair_of_points_problem

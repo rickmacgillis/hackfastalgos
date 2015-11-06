@@ -36,18 +36,21 @@ Every algorithm is grouped into a class of similar algorithms. Below is a list o
 algorithms defined in that class.
 
 * **Algos**
+* **BFS**
 * **ConvexHull**
 	* Calculate the convex hull using a Graham Scan.
 * **Cryptography**
 	* Algorithm to generate a secure random number
+* **DFS**
 * **Geometry**
 * **Graph**
 * **GraphFormat**
 	* Convert between edge lists, adjacency lists, and adjacency matrices.
-* **LZW**
 * **Math**
 * **MatrixMultiply**
 	* Strassen's Matrix Multiplication
+* **MatrixRotate**
+	* Algorithms to rotate and flip a matrix
 * **MedianHeap**
 	* Get the median number in a stream if integers.
 * **MergeSort**
