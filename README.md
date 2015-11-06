@@ -123,6 +123,16 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **UnionFind**
 	* The union-find data structure is also named the disjoint-set or merge-find.
 
+List of Interview Puzzles
+-------------------------
+All interview question puzzles use the namespace `\HackFastAlgos\Interview`. The following is a list of popular
+interview questions contained in this library.
+
+* **ResetVector**
+	> Puzzle: A vector of consecutive integers is rotated such that the numbers restart
+    > counting somewhere in the vector. Find the key at which the numbers begin counting.
+    > (Ex. In Vector{6,7,8,9,0,1,2,3,4,5}, the reset point is 4, as 0 is the lowest number.)
+
 Notes on Slower Algorithms
 --------------------------
 

@@ -19,7 +19,7 @@ class Search
 		$end = $vector->count()-1;
 		while ($end >= $start) {
 
-			$middle = $end-$start;
+			$middle = (int) floor($start + (($end-$start)/2));
 			if ($vector[$middle] < $find) {
 				$start = ++$middle;
 			} else if ($vector[$middle] > $find) {
