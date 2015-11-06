@@ -134,6 +134,10 @@ interview questions contained in this library.
 	> counting somewhere in the vector. Find the key at which the numbers begin counting.
 	> (Ex. In Vector{6,7,8,9,0,1,2,3,4,5}, the reset point is 4, as 0 is the lowest number.)
 
+* **RansomMagazine**
+
+	> Puzzle: Write an algorithm to see if all of the words in a ransom letter are contained in a magazine.
+
 Notes on Slower Algorithms
 --------------------------
 

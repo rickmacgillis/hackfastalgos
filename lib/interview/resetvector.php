@@ -13,6 +13,9 @@ class ResetVectorResetPointNotFoundException extends \Exception{}
 
 class ResetVector
 {
+	/**
+	 * Operates on O(log n) or Omega(1) time.
+	 */
 	public static function findResetPointInRangeVector(Vector<int> $vector, int $start = 0, ?int $end = null) : int
 	{
 		$end = $end === null ? $vector->count()-1 : $end;
