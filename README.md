@@ -138,6 +138,10 @@ interview questions contained in this library.
 
 	> Puzzle: Write an algorithm to see if all of the words in a ransom letter are contained in a magazine.
 
+* **Permutations**
+
+	> Puzzle: Find all of the permutations for a given string.
+
 Notes on Slower Algorithms
 --------------------------
 
