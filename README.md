@@ -56,6 +56,8 @@ algorithms defined in that class.
 * **MergeSort**
 * **MostFrequentWord**
 	* Calculate the most frequent word in the given text.
+* **MST**
+	* Minimum Spanning Tree algorithms
 * **MurmurHash3**
 	* Implementation of MurmurHash3
 * **Palindrome**
@@ -70,6 +72,8 @@ algorithms defined in that class.
 * **Search**
 	* Binary search
 	* Brute force search
+* **ShortestPath**
+	* Algorithms for shortest path problems
 * **Sort**
 	* Selection Sort
 	* Bubble Sort

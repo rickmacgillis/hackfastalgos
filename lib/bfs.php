@@ -9,6 +9,10 @@
  * @link https://en.wikipedia.org/wiki/Breadth-first_search
  */
 
+namespace HackFastAlgos;
+
+class BFSHasEdgeLengthsException extends \Exception{}
+
 class BFS
 {
 	public function __construct(private AdjList $adjList){}
@@ -43,7 +47,7 @@ class BFS
 		// When we can't find a path, throw an exception.
 		// https://en.wikipedia.org/wiki/Breadth-first_search
 		if ($adjList[0]->count() > 2) {
-			throw new GraphHasEdgeLengthsException();
+			throw new BFSHasEdgeLengthsException();
 		}
 	}
 }

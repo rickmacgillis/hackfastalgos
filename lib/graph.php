@@ -9,17 +9,6 @@ use HackFastAlgos\DataStructure as DataStructure;
 
 namespace HackFastAlgos;
 
-class GraphHasEdgeLengthsException extends \Exception{}
-class GraphHasNegativeedgeLengthsException extends \Exception{}
-
-type Node = int;
-type ShortestPath = Vector<shape (
-
-	'distance'			=> Vector<int>,
-	'predecessor'		=> Vector<(int,int)>
-
-)>;
-
 class Graph
 {
 	public static function findClosestPoints(Vector<Pair<int,int>> $pairs)
@@ -50,53 +39,6 @@ class Graph
 		 * Page 37: http://mypages.iit.edu/~hjin15/talks/MATH565Pre.pdf
 		 * @TODO Make it always reliable and faster with Mac Gillis' Algorithm?
 		 */
-	}
-
-	public static function findDijkstrasShortestPath(AdjList $adjList, Node $sourceNode) : ShortestPath
-	{
-		// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
-		// Mention that Dijkstra's algorithm uses BFS
-		// If the list contains a negative length...
-			throw new GraphHasNegativeedgeLengthsException();
-	}
-
-	public static function findBellmanFordShortestPath(
-		Vector<int> $vertices,
-		EdgeList $edgeList,
-		Node $sourceNode,
-		int $maxEdges = 0
-	) : ShortestPath
-	{
-		// https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
-		// Negative edge length safe
-		// If there's a negative edge loop, throw an exception.
-		// If $maxEdges is not 0, then limit the number of edges the algorithm traverses to find the shortest path.
-	}
-
-	public static function findFloydWarshallAPSP(AdjList $adjList)
-	{
-		// https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
-		// Returns a Shortest Path Tree https://en.wikipedia.org/wiki/Shortest-path_tree
-	}
-
-	public static function findJohnsonsAPSP(AdjList $adjList)
-	{
-		// https://en.wikipedia.org/wiki/Johnson%27s_algorithm
-		// Returns a Shortest Path Tree https://en.wikipedia.org/wiki/Shortest-path_tree
-	}
-
-	public static function findPrimMST(AdjList $adjList) : int
-	{
-		// https://en.wikipedia.org/wiki/Prim%27s_algorithm
-		// Use a heap.
-		// Accepts a connected undirected graph with different edge weights.
-		// Returns the minimum possible total edge weights when connecting vertexes spanning the full tree. (MST)
-	}
-
-	public static function findKruskalMST(AdjList $adjList) : int
-	{
-		// https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
-		// Use Union-Find
 	}
 
 	public static function makeSingleLinkCluster(AdjList $adjList) : AdjList
