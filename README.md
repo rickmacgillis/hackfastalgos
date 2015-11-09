@@ -122,6 +122,9 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **Set**
 * **SplayTree**
 * **Stack**
+* **StringBuffer**
+	* Concatenates all strings together at once instead of using Theta(n) running time to concatenate strings with
+	.= or the like.
 * **TernarySearchTree**
 * **TwoThreeTree**
 * **UnionFind**
@@ -145,6 +148,10 @@ interview questions contained in this library.
 * **Permutations**
 
 	> Puzzle: Find all of the permutations for a given string.
+
+* **StringRotation**
+
+	> Puzzle: Write code to check if a string is a rotation of a second string.
 
 Notes on Slower Algorithms
 --------------------------
