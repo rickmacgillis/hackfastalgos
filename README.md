@@ -135,6 +135,21 @@ List of Interview Puzzles
 All interview question puzzles use the namespace `\HackFastAlgos\Interview`. The following is a list of popular
 interview questions contained in this library.
 
+* **CompressString**
+
+	> Puzzle: Implement an algorithm to perform basic string compression using the counts of each character.
+    > If the compressed string is longer than the original string, return the original string.
+
+* **Permutations**
+
+	> Puzzle 1: Find all of the permutations for a given string.
+
+	> Puzzle 2: Check if one string is a permutation of another string.
+
+* **ReplaceChar**
+
+	> Puzzle: Replace a space with %20 in a given string.
+
 * **ResetVector**
 
 	> Puzzle: A vector of consecutive integers is rotated such that the numbers restart
@@ -145,13 +160,22 @@ interview questions contained in this library.
 
 	> Puzzle: Write an algorithm to see if all of the words in a ransom letter are contained in a magazine.
 
-* **Permutations**
+* **StringReverse**
 
-	> Puzzle: Find all of the permutations for a given string.
+	> Puzzle: Implement an algorithm to reverse a string.
 
 * **StringRotation**
 
 	> Puzzle: Write code to check if a string is a rotation of a second string.
+
+* **UniqueChars**
+
+	> Puzzle: Check if a string has all unique characters without the use of an additional data structure.
+
+* **ZeroMatrix**
+
+	> Puzzle: Write an algorithm into existence that will check an MxN matrix to find an element who's value is zero.
+    > Every time a zero entry is discovered, make its row and column all zeros.
 
 Notes on Slower Algorithms
 --------------------------

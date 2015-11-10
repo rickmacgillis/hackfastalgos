@@ -19,4 +19,31 @@ class StringBufferTest extends \PHPUnit_Framework_TestCase
 		$buffer->append(' again');
 		$this->assertSame('testis valid again', (string) $buffer);
 	}
+
+	public function testCanEmteyTheBuffer()
+	{
+		$buffer = new DataStructure\StringBuffer();
+
+		$this->assertSame('', (string) $buffer);
+
+		$buffer->append('test');
+		$this->assertSame('test', (string) $buffer);
+
+		$buffer->reset();
+		$this->assertSame('', (string) $buffer);
+	}
+
+	public function testCanCheckIfBufferIsEmpty()
+	{
+		$buffer = new DataStructure\StringBuffer();
+
+		$this->assertSame('', (string) $buffer);
+		$this->assertTrue($buffer->isEmpty());
+
+		$buffer->append('test');
+		$this->assertFalse($buffer->isEmpty());
+
+		$buffer->reset();
+		$this->assertTrue($buffer->isEmpty());
+	}
 }

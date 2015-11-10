@@ -2,8 +2,10 @@
 /**
  * @author Rick Mac Gillis
  *
- * Puzzle: Find all of the permutations for a given string.
+ * Puzzle 1: Find all of the permutations for a given string.
  * Learn more @link http://www.programmerinterview.com/index.php/recursion/permutations-of-a-string/
+ *
+ * Puzzle 2: Check if one string is a permutation of another string.
  */
 
 namespace HackFastAlgos\Interview;
@@ -42,5 +44,48 @@ class Permutations
 	public function getPermutation() : Vector<string>
 	{
 		return $this->permutations;
+	}
+
+	public function isAPermutationOf(string $secondString) : bool
+	{
+		$stringLength = strlen($this->string);
+		if ($stringLength !== strlen($secondString)) {
+			return false;
+		}
+
+		$containedChars = $this->getCharCountArray();
+
+		for ($i = 0; $i < $stringLength; $i++) {
+
+			$char = $secondString[$i];
+			if (empty($containedChars[$char])) {
+				return false;
+			} elseif ($containedChars[$char] === 1) {
+				unset($containedChars[$char]);
+			} else {
+				$containedChars[$char]--;
+			}
+
+		}
+
+		return empty($containedChars);
+	}
+
+	private function getCharCountArray() : array<string, int>
+	{
+		$containedChars = [];
+		$stringLength = strlen($this->string);
+		for ($i = 0; $i < $stringLength; $i++) {
+
+			$char = $this->string[$i];
+			if (empty($containedChars[$char])) {
+				$containedChars[$char] = 1;
+			} else {
+				$containedChars[$char]++;
+			}
+
+		}
+
+		return $containedChars;
 	}
 }

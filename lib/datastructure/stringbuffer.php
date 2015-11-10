@@ -21,4 +21,14 @@ class StringBuffer
 	{
 		return implode('', $this->bufferData);
 	}
+
+	public function reset()
+	{
+		$this->bufferData = [];
+	}
+
+	public function isEmpty() : bool
+	{
+		return count($this->bufferData) === 0;
+	}
 }

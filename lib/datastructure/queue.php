@@ -13,21 +13,25 @@ class QueueEmptyException extends \Exception{}
 class Queue implements \Countable
 {
 	private array $queueData = [];
+	private int $count = 0;
 
 	public function count() : int
 	{
-		return count($this->queueData);
+		return $this->count;
 	}
 
 	public function enqueue<T>(T $item)
 	{
 		$this->queueData[] = $item;
+		$this->count++;
 	}
 
 	public function dequeue<T>() : T
 	{
 		$this->throwIfEmptyQueue();
-		return array_shift($this->queueData);
+		$item = array_shift($this->queueData);
+		$this->count--;
+		return $item;
 	}
 
 	public function manuallyDequeue<T>() : T
