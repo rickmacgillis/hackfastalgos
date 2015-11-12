@@ -58,6 +58,8 @@ algorithms defined in that class.
 * **Graph**
 * **GraphFormat**
 	* Convert between edge lists, adjacency lists, and adjacency matrices.
+* **Kosaraju**
+	* Implementation of Kosaraju's Strongly Connected Components algorithm
 * **Math**
 * **MatrixMultiply**
 	* Strassen's Matrix Multiplication
