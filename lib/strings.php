@@ -53,8 +53,30 @@ class Strings
 		// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
 	}
 
-	public static function suffixArray(string $word, Vector<string> $suffixes) : string
+	/**
+	 * Runs in Theta(n) time.
+	 */
+	public static function suffixArray(string $string) : Vector<string>
 	{
-		// https://en.wikipedia.org/wiki/Suffix_array
+		$stringLength = strlen($string);
+		$suffixArray = Vector{$string};
+		for ($i = 1; $i < $stringLength; $i++) {
+			$suffixArray[] = substr($string, $i, $stringLength-$i);
+		}
+
+		return $suffixArray;
+	}
+
+	/**
+	 * Runs in O(n) or Omega(1) time depending on if a prefix exists.
+	 */
+	public static function longestPrefix(string $string1, string $string2) : string
+	{
+		$string1Length = strlen($string1);
+		$string2Length = strlen($string2);
+		$shorterLength = $string1Length < $string2Length ? $string1Length : $string2Length;
+
+		for ($i = 0; $i < $shorterLength && $string1[$i] === $string2[$i]; $i++) {}
+		return substr($string1, 0, $i);
 	}
 }

@@ -28,19 +28,6 @@ class Graph
 		//static::closestSplitPoints($pairs, $delta);
 	}
 
-	public static function numberOfMinCuts(AdjList $adjList) : int
-	{
-		// https://gist.github.com/MastaP/2314166
-		// https://en.wikipedia.org/wiki/Karger%27s_algorithm
-		// https://github.com/jinhw1989/MinCutAlgo/blob/master/algo/MinCut.py
-		/**
-		 * Karger-Stein
-		 *
-		 * Page 37: http://mypages.iit.edu/~hjin15/talks/MATH565Pre.pdf
-		 * @TODO Make it always reliable and faster with Mac Gillis' Algorithm?
-		 */
-	}
-
 	public static function makeSingleLinkCluster(AdjList $adjList) : AdjList
 	{
 		// Use Kruskal's MST
@@ -57,10 +44,5 @@ class Graph
 	{
 		// https://en.wikipedia.org/wiki/Maximum_cut
 		// Papadimitriou's algorithm
-	}
-
-	public static function maxFlow()
-	{
-		// https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm
 	}
 }

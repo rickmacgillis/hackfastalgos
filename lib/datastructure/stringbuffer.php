@@ -2,7 +2,9 @@
 /**
  * @author Rick Mac Gillis
  *
- * Implementation of a string buffer
+ * Implementation of a string buffer (String Buffer is not useful in PHP or Hack.
+ * Languages like Java and C++ can benefit from one.)
+ * 
  * Learn more @link http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuffer.html
  */
 
