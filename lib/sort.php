@@ -156,17 +156,6 @@ class Sort
 		// http://www.geeksforgeeks.org/bucket-sort-2/
 	}
 
-	public static function countingSort(Vector<int> $vector, int $maxValue) : Vector<int>
-	{
-		// https://en.wikipedia.org/wiki/Counting_sort
-	}
-
-	public static function radixSort(Vector<int> $vector) : Vector<int>
-	{
-		// https://en.wikipedia.org/wiki/Radix_sort
-		// https://www.codingbot.net/2013/02/radix-sort-algorithm-and-c-code.html
-	}
-
 	/**
 	 * Shuffle a vector with the Fisher-Yates shuffle. (It's slow as it uses a
 	 * proper entropy source.)
