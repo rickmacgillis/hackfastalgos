@@ -51,6 +51,7 @@ algorithms defined in that class.
 * **BFS**
 * **ConvexHull**
 	* Calculate the convex hull using a Graham Scan.
+* **CountingSort**
 * **Cryptography**
 	* Algorithm to generate a secure random number
 * **DFS**
@@ -83,6 +84,8 @@ algorithms defined in that class.
 	* An implementation of Polish Prefix Notation
 * **QuickSelect**
 * **QuickSort**
+* **RadixSort**
+	* Implementations for both LSD and MSD
 * **Search**
 	* Binary search
 	* Brute force search
