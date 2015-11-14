@@ -98,6 +98,10 @@ algorithms defined in that class.
 	* Shell Sort (Uses Tokunda's gap algorithm)
 	* Heap Sort
 	* Fisher-Yates Shuffle
+* **Strings**
+	* Suffix array
+	* Longest prefix
+	* Longest repeated substring
 
 List of Data Structures
 -----------------------

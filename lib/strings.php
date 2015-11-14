@@ -72,11 +72,27 @@ class Strings
 	 */
 	public static function longestPrefix(string $string1, string $string2) : string
 	{
-		$string1Length = strlen($string1);
-		$string2Length = strlen($string2);
-		$shorterLength = $string1Length < $string2Length ? $string1Length : $string2Length;
-
+		$shorterLength = min(strlen($string1), strlen($string2));
 		for ($i = 0; $i < $shorterLength && $string1[$i] === $string2[$i]; $i++) {}
 		return substr($string1, 0, $i);
+	}
+
+	public static function longestRepeatedSubstring(string $string) : string
+	{
+		$longest = '';
+		$stringLength = strlen($string);
+		$suffixArray = static::suffixArray($string);
+		sort($suffixArray);
+		
+		for ($i = 1; $i < $stringLength; $i++) {
+
+			$longestPrefix = static::longestPrefix($suffixArray[$i], $suffixArray[$i-1]);
+			if (strlen($longestPrefix) > strlen($longest)) {
+				$longest = $longestPrefix;
+			}
+
+		}
+
+		return $longest;
 	}
 }

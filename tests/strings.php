@@ -31,4 +31,10 @@ class StringsTest extends \PHPUnit_Framework_TestCase
 		$result = \HackFastAlgos\Strings::longestPrefix('amyshorts', 'bmyshlacks');
 		$this->assertSame('', $result);
 	}
+
+	public function testCanFindTheLongestRepeatedSubstring()
+	{
+		$result = \HackFastAlgos\Strings::longestRepeatedSubstring('wowowmomowowowow');
+		$this->assertSame('owowow', $result);
+	}
 }
