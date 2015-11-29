@@ -55,12 +55,15 @@ algorithms defined in that class.
 * **Cryptography**
 	* Algorithm to generate a secure random number
 * **DFS**
+* **FordFulkerson**
+	* Max Flow algorithm based on Min-Cut
 * **Geometry**
 * **Graph**
 * **GraphFormat**
 	* Convert between edge lists, adjacency lists, and adjacency matrices.
 * **Kosaraju**
 	* Implementation of Kosaraju's Strongly Connected Components algorithm
+* **LZW**
 * **Math**
 * **MatrixMultiply**
 	* Strassen's Matrix Multiplication
@@ -139,6 +142,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **Queue**
 * **RBTree**
 	* RBTree is an implementation of a Left-Leaning Red-Black Tree.
+* **RWayTrie**
+	* Implementation of an R-Way-Trie using integer values.
 * **Schedule**
 * **Set**
 * **SplayTree**
@@ -147,6 +152,7 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 	* Concatenates all strings together at once instead of using Theta(n) running time to concatenate strings with
 	.= or the like.
 * **TernarySearchTree**
+* **Trie**
 * **TwoThreeTree**
 * **UnionFind**
 	* The union-find data structure is also named the disjoint-set or merge-find.
@@ -161,11 +167,21 @@ interview questions contained in this library.
 	> Puzzle: Implement an algorithm to perform basic string compression using the counts of each character.
     > If the compressed string is longer than the original string, return the original string.
 
+* **FizzBuzz**
+
+	> Puzzle: Write an algorithm to iterate over the numbers 0 through 100 and output "Fizz" for
+    > all multiples of 3. Output "Buzz" for all multiples of 5. Output "FizzBuzz" if a number is
+    > a multiple of both 5 and 3. (Ex. 0:FizzBuzz 3:Fizz 5:Buzz ...)
+
 * **Permutations**
 
 	> Puzzle 1: Find all of the permutations for a given string.
 
 	> Puzzle 2: Check if one string is a permutation of another string.
+
+* **RansomMagazine**
+
+	> Puzzle: Write an algorithm to see if all of the words in a ransom letter are contained in a magazine.
 
 * **ReplaceChar**
 
@@ -176,10 +192,6 @@ interview questions contained in this library.
 	> Puzzle: A vector of consecutive integers is rotated such that the numbers restart
 	> counting somewhere in the vector. Find the key at which the numbers begin counting.
 	> (Ex. In Vector{6,7,8,9,0,1,2,3,4,5}, the reset point is 4, as 0 is the lowest number.)
-
-* **RansomMagazine**
-
-	> Puzzle: Write an algorithm to see if all of the words in a ransom letter are contained in a magazine.
 
 * **StringReverse**
 
@@ -275,3 +287,17 @@ other than Hack, see the "This Library In Other Languages" section above.
 * [Algorithms, Part II](https://www.coursera.org/course/algs4partII)
 * [Cracking the Coding Interview](http://www.crackingthecodinginterview.com/)
 * And other random places on the interwebs...
+
+Notes on the Coursera Honor Code
+--------------------------------
+
+The [Coursera Honor Code](https://www.coursera.org/about/terms/honorcode) forbids students from posting answers to the
+Coursera assignments. Specifically it makes the following statement.
+
+> I will not make solutions to homework, quizzes, exams, projects, and other assignments [herein refered to as "assignments"]
+> available to anyone else (except to the extent an assignment explicitly permits sharing solutions). This includes both
+> solutions written by me, as well as any solutions provided by the course staff or others.
+
+Therefore, this library respects the honor code by not including such material. I specifically did not perform the Coursera
+assignments for the courses I've used in this library so that this library remains detached from any of the assignments.
+If any material contained in this library resembles an answer to an assignment, it's purely cooincidental, and unintentional.
