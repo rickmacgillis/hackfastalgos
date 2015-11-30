@@ -48,11 +48,6 @@ class Strings
 		// Merge the retrieved subproblem data into the data for the larger problem.
 	}
 
-	public static function kmpSearch()
-	{
-		// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
-	}
-
 	/**
 	 * Runs in Theta(n) time.
 	 */
@@ -83,7 +78,7 @@ class Strings
 		$stringLength = strlen($string);
 		$suffixArray = static::suffixArray($string);
 		sort($suffixArray);
-		
+
 		for ($i = 1; $i < $stringLength; $i++) {
 
 			$longestPrefix = static::longestPrefix($suffixArray[$i], $suffixArray[$i-1]);

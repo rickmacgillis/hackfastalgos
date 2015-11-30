@@ -105,6 +105,10 @@ algorithms defined in that class.
 	* Suffix array
 	* Longest prefix
 	* Longest repeated substring
+* **SubString**
+	* Two versions of the brute force method which do the same thing and are written differently
+	* KMP [Knuth-Morris-Pratt] - O(M*N+R*N) or Omega(R*N)
+	* KMP improved - O(N^2) or Omega(N)
 
 List of Data Structures
 -----------------------
