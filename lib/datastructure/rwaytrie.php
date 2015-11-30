@@ -9,7 +9,7 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class RWayTrie
+class RWayTrie<T>
 {
 	private int $trieSize = 0;
 	private ?Node $root = null;
@@ -19,12 +19,12 @@ class RWayTrie
 		$this->root = new Node();
 	}
 
-	public function get(String $key) : int
+	public function get(String $key) : T
 	{
 
 	}
 
-	public function put(String $key, int $value)
+	public function put(String $key, T $value)
 	{
 
 	}
@@ -42,5 +42,20 @@ class RWayTrie
 	public function size() : int
 	{
 		return $this->trieSize;
+	}
+
+	public function getKeys() : Vector<string>
+	{
+
+	}
+
+	public function getKeysWithPrefix(string $prefix) : Vector<string>
+	{
+
+	}
+
+	public function getLongestPrefixOf(string $string) : string
+	{
+
 	}
 }

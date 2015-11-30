@@ -32,13 +32,13 @@ class PriorityQueue extends Heap
 		return $extracted[1];
 	}
 
-	protected function getRootItemData<T>() : T
+	<<override>>protected function getRootItemData<T>() : T
 	{
 		$heapData = parent::getRootItemData();
 		return $heapData[1];
 	}
 
-	protected function compare<T>(T $item1, T $item2) : int
+	<<override>>protected function compare<T>(T $item1, T $item2) : int
 	{
 		if ($item1[0] < $item2[0]) {
 			return 1;
@@ -51,7 +51,7 @@ class PriorityQueue extends Heap
 		return 0;
 	}
 
-	protected function itemsAreIdentical<T>(T $compareTo, T $itemInHeap) : bool
+	<<override>>protected function itemsAreIdentical<T>(T $compareTo, T $itemInHeap) : bool
 	{
 		if ($compareTo === $itemInHeap[1]) {
 			return true;

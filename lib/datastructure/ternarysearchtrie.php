@@ -10,7 +10,7 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class TernarySearchTrie
+class TernarySearchTrie<T>
 {
 	private int $trieSize = 0;
 	private ?Node $root = null;
@@ -20,12 +20,12 @@ class TernarySearchTrie
 		$this->root = new Node();
 	}
 
-	public function get(String $key) : int
+	public function get(String $key) : T
 	{
 
 	}
 
-	public function put(String $key, int $value)
+	public function put(String $key, T $value)
 	{
 
 	}
@@ -43,5 +43,20 @@ class TernarySearchTrie
 	public function size() : int
 	{
 		return $this->trieSize;
+	}
+
+	public function getKeys() : Vector<string>
+	{
+
+	}
+
+	public function getKeysWithPrefix(string $prefix) : Vector<string>
+	{
+
+	}
+
+	public function getLongestPrefixOf(string $string) : string
+	{
+
 	}
 }

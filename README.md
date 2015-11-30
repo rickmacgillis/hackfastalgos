@@ -154,7 +154,6 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 	* Concatenates all strings together at once instead of using Theta(n) running time to concatenate strings with
 	.= or the like.
 * **TernarySearchTrie**
-* **Trie**
 * **TwoThreeTree**
 * **UnionFind**
 	* The union-find data structure is also named the disjoint-set or merge-find.
