@@ -2,14 +2,15 @@
 /**
  * @author Rick Mac Gillis
  *
- * Implementation of an R-Way Trie
- *
- * Learn more @link http://algs4.cs.princeton.edu/52trie/TrieST.java.html
+ * Implementation of a Ternary Search Tree (TST)
+ * Learn more:
+ * @link https://en.wikipedia.org/wiki/Ternary_search_tree
+ * @link http://algs4.cs.princeton.edu/52trie/TST.java.html
  */
 
 namespace HackFastAlgos\DataStructure;
 
-class RWayTrie
+class TernarySearchTrie
 {
 	private int $trieSize = 0;
 	private ?Node $root = null;

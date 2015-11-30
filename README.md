@@ -138,6 +138,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **KDTree**
 	* An implementation of a K-dimensional tree
 * **LRUCache**
+* **Node**
+	* A generic node for storing data in data structures
 * **PriorityQueue**
 * **Queue**
 * **RBTree**
@@ -151,7 +153,7 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **StringBuffer**
 	* Concatenates all strings together at once instead of using Theta(n) running time to concatenate strings with
 	.= or the like.
-* **TernarySearchTree**
+* **TernarySearchTrie**
 * **Trie**
 * **TwoThreeTree**
 * **UnionFind**
