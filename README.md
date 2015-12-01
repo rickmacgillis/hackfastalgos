@@ -107,8 +107,9 @@ algorithms defined in that class.
 	* Longest repeated substring
 * **SubString**
 	* Two versions of the brute force method which do the same thing and are written differently
-	* KMP [Knuth-Morris-Pratt] - O(M*N+R*N) or Omega(R*N)
-	* KMP improved - O(N^2) or Omega(N)
+	* KMP [Knuth-Morris-Pratt]
+	* KMP Improved
+	* Boyer-Moore
 
 List of Data Structures
 -----------------------

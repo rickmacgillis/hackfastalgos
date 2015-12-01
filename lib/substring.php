@@ -11,6 +11,7 @@
  * @link http://algs4.cs.princeton.edu/53substring/KMPplus.java.html
  * @link https://en.wikipedia.org/wiki/Deterministic_finite_automaton
  * @link https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton
+ * @link http://algs4.cs.princeton.edu/53substring/BoyerMoore.java.html
  */
 
 namespace HackFastAlgos;
@@ -21,6 +22,7 @@ class SubString
 {
 	private array $dfa = [];
 	private array $nfa = [];
+	private array $rightMost = [];
 
 	public function __construct(private string $needle, private string $haystack){}
 
@@ -128,6 +130,39 @@ class SubString
 		$this->throwStringNotFoundException();
 	}
 
+	/**
+	 * Operates in O(M+N) or Omega(N) time where M is the haystack size, and N is the needle size.
+	 */
+	public function boyerMooreSearch() : int
+	{
+		$this->calculateRightMostPositions();
+		$haystackLength = strlen($this->haystack);
+		$needleLength = strlen($this->needle);
+		for ($skip = 0, $haystackIndex = 0; $haystackIndex < $haystackLength; $haystackIndex += $skip) {
+
+			$skip = 0;
+			for ($needleIndex = $needleLength-1; $needleIndex >= 0; $needleIndex--) {
+
+				$haystackChar = $this->haystack[$haystackIndex + $needleIndex];
+				if ($this->needle[$needleIndex] !== $haystackChar) {
+
+					$rightMostOffset = empty($this->rightMost[$haystackChar]) ? 1 : $this->rightMost[$haystackChar];
+					$skip = max(1, $needleIndex - $rightMostOffset);
+					break;
+
+				}
+
+			}
+
+			if ($skip === 0) {
+				return $haystackIndex;
+			}
+
+		}
+
+		$this->throwStringNotFoundException();
+	}
+
 	private function throwStringNotFoundException()
 	{
 		throw new SubStringStringNotFoundException($this->needle);
@@ -220,6 +255,18 @@ class SubString
 			}
 			$restartState++;
 
+		}
+	}
+
+	/**
+	 * Operates in Theta(N) time.
+	 */
+	private function calculateRightMostPositions()
+	{
+		$this->rightMost;
+		$needleLength = strlen($this->needle);
+		for ($i = 0; $i < $needleLength; $i++) {
+			$this->rightMost[$this->getCharAt($i)] = $i;
 		}
 	}
 }

@@ -3,7 +3,7 @@
 class SubStringTest extends \PHPUnit_Framework_TestCase
 {
 	private string $needle = 'AAABBCCDDDDDAAB';
-	private string $haystack = 'AAAAAAAAAAAABBBBDDCBADAAABBCCDDDDDAABAAABBDD';
+	private string $haystack = 'AAAAAAAAAAABBCCDDDDDAAZAAAABBBBDDCBADAAABBCCDDDDDAABAAABBDD';
 
 	private string $badNeedle = 'Crap';
 	private string $badHaystack = 'Today I took a very large... bite of pizza.';
@@ -11,7 +11,7 @@ class SubStringTest extends \PHPUnit_Framework_TestCase
 	public function testCanFindPositionOfNeedleUsingBruteVersion1()
 	{
 		$substring = new \HackFastAlgos\SubString($this->needle, $this->haystack);
-		$this->assertSame(22, $substring->bruteForceVersion1());
+		$this->assertSame(37, $substring->bruteForceVersion1());
 	}
 
 	public function testWillThrowExceptionWhenStringNotFoundOnBruteForceVersion1()
@@ -27,7 +27,7 @@ class SubStringTest extends \PHPUnit_Framework_TestCase
 	public function testCanFindPositionOfNeedleUsingBruteForceVersion2()
 	{
 		$substring = new \HackFastAlgos\SubString($this->needle, $this->haystack);
-		$this->assertSame(22, $substring->bruteForceVersion2());
+		$this->assertSame(37, $substring->bruteForceVersion2());
 	}
 
 	public function testWillThrowExceptionWhenStringNotFoundOnBruteForceVersion2()
@@ -43,7 +43,7 @@ class SubStringTest extends \PHPUnit_Framework_TestCase
 	public function testCanFindPositionOfNeedleUsingKmpSearch()
 	{
 		$substring = new \HackFastAlgos\SubString($this->needle, $this->haystack);
-		$this->assertSame(22, $substring->kmpSearch());
+		$this->assertSame(37, $substring->kmpSearch());
 	}
 
 	public function testWillThrowExceptionWhenStringNotFoundOnKmpSearch()
@@ -59,7 +59,7 @@ class SubStringTest extends \PHPUnit_Framework_TestCase
 	public function testCanFindPositionOfNeedleUsingKmpSearchImproved()
 	{
 		$substring = new \HackFastAlgos\SubString($this->needle, $this->haystack);
-		$this->assertSame(22, $substring->kmpSearchImproved());
+		$this->assertSame(37, $substring->kmpSearchImproved());
 	}
 
 	public function testWillThrowExceptionWhenStringNotFoundOnKmpSearchImproved()
@@ -68,6 +68,22 @@ class SubStringTest extends \PHPUnit_Framework_TestCase
 
 		try {
 			$substring->kmpSearchImproved();
+			$this->fail();
+		} catch (\HackFastAlgos\SubStringStringNotFoundException $e) {}
+	}
+
+	public function testCanFindPositionOfNeedleUsingBoyerMooreSearch()
+	{
+		$substring = new \HackFastAlgos\SubString($this->needle, $this->haystack);
+		$this->assertSame(37, $substring->boyerMooreSearch());
+	}
+
+	public function testWillThrowExceptionWhenStringNotFoundOnBoyerMooreSearch()
+	{
+		$substring = new \HackFastAlgos\SubString($this->badNeedle, $this->badHaystack);
+
+		try {
+			$substring->boyerMooreSearch();
 			$this->fail();
 		} catch (\HackFastAlgos\SubStringStringNotFoundException $e) {}
 	}
