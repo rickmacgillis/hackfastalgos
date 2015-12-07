@@ -8,14 +8,18 @@
  * Learn more @link http://algs4.cs.princeton.edu/55compression/LZW.java.html
  */
 
-class LZW
+namespace HackFastAlgos;
+
+class LZW extends Interfaces\Compression
 {
-	public function compress()
+	public function __construct(private String $text){}
+
+	public function encode() : String
 	{
 
 	}
 
-	public function decompress()
+	public function decode() : String
 	{
 
 	}

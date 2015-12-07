@@ -14,18 +14,6 @@ class Strings
 		// https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
 	}
 
-	public static function huffmanEncode(string $text) : string
-	{
-		// https://en.wikipedia.org/wiki/Huffman_coding
-		// Implement it with two queues.
-		// If we don't know the frequency of each character, then sort it with a heap.
-	}
-
-	public static function huffmanDecode(string $text) : string
-	{
-		// https://en.wikipedia.org/wiki/Huffman_coding
-	}
-
 	public static function findDialPadCombos(int $number) : Vector<string>
 	{
 		/*

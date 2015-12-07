@@ -61,6 +61,9 @@ algorithms defined in that class.
 * **Graph**
 * **GraphFormat**
 	* Convert between edge lists, adjacency lists, and adjacency matrices.
+* **HuffmanCode**
+	* Huffman encode
+	* Huffman decode
 * **Kosaraju**
 	* Implementation of Kosaraju's Strongly Connected Components algorithm
 * **LZW**
@@ -89,6 +92,10 @@ algorithms defined in that class.
 * **QuickSort**
 * **RadixSort**
 	* Implementations for both LSD and MSD
+* **RegEx**
+	* Rudimentary implementation of a regular expression interpreter
+	* Grep
+* **RunLengthCompression**
 * **Search**
 	* Binary search
 	* Brute force search
