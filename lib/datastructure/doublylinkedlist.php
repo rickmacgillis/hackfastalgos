@@ -2,59 +2,51 @@
 /**
  * @author Rick Mac Gillis
  *
- * Implementation of a doubly linked list
+ * This object is an alternative to directly working with the Node object.
+ * It just simplifies some operations.
  * Learn more @link https://en.wikipedia.org/wiki/Doubly-linked_list
- *
- * Every method works in Theta(1) time.
  */
 
 namespace HackFastAlgos\DataStructure;
 
-newtype DLLNode = int;
-newtype DLLEntry = (?DLLNode,T,?DLLNode);
 
-class DoublyLinkedListInvalidIndexException extends \Exception{}
+class DoublyLinkedListIsEmptyException extends \Exception{}
 
 class DoublyLinkedList implements \Iterator, \Countable
 {
-	private Map<int, DLLEntry> $dllData = Map{};
-	private int $lastNode = 0;
-	private int $firstNode = 0;
-	private int $openIndex = 0;
-	private ?int $pointer = 0;
+	private ?Node $lastNode = null;
+	private ?Node $firstNode = null;
+	private ?Node $pointer = null;
+	private int $total = 0;
 
 	public function count() : int
 	{
-		return $this->dllData->count();
+		return $this->total;
 	}
 
 	public function current<T>() : T
 	{
-		if ($this->pointer === null || !$this->dllData->containsKey($this->pointer)) {
-			throw new DoublyLinkedListInvalidIndexException();
-		}
-
-		return $this->dllData[$this->pointer][1];
+		return $this->pointer === null ? null : $this->pointer->getValue();
 	}
 
 	public function valid() : bool
 	{
-		return $this->pointer === null ? false : $this->dllData->containsKey($this->pointer);
+		return $this->pointer instanceOf Node;
 	}
 
-	public function key() : int
+	public function key() : ?Node
 	{
 		return $this->pointer;
 	}
 
 	public function prev()
 	{
-		$this->pointer = $this->pointer === null ? null : $this->dllData[$this->pointer][0];
+		$this->pointer = $this->pointer === null ? null : $this->pointer->getPrev();
 	}
 
 	public function next()
 	{
-		$this->pointer = $this->pointer === null ? null : $this->dllData[$this->pointer][2];
+		$this->pointer = $this->pointer === null ? null : $this->pointer->getNext();
 	}
 
 	public function rewind()
@@ -67,172 +59,135 @@ class DoublyLinkedList implements \Iterator, \Countable
 		$this->pointer = $this->lastNode;
 	}
 
-	public function insertBefore<T>(T $data, int $node)
+	public function insertBefore<T>(T $data, Node $node)
 	{
-		$this->insertAtBeginningIfEmpty($data, function () use ($data, $node) {
+		if ($node === $this->firstNode || $this->firstNode === null) {
+			$this->insertBeginning($data);
+		} else {
 
-			$this->throwIfInvalidNode($node);
-			$this->createNodeBeforeNext($data, $node);
-			$thisNode = $this->openIndex++;
+			$this->total++;
+			$newNode = new Node();
+			$newNode->setValue($node->getValue());
+			$newNode->setPrev($node);
+			$newNode->setNext($node->getNext());
+			$node->setValue($data);
+			$node->setNext($newNode);
 
-			if ($this->isFirstNode($node)) {
-				$this->firstNode = $thisNode;
-			} else {
-				$this->setNextNode($this->getPreviousNode($node), $thisNode);
-			}
-
-			$this->setPreviousNode($node, $thisNode);
-
-		});
+		}
 	}
 
-	public function insertAfter<T>(T $data, int $node)
+	public function insertAfter<T>(T $data, Node $node)
 	{
-		$this->insertAtBeginningIfEmpty($data, function () use ($data, $node) {
+		if ($node === $this->lastNode || $this->lastNode === null) {
+			$this->insertEnd($data);
+		} else {
 
-			$this->throwIfInvalidNode($node);
-			$this->createNodeAfterPrevious($data, $node);
-			$thisNode = $this->openIndex++;
+			$this->total++;
+			$newNode = new Node();
+			$newNode->setValue($data);
+			$newNode->setNext($node->getNext());
+			$newNode->setPrev($node);
+			$node->setNext($newNode);
 
-			if ($this->isLastNode($node)) {
-				$this->lastNode = $thisNode;
-			} else {
-				$this->setPreviousNode($this->getNextNode($node), $thisNode);
-			}
-
-			$this->setNextNode($node, $thisNode);
-
-		});
+		}
 	}
 
 	public function insertBeginning<T>(T $data)
 	{
-		// Feeling a bit empty?
-		if ($this->count() === 0) {
+		$this->total++;
+		$newNode = new Node();
+		$newNode->setValue($data);
+		$newNode->setNext($this->firstNode);
 
-			/*
-			 * Avoid bugs in 3rd party code by using the next open index in case they don't
-			 * check if the DLL is empty. (Ex. All nodes got removed.)
-			 */
-			$this->createNode(null, $data, null);
-			$this->lastNode = $this->openIndex;
-
-		} else {
-
-			$this->createNode(null, $data, $this->firstNode);
-			$this->setPreviousNode($this->firstNode, $this->openIndex);
-
+		if ($this->firstNode !== null) {
+			$this->firstNode->setPrev($newNode);
 		}
 
-		$this->firstNode = $this->openIndex++;
+		$this->firstNode = $newNode;
+
+		if ($this->lastNode === null) {
+			$this->lastNode = $this->firstNode;
+		}
 	}
 
 	public function insertEnd<T>(T $data)
 	{
-		if ($this->count() === 0) {
+		$this->total++;
+		$newNode = new Node();
+		$newNode->setValue($data);
+		$newNode->setPrev($this->lastNode);
 
-			$this->createNode(null, $data, null);
-			$this->firstNode = $this->openIndex;
-
-		} else {
-
-			$this->createNode($this->lastNode, $data, null);
-			$this->setNextNode($this->lastNode, $this->openIndex);
-
+		if ($this->lastNode !== null) {
+			$this->lastNode->setNext($newNode);
 		}
 
-		$this->lastNode = $this->openIndex++;
-	}
+		$this->lastNode = $newNode;
 
-	public function removeNode(int $node)
-	{
-		$this->throwIfInvalidNode($node);
-
-		if ($this->getPreviousNode($node) !== null && $this->getNextNode($node) !== null) {
-
-			$this->setNextNode($this->getPreviousNode($node), $this->getNextNode($node));
-			$this->setPreviousNode($this->getNextNode($node), $this->getPreviousNode($node));
-
-		} else if ($this->getPreviousNode($node) !== null) {
-
-			$this->setNextNode($this->getPreviousNode($node), null);
-			$this->lastNode = $this->getPreviousNode($node);
-
-		} else if ($this->getNextNode($node) !== null) {
-
-			$this->setPreviousNode($this->getNextNode($node), null);
-			$this->firstNode = $this->getNextNode($node);
-
-		}
-
-		$this->dllData->removeKey($node);
-	}
-
-	private function throwIfInvalidNode(int $node)
-	{
-		if (!$this->nodeExists($node)) {
-			throw new DoublyLinkedListInvalidIndexException();
+		if ($this->firstNode === null) {
+			$this->firstNode = $this->lastNode;
 		}
 	}
 
-	private function nodeExists(int $node) : bool
+	public function removeNode(Node $node)
 	{
-		return $this->dllData->containsKey($node);
+		$this->throwIfEmptyLinkedList();
+		$this->resetListIfOnlyNodePresent($node);
+
+		if ($node === $this->firstNode) {
+			$this->removeFirstNode();
+		} else if ($node === $this->lastNode) {
+			$this->removeLastNode();
+		} else if ($this->isEmpty() === false) {
+			$this->removeMiddleNode($node);
+		}
 	}
 
-	private function setPreviousNode(int $node, ?int $newPreviousNode)
+	public function isEmpty() : bool
 	{
-		$this->dllData[$node][0] = $newPreviousNode;
+		return $this->count() === 0;
 	}
 
-	private function setNextNode(int $node, ?int $nextNode)
-	{
-		$this->dllData[$node][2] = $nextNode;
-	}
-
-	private function getPreviousNode(int $node) : ?int
-	{
-		return $this->dllData[$node][0];
-	}
-
-	private function getNextNode(int $node) : ?int
-	{
-		return $this->dllData[$node][2];
-	}
-
-	private function isFirstNode(int $node) : bool
-	{
-		return $this->dllData[$node][0] === null;
-	}
-
-	private function isLastNode(int $node) : bool
-	{
-		return $this->dllData[$node][2] === null;
-	}
-
-	private function createNode<T>(?int $previousNode, T $data, ?int $nextNode)
-	{
-		$this->dllData[$this->openIndex] = tuple($previousNode, $data, $nextNode);
-	}
-
-	private function createNodeBeforeNext<T>(T $data, int $nextNode)
-	{
-		$nextNodeData = $this->dllData[$nextNode];
-		$this->createNode($nextNodeData[0], $data, $nextNode);
-	}
-
-	private function createNodeAfterPrevious<T>(T $data, int $previousNode)
-	{
-		$previousNodeData = $this->dllData[$previousNode];
-		$this->createNode($previousNode, $data, $previousNodeData[2]);
-	}
-
-	private function insertAtBeginningIfEmpty<T>(T $data, Callable $notEmpty)
+	private function throwIfEmptyLinkedList()
 	{
 		if ($this->count() === 0) {
-			$this->insertBeginning($data);
-		} else {
-			$notEmpty();
+			throw new DoublyLinkedListIsEmptyException();
+		}
+	}
+
+	private function removeFirstNode()
+	{
+		$this->total--;
+		$this->firstNode = $this->firstNode->getNext();
+	}
+
+	private function removeLastNode()
+	{
+		$this->total--;
+		$this->lastNode = $this->lastNode->getPrev();
+	}
+
+	private function removeMiddleNode(Node $node)
+	{
+		$this->total--;
+		$nextNode = $node->getNext();
+		$node->setValue($nextNode->getValue());
+		$nextNextNode = $nextNode->getNext();
+		$node->setNext($nextNextNode);
+
+		if ($nextNextNode !== null) {
+			$nextNextNode->setPrev($node);
+		}
+	}
+
+	private function resetListIfOnlyNodePresent(Node $node)
+	{
+		if ($node === $this->firstNode && $node === $this->lastNode) {
+
+			$this->lastNode = null;
+			$this->firstNode = null;
+			$this->pointer = null;
+			$this->total = 0;
+
 		}
 	}
 }

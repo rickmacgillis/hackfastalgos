@@ -33,142 +33,142 @@ class DoublyLinkedListTest extends PHPUnit_Framework_TestCase
 	{
 		$dll = new DataStructure\DoublyLinkedList;
 
-		// Handled by insertBeginning()
-		$dll->insertBefore('test', 0); // Add node 0
+		$dll->insertBeginning('test');
 
-		// Handled by insertBefore()
-		$dll->insertBefore('testing', 0); // Add node 1
-		$dll->insertBefore('testing2', 0); // Add node 2
-		$dll->insertBefore('testing3', 0); // Add node 3
+		$dll->rewind();
+		$firstNode = $dll->key();
 
-		try {
+		$dll->insertBefore('testing', $firstNode);
 
-			// Invalid node
-			$dll->insertBefore('testing4', 4);
-			$this->fail();
+		$dll->rewind();
+		$secondNode = $dll->key();
+		$dll->insertBefore('testing2', $secondNode);
 
-		} catch (DataStructure\DoublyLinkedListInvalidIndexException $e) {}
+		$dll->rewind();
+		$thirdNode = $dll->key();
+		$dll->insertBefore('testing3', $thirdNode);
 	}
 
 	public function testInsertAfter()
 	{
 		$dll = new DataStructure\DoublyLinkedList;
 
-		// Handled by insertBeginning()
-		$dll->insertAfter('test', 0);
+		$dll->insertEnd('test');
 
-		// Handled by insertAfter()
-		$dll->insertAfter('testing', 0);
-		$dll->insertAfter('testing2', 0);
-		$dll->insertAfter('testing3', 0);
+		$dll->moveToLast();
+		$lastNode = $dll->key();
+		$dll->insertAfter('testing', $lastNode);
 
-		try {
+		$dll->moveToLast();
+		$secondNode = $dll->key();
+		$dll->insertAfter('testing2', $secondNode);
 
-			// Invalid node
-			$dll->insertAfter('testing4', 4);
-			$this->fail();
-
-		} catch (DataStructure\DoublyLinkedListInvalidIndexException $e) {}
+		$dll->moveToLast();
+		$thirdNode = $dll->key();
+		$dll->insertAfter('testing3', $thirdNode);
 	}
 
 	public function testRemoveNode()
 	{
 		$dll = new DataStructure\DoublyLinkedList;
 		$dll->insertBeginning('test');
-
-		// Only node
-		$dll->removeNode(0);
-
-		// The node number does not reset.
 		$dll->insertBeginning('test1');
-		$dll->insertBeginning('test2');
-		$dll->insertBeginning('test3');
-		$dll->insertBeginning('test4');
-		$dll->insertBeginning('test5');
+
+		$dll->rewind();
+		$firstNode = $dll->key();
+
+		$dll->removeNode($firstNode); // Down to one entry
+
+		$dll->rewind();
+		$firstNode = $dll->key();
+		$dll->removeNode($firstNode); // Empty list
 
 		try {
 
-			// Node counter is at 1.
-			$dll->removeNode(0);
+			$dll->removeNode($firstNode);
 			$this->fail();
 
-		} catch (DataStructure\DoublyLinkedListInvalidIndexException $e) {}
-
-		// First
-		$dll->removeNode(1);
-
-		// Last
-		$dll->removeNode(5);
-
-		// Middle
-		$dll->removeNode(3);
+		} catch (DataStructure\DoublyLinkedListIsEmptyException $e) {}
 
 		// Verify that we actually removed stuff.
-		$this->assertSame(2, $dll->count());
-
-		$dll->insertBeginning('test6');
-		$dll->insertBeginning('test7');
-		$dll->insertBeginning('test8');
-
-		/*
-		 * The additions and removals from this test case make for an excellent DLL
-		 * condition for the next text case.
-		 */
-		return $dll;
+		$this->assertSame(0, $dll->count());
 	}
 
-	/**
-	 * @depends testRemoveNode
-	 */
-	public function testIteration($dll)
+	public function testForwardIteration()
 	{
-		// State of the DLL
-		$state = Map{
+		$dll = new DataStructure\DoublyLinkedList;
+		$dll->insertBeginning('test');
+		$dll->insertBeginning('test1');
+		$dll->insertBeginning('test2');
+		$dll->insertBeginning('test3');
 
-			2	=> 'test2',
-			4	=> 'test4',
-			6	=> 'test6',
-			7	=> 'test7',
-			8	=> 'test8'
-
-		};
-
-		$test = Map{};
+		$shouldBe = ['test3', 'test2', 'test1', 'test'];
+		$test = [];
 
 		$dll->rewind();
 		while ($dll->valid()) {
 
-			$test[$dll->key()] = $dll->current();
+			$test[] = $dll->current();
 			$dll->next();
 
 		}
 
-		// Does it work forwards?
-		$this->assertEquals($state, $test);
+		$this->assertEquals($shouldBe, $test);
 
-		// State of the DLL
-		$state2 = Map{
+		$dll->moveToLast();
+		$this->assertInstanceOf('\\HackFastAlgos\\DataStructure\\Node', $dll->key());
+	}
 
-			8	=> 'test8',
-			7	=> 'test7',
-			6	=> 'test6',
-			4	=> 'test4',
-			2	=> 'test2'
+	public function testBackwardsIteration()
+	{
+		$dll = new DataStructure\DoublyLinkedList;
+		$dll->insertBeginning('test');
+		$dll->insertBeginning('test1');
+		$dll->insertBeginning('test2');
+		$dll->insertBeginning('test3');
 
-		};
-
-		// Make it valid.
 		$dll->moveToLast();
 
-		$test2 = Map{};
+		$shouldBe = ['test', 'test1', 'test2', 'test3'];
+		$test = [];
 		while ($dll->valid()) {
 
-			$test2[$dll->key()] = $dll->current();
+			$test[] = $dll->current();
 			$dll->prev();
 
 		}
 
-		// Does it work backwards?
-		$this->assertEquals($state2, $test2);
+		$this->assertEquals($shouldBe, $test);
+	}
+
+	public function testCanCheckIfempty()
+	{
+		$dll = new DataStructure\DoublyLinkedList;
+		$this->assertTrue($dll->isEmpty());
+
+		$dll->insertBeginning('test');
+		$this->assertFalse($dll->isEmpty());
+	}
+
+	public function testCangetCorrectCount()
+	{
+		$dll = new DataStructure\DoublyLinkedList;
+		$this->assertSame(0, $dll->count());
+
+		$dll->insertBeginning('test');
+		$this->assertSame(1, $dll->count());
+
+		$dll->insertBeginning('test1');
+		$this->assertSame(2, $dll->count());
+
+		$dll->rewind();
+		$node = $dll->key();
+		$dll->removeNode($node);
+		$this->assertSame(1, $dll->count());
+
+		$dll->rewind();
+		$node = $dll->key();
+		$dll->removeNode($node);
+		$this->assertSame(0, $dll->count());
 	}
 }

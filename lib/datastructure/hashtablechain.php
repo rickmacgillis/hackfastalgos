@@ -146,13 +146,13 @@ class HashTableChain extends HashTable
 		} catch (HashTableOutOfBoundsException $e) {}
 	}
 
-	protected function getNodeFromKey<T>(T $key, int $hash) : int
+	protected function getNodeFromKey<T>(T $key, int $hash) : Node
 	{
 		$vector = $this->getNodeAndValueForKey($key, $hash);
 		return $vector[0];
 	}
 
-	private function deleteLinkedListNode(int $node, int $hash)
+	private function deleteLinkedListNode(Node $node, int $hash)
 	{
 		$this->hashTableData[$hash]->removeNode($node);
 	}
@@ -163,10 +163,10 @@ class HashTableChain extends HashTable
 		return $this->getDataAtLinkedListNode($this->dllPtr, $dll);
 	}
 
-	private function getDataAtLinkedListNode<T>(int $node, DoublyLinkedList $dll) : Vector<T>
+	private function getDataAtLinkedListNode<T>(int $nodeNumber, DoublyLinkedList $dll) : Vector<T>
 	{
 		$dll->rewind();
-		for ($i = 1; $i < $node && $dll->valid(); $i++) {
+		for ($i = 1; $i < $nodeNumber && $dll->valid(); $i++) {
 			$dll->next();
 		}
 
