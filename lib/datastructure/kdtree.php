@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a KD Tree (K-dimensional tree)
  * Learn more

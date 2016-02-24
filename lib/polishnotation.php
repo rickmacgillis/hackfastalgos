@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of Polish Prefix Notation
  * Learn more @link https://en.wikipedia.org/wiki/Polish_notation

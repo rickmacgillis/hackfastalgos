@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of LZW (Included as it shows basic string compression.
  * It's outdated, and not useful for most applications.)

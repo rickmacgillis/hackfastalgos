@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Edge list data structure
  */

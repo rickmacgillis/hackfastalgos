@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Interface for graph format datastructures
  */

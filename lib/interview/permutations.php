@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Puzzle 1: Find all of the permutations for a given string.
  * Learn more @link http://www.programmerinterview.com/index.php/recursion/permutations-of-a-string/

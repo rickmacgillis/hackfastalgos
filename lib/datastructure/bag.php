@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a bag
  * Learn more @link http://algs4.cs.princeton.edu/13stacks/

@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Adjacency list data structure
  * Learn more @link https://en.wikipedia.org/wiki/Adjacency_list

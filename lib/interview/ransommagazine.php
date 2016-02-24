@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Puzzle: Write an algorithm to see if all of the words in a ransom letter are contained in a magazine.
  */

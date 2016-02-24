@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Puzzle: Write code to check if a string is a rotation of a second string.
  */

@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a stack
  * @Learn more @link https://en.wikipedia.org/wiki/Stack_(abstract_data_type)

@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * This object is an alternative to directly working with the Node object.
  * It just simplifies some operations.

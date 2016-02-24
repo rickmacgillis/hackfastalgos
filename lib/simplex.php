@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Herpilies! Herpilies! [https://www.youtube.com/watch?v=PxYQQoYfMtQ]
  * This Simplex algorithm is a radmentary LP solver.
@@ -12,5 +12,5 @@ namespace HackFastAlgos;
 
 class Simplex
 {
-	
+
 }

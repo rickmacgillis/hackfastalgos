@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Puzzle: Write an algorithm to iterate over the numbers 0 through 100 and output "Fizz" for
  * all multiples of 3. Output "Buzz" for all multiples of 5. Output "FizzBuzz" if a number is

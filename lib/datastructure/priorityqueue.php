@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a priority queue
  * Learn more @link https://en.wikipedia.org/wiki/Priority_queue

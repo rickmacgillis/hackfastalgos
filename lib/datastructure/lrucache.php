@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of an LRU cache
  * Learn more @link http://www.cs.uml.edu/~jlu1/doc/codes/lruCache.html

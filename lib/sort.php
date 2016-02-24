@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implements various sorting algorithms optimized for speed.
  */
@@ -79,30 +79,30 @@ class Sort
 	 *
 	 * Learn more @link https://en.wikipedia.org/wiki/Insertion_sort
 	 */
-	public static function insertSort(Vector<int> $vector, int $left = 0, ?int $right = null) : Vector<int>
+	public static function insertSort(array $array, int $left = 0, ?int $right = null) : array
 	{
-		$vectorLen = $right === null ? $vector->count()-1 : $right;
-		for ($i = $left+1; $i <= $vectorLen; $i++) {
+		$arrayLen = $right === null ? count($array)-1 : $right;
+		for ($i = $left+1; $i <= $arrayLen; $i++) {
 
-			$key = $vector[$i];
+			$key = $array[$i];
 			$j = $i;
 
 			while ($j > $left) {
 
-				if (static::compare($vector[$j-1], $key) <= 0) {
+				if (static::compare($array[$j-1], $key) <= 0) {
 					break;
 				}
 
-				$vector[$j] = $vector[$j-1];
+				$array[$j] = $array[$j-1];
 				$j--;
 
 			}
 
-			$vector[$j] = $key;
+			$array[$j] = $key;
 
 		}
 
-		return $vector;
+		return $array;
 	}
 
 	/**
@@ -148,12 +148,6 @@ class Sort
 		}
 
 		return $return;
-	}
-
-	public static function bucketSort(Vector<int> $vector, int $buckets) : Vector<int>
-	{
-		// https://en.wikipedia.org/wiki/Bucket_sort
-		// http://www.geeksforgeeks.org/bucket-sort-2/
 	}
 
 	/**
@@ -204,7 +198,7 @@ class Sort
 		return $gaps;
 	}
 
-	private static function compare(int $a, int $b)
+	private static function compare<T>(T $a, T $b) : int
 	{
 		if ($a > $b) {
 			return 1;

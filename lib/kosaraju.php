@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of Koraraju's Strongly Connected Components
  *
@@ -52,7 +52,7 @@ class Kosaraju
 		$this->sccSizes[$source] = $this->totalScc;
 
 		// Algo
-		
+
 		$this->postOrder->enqueue($source);
 		$this->incrementPostorderCounterForVertex($source);
 	}

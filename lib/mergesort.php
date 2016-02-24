@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of Merge Sort
  * Learn more @link https://en.wikipedia.org/wiki/Merge_sort

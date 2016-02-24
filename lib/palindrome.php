@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Algorithms for working with palindromes
  * Learn more @link http://articles.leetcode.com/2011/11/longest-palindromic-substring-part-ii.html

@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Puzzle: A vector of consecutive integers is rotated such that the numbers restart
  * counting somewhere in the vector. Find the key at which the numbers begin counting.

@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Stripped down implementation of Strassen's Matrix Multiplication
  * Learn more @link https://en.wikipedia.org/wiki/Strassen_algorithm

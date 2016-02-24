@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of the Ford-Fulkerson Max-Flow algorithm which is based on Min-Cut
  * Learn more

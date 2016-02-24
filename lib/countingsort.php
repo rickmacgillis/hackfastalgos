@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of Counting Sort (Also named Key-Index Counting)
  * Counting sort is a stable sorting method.

@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Abstraction of a hash table (Also called a hash map, dictionary, symbol
  * table, flibber jabber, or Jabberwocky)

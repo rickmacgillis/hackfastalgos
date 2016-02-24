@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a Binary Search Tree (BST)
  * Learn more @link https://en.wikipedia.org/wiki/Binary_search_tree

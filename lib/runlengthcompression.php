@@ -1,8 +1,8 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
- * Implementation of various compression algorithms
+ * Implementation of Run-Length compression for binary data.
  *
  * Learn more
  * @link http://algs4.cs.princeton.edu/55compression/RunLength.java.html

@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a Left-Leaning Red-Black Tree (LLRB Tree)
  * Learn more

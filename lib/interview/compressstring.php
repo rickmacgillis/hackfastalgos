@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Puzzle: Implement an algorithm to perform basic string compression using the counts of each character.
  * If the compressed string is longer than the original string, return the original string.

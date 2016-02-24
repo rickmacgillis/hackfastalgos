@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Puzzle: Write an algorithm into existence that will check an MxN matrix to find an element who's value is zero.
  * Every time a zero entry is discovered, make its row and column all zeros.

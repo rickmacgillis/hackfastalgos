@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a string buffer (String Buffer is not useful in PHP or Hack.
  * Languages like Java and C++ can benefit from one.)

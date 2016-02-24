@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac gillis
+ * Hack Fast Algos
  *
  * Implementation of a game tree
  * Learn more @link https://en.wikipedia.org/wiki/Game_tree

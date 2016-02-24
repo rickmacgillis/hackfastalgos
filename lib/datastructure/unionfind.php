@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a Union-Find data structure (Also called Disjoint-Set or Merge-Find)
  * Lean more @link https://en.wikipedia.org/wiki/Disjoint-set_data_structure

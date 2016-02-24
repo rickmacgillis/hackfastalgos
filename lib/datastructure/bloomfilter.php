@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a Bloom Filter
  * Learm more @link https://en.wikipedia.org/wiki/Bloom_filter

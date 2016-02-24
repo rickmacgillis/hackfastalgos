@@ -8,7 +8,7 @@
  * @see http://github.com/garycourt/murmurhash-js
  * @author Austin Appleby (aappleby@gmail.com)
  *
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Learn more @link https://code.google.com/p/smhasher/wiki/MurmurHash3
  */

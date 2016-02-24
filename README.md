@@ -49,6 +49,7 @@ algorithms defined in that class.
 
 * **Algos**
 * **BFS**
+* **BucketSort**
 * **ConvexHull**
 	* Calculate the convex hull using a Graham Scan.
 * **CountingSort**

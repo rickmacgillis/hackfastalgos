@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a Splay Tree
  * Learn more @link https://en.wikipedia.org/wiki/Splay_tree

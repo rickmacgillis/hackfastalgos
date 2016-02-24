@@ -1,6 +1,6 @@
 <?HH
 /**
- * @author Rick Mac Gillis
+ * Hack Fast Algos
  *
  * Implementation of a binary heap data structure in Hack
  * Learn more @link https://en.wikipedia.org/wiki/Heap_(data_structure)
