@@ -237,6 +237,24 @@ interview questions contained in this library.
 
 	> Puzzle: Write code to check if a string is a rotation of a second string.
 
+* **TreeLis**
+
+	> Asked in my Amazon practice interview through Gainlo:
+    >
+    > Puzzle:
+    > Given a binary tree find the size of the largest independent set.
+    > This means that no two nodes in final set have direct parent-child relationship.
+    >
+    >              a1
+    >             /  \
+    >            a2   a3
+    >           / \    \
+    >          a4  a5  a6
+    >              / \
+    >             a7  a8
+    >
+    >             Answer: a1,a4,a7,a8,a6 ---> LIS is 5
+
 * **UniqueChars**
 
 	> Puzzle: Check if a string has all unique characters without the use of an additional data structure.
