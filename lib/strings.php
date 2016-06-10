@@ -14,28 +14,6 @@ class Strings
 		// https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
 	}
 
-	public static function findDialPadCombos(int $number) : Vector<string>
-	{
-		/*
-		 * Take in a phone number (or any number) and return all of the possible word combinations
-		 * in Theta(n log(n)) time. (Note: Until I've implemented it, the running time is theoretical.)
-		 *
-		 * Make one that returns the Async wait handler, and scrap this code.
-		 */
-		$dpadCobos = static::findDialPadCombosAsync($number);
-		if ($returnWaitHandler) {
-			return $dpadCobos;
-		}
-
-		return $dpadCobos->getWaitHandle()->join();
-	}
-
-	public static async function findDialPadCombosAsync(int $number) : Awaitable<Vector<string>>
-	{
-		// Recurse on the data in log3 to create a vector of strings for the given subproblem.
-		// Merge the retrieved subproblem data into the data for the larger problem.
-	}
-
 	/**
 	 * Runs in Theta(n) time.
 	 */
@@ -44,7 +22,7 @@ class Strings
 		$stringLength = strlen($string);
 		$suffixArray = Vector{$string};
 		for ($i = 1; $i < $stringLength; $i++) {
-			$suffixArray[] = substr($string, $i, $stringLength-$i);
+			$suffixArray[] = substr($string, $i);
 		}
 
 		return $suffixArray;

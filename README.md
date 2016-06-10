@@ -181,6 +181,10 @@ interview questions contained in this library.
 	> Puzzle: Implement an algorithm to perform basic string compression using the counts of each character.
     > If the compressed string is longer than the original string, return the original string.
 
+* **DialPad**
+
+	> Puzzle: Return all of the possible letter combinations for a telephone number.
+
 * **FizzBuzz**
 
 	> Puzzle: Write an algorithm to iterate over the numbers 0 through 100 and output "Fizz" for

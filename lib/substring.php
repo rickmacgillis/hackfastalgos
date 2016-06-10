@@ -138,7 +138,7 @@ class SubString
 		$this->calculateRightMostPositions();
 		$haystackLength = strlen($this->haystack);
 		$needleLength = strlen($this->needle);
-		for ($skip = 0, $haystackIndex = 0; $haystackIndex < $haystackLength; $haystackIndex += $skip) {
+		for ($skip = 0, $haystackIndex = 0; $haystackIndex + $needleLength-1 < $haystackLength; $haystackIndex += $skip) {
 
 			$skip = 0;
 			for ($needleIndex = $needleLength-1; $needleIndex >= 0; $needleIndex--) {
@@ -263,7 +263,7 @@ class SubString
 	 */
 	private function calculateRightMostPositions()
 	{
-		$this->rightMost;
+		$this->rightMost = [];
 		$needleLength = strlen($this->needle);
 		for ($i = 0; $i < $needleLength; $i++) {
 			$this->rightMost[$this->getCharAt($i)] = $i;
