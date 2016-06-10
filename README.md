@@ -191,6 +191,24 @@ interview questions contained in this library.
     > all multiples of 3. Output "Buzz" for all multiples of 5. Output "FizzBuzz" if a number is
     > a multiple of both 5 and 3. (Ex. 0:FizzBuzz 3:Fizz 5:Buzz ...)
 
+* **Laundry**
+
+	> Asked in my Amazon practice interview through Gainlo:
+    >
+    > Puzzle:
+    > There are N machines in a laundry. They have infinite capacity.
+    > Now a truck of cloths is unloaded for washing and randomly assigned to each machine.
+    > In this process the manager didn't balance the load of cloths to clean. Now rebalancing is required.
+    >
+    > Rebalancing proceeds in rounds. Each time, a machine can transfer at most one cloth to each of its
+    > neighbors. Neighbors of the machine i are the machine i-1 and i+1 (machines 1 and N have only one neighbor each,
+    > 2 and N-1 respectively).
+    >
+    > The goal of rebalancing is to achieve that all machines have the same number of cloths.
+    > Given the number of cloths initially assigned to each machine, you are asked to determine the minimal number of
+    > rounds needed to achieve the state when every machine has the same number of cloths, or to determine that such
+    > rebalancing is not possible.
+
 * **Permutations**
 
 	> Puzzle 1: Find all of the permutations for a given string.
