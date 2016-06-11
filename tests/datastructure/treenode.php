@@ -37,6 +37,17 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($treeNodeLeftChild, $treeNode->leftChild);
 	}
 
+	public function testCanSetAndGetMiddleChild()
+	{
+		$treeNode = new TreeNode();
+		$treeNodeMiddleChild = new TreeNode();
+
+		$this->assertSame(null, $treeNode->middleChild);
+
+		$treeNode->middleChild = $treeNodeMiddleChild;
+		$this->assertSame($treeNodeMiddleChild, $treeNode->middleChild);
+	}
+
 	public function testCanSetAndGetRightChild()
 	{
 		$treeNode = new TreeNode();
@@ -59,6 +70,17 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($treeNode, $treeNodeLeftChild->parent);
 	}
 
+	public function testCanAttachMiddleChild()
+	{
+		$treeNode = new TreeNode();
+		$treeNodeMiddleChild = new TreeNode();
+
+		$treeNode->attachMiddleChild($treeNodeMiddleChild);
+
+		$this->assertSame($treeNodeMiddleChild, $treeNode->middleChild);
+		$this->assertSame($treeNode, $treeNodeMiddleChild->parent);
+	}
+
 	public function testCanAttachRightChild()
 	{
 		$treeNode = new TreeNode();
@@ -79,6 +101,17 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($treeNodeLeftChild, $treeNode->leftChild);
 		$this->assertSame($treeNode, $treeNodeLeftChild->parent);
+	}
+
+	public function testCanAttachSelfAsMiddleChild()
+	{
+		$treeNode = new TreeNode();
+		$treeNodeMiddleChild = new TreeNode();
+
+		$treeNodeMiddleChild->attachAsMiddleChildOf($treeNode);
+
+		$this->assertSame($treeNodeMiddleChild, $treeNode->middleChild);
+		$this->assertSame($treeNode, $treeNodeMiddleChild->parent);
 	}
 
 	public function testCanAttachSelfAsRightChild()
@@ -107,11 +140,22 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($treeNode->hasChild());
 
 		$treeNode = new TreeNode();
+		$treeNodeMiddleChild = new TreeNode();
+		$treeNode->attachMiddleChild($treeNodeMiddleChild);
+		$this->assertTrue($treeNode->hasChild());
+
+		$treeNode = new TreeNode();
 		$treeNodeLeftChild = new TreeNode();
 		$treeNode->attachLeftChild($treeNodeLeftChild);
 		$this->assertTrue($treeNode->hasChild());
+	}
 
-		$treeNode->attachRightChild($treeNodeRightChild);
-		$this->assertTrue($treeNode->hasChild());
+	public function testCanGetAndSetKey()
+	{
+		$treeNode = new TreeNode();
+		$this->assertSame(null, $treeNode->key);
+
+		$treeNode->key = 'a';
+		$this->assertSame('a', $treeNode->key);
 	}
 }
