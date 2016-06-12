@@ -14,9 +14,9 @@ class DoublyLinkedListIsEmptyException extends \Exception{}
 
 class DoublyLinkedList implements \Iterator, \Countable
 {
-	private ?Node $lastNode = null;
-	private ?Node $firstNode = null;
-	private ?Node $pointer = null;
+	private ?LinkedListNode $lastNode = null;
+	private ?LinkedListNode $firstNode = null;
+	private ?LinkedListNode $pointer = null;
 	private int $total = 0;
 
 	public function count() : int
@@ -31,10 +31,10 @@ class DoublyLinkedList implements \Iterator, \Countable
 
 	public function valid() : bool
 	{
-		return $this->pointer instanceOf Node;
+		return $this->pointer instanceOf LinkedListNode;
 	}
 
-	public function key() : ?Node
+	public function key() : ?LinkedListNode
 	{
 		return $this->pointer;
 	}
@@ -59,14 +59,14 @@ class DoublyLinkedList implements \Iterator, \Countable
 		$this->pointer = $this->lastNode;
 	}
 
-	public function insertBefore<T>(T $data, Node $node)
+	public function insertBefore<T>(T $data, LinkedListNode $node)
 	{
 		if ($node === $this->firstNode || $this->firstNode === null) {
 			$this->insertBeginning($data);
 		} else {
 
 			$this->total++;
-			$newNode = new Node();
+			$newNode = new LinkedListNode();
 			$newNode->setValue($node->getValue());
 			$newNode->setPrev($node);
 			$newNode->setNext($node->getNext());
@@ -76,14 +76,14 @@ class DoublyLinkedList implements \Iterator, \Countable
 		}
 	}
 
-	public function insertAfter<T>(T $data, Node $node)
+	public function insertAfter<T>(T $data, LinkedListNode $node)
 	{
 		if ($node === $this->lastNode || $this->lastNode === null) {
 			$this->insertEnd($data);
 		} else {
 
 			$this->total++;
-			$newNode = new Node();
+			$newNode = new LinkedListNode();
 			$newNode->setValue($data);
 			$newNode->setNext($node->getNext());
 			$newNode->setPrev($node);
@@ -95,7 +95,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 	public function insertBeginning<T>(T $data)
 	{
 		$this->total++;
-		$newNode = new Node();
+		$newNode = new LinkedListNode();
 		$newNode->setValue($data);
 		$newNode->setNext($this->firstNode);
 
@@ -113,7 +113,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 	public function insertEnd<T>(T $data)
 	{
 		$this->total++;
-		$newNode = new Node();
+		$newNode = new LinkedListNode();
 		$newNode->setValue($data);
 		$newNode->setPrev($this->lastNode);
 
@@ -128,7 +128,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 		}
 	}
 
-	public function removeNode(Node $node)
+	public function removeNode(LinkedListNode $node)
 	{
 		$this->throwIfEmptyLinkedList();
 		$this->resetListIfOnlyNodePresent($node);
@@ -166,7 +166,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 		$this->lastNode = $this->lastNode->getPrev();
 	}
 
-	private function removeMiddleNode(Node $node)
+	private function removeMiddleNode(LinkedListNode $node)
 	{
 		$this->total--;
 		$nextNode = $node->getNext();
@@ -179,7 +179,7 @@ class DoublyLinkedList implements \Iterator, \Countable
 		}
 	}
 
-	private function resetListIfOnlyNodePresent(Node $node)
+	private function resetListIfOnlyNodePresent(LinkedListNode $node)
 	{
 		if ($node === $this->firstNode && $node === $this->lastNode) {
 

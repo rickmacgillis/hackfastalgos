@@ -1,12 +1,12 @@
 <?HH
 
-use \HackFastAlgos\DataStructure as DataStructure;
+use \HackFastAlgos\DataStructure\LinkedListNode as LinkedListNode;
 
 class NodeTest extends \PHPUnit_Framework_TestCase
 {
 	public function testCanSetAndGetNodeValue()
 	{
-		$node = new DataStructure\Node();
+		$node = new LinkedListNode();
 		$this->assertSame(null, $node->getValue());
 
 		$node->setValue('test');
@@ -18,7 +18,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanSetAndGetNextNodeWithItsValue()
 	{
-		$node = new DataStructure\Node();
+		$node = new LinkedListNode();
 		$nextNode = clone $node;
 
 		$this->assertSame(null, $node->getNext());
@@ -40,7 +40,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 
 	public function testCanSetAndGetPrevNodeWithItsValue()
 	{
-		$node = new DataStructure\Node();
+		$node = new LinkedListNode();
 		$prevNode = clone $node;
 
 		$this->assertSame(null, $node->getPrev());

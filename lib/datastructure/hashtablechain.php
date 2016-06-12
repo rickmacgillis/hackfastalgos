@@ -146,13 +146,13 @@ class HashTableChain extends HashTable
 		} catch (HashTableOutOfBoundsException $e) {}
 	}
 
-	protected function getNodeFromKey<T>(T $key, int $hash) : Node
+	protected function getNodeFromKey<T>(T $key, int $hash) : LinkedListNode
 	{
 		$vector = $this->getNodeAndValueForKey($key, $hash);
 		return $vector[0];
 	}
 
-	private function deleteLinkedListNode(Node $node, int $hash)
+	private function deleteLinkedListNode(LinkedListNode $node, int $hash)
 	{
 		$this->hashTableData[$hash]->removeNode($node);
 	}

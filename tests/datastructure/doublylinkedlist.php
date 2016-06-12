@@ -116,7 +116,7 @@ class DoublyLinkedListTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($shouldBe, $test);
 
 		$dll->moveToLast();
-		$this->assertInstanceOf('\\HackFastAlgos\\DataStructure\\Node', $dll->key());
+		$this->assertInstanceOf('\\HackFastAlgos\\DataStructure\\LinkedListNode', $dll->key());
 	}
 
 	public function testBackwardsIteration()

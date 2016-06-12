@@ -151,8 +151,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **KDTree**
 	* An implementation of a K-dimensional tree
 * **LRUCache**
-* **Node**
-	* A generic node for storing data in data structures
+* **LinkedListNode**
+	* A node used for linked lists
 * **PriorityQueue**
 * **Queue**
 * **RBTree**
