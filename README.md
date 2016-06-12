@@ -171,6 +171,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **TwoThreeTree**
 * **TreeNode**
 	* A node for trees and tries
+* **TrieNode**
+	* A Node used in the R-Way Trie
 * **UnionFind**
 	* The union-find data structure is also named the disjoint-set or merge-find.
 

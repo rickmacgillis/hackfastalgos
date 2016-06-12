@@ -65,7 +65,7 @@ class TernarySearchTrieTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($tst->contains('ali-zebu'));
 	}
 
-	public function testCanDeleteStringWhileRetailingOtherStrings()
+	public function testCanDeleteStringWhileRetainingOtherStrings()
 	{
 		$tst = new TernarySearchTrie();
 
