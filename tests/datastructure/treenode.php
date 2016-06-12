@@ -158,4 +158,14 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$treeNode->key = 'a';
 		$this->assertSame('a', $treeNode->key);
 	}
+
+	public function testCanGetAndSetNodeColor()
+	{
+		$treeNode = new TreeNode();
+
+		$this->assertFalse($treeNode->isRed());
+
+		$treeNode->color = TreeNode::RED;
+		$this->assertTrue($treeNode->isRed());
+	}
 }

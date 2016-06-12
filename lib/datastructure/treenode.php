@@ -9,8 +9,12 @@ namespace HackFastAlgos\DataStructure;
 
 class TreeNode
 {
+	const bool RED = true;
+	const bool BLACK = false;
+
 	public ?T $value = null;
 	public string $key;
+	public bool $color = TreeNode::BLACK;
 
 	public ?TreeNode $parent = null;
 
@@ -57,5 +61,10 @@ class TreeNode
 	public function hasChild() : bool
 	{
 		return $this->leftChild !== null || $this->middleChild !== null || $this->rightChild !== null;
+	}
+
+	public function isRed() : bool
+	{
+		return $this->color === static::RED;
 	}
 }

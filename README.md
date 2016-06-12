@@ -320,7 +320,7 @@ to the rule is that you may include exception classes *before* your main class.
 This Library In Other Languages
 -------------------------------
 
-No one has created a port of HackFastAlgos in any other language just yet. If you create your own port of the language,
+No one has created a port of HackFastAlgos in any other language just yet. If you create your own port of this package,
 please let me know so that I can list it in this section.
 
 Credits and Further Learning Resources
