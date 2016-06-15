@@ -50,9 +50,11 @@ algorithms defined in that class.
 * **Algos**
 * **BFS**
 * **BucketSort**
+	* Bucket Soft sorting algorithm
 * **ConvexHull**
 	* Calculate the convex hull using a Graham Scan.
 * **CountingSort**
+	* Counting sort sorting algorithm
 * **Cryptography**
 	* Algorithm to generate a secure random number
 * **DFS**
@@ -76,6 +78,7 @@ algorithms defined in that class.
 * **MedianHeap**
 	* Get the median number in a stream if integers.
 * **MergeSort**
+	* Merge Sort softing algorithm
 * **MostFrequentWord**
 	* Calculate the most frequent word in the given text.
 * **MST**
@@ -90,13 +93,16 @@ algorithms defined in that class.
 * **PolishNotation**
 	* An implementation of Polish Prefix Notation
 * **QuickSelect**
+	* This Quick Select implementation is used to select the kth-smallest item in a vector.
 * **QuickSort**
+	* Quick Sort sorting algorithm
 * **RadixSort**
 	* Implementations for both LSD and MSD
 * **RegEx**
 	* Rudimentary implementation of a regular expression interpreter
 	* Grep
 * **RunLengthCompression**
+	* Run-length compression algorithm for binary data
 * **Search**
 	* Binary search
 	* Brute force search
@@ -127,16 +133,22 @@ Data structures which employ a comparative function (`compare()`) may have said 
 the capabilities of that data structure. All data uses the generic type `T` for that reason, where appropriate.
 
 * **AdjList**
+	* Adjacency list for graphs
 * **AdjMatrix**
+	* Adjacency matrix object for graphs
 * **AVLTree**
 * **Bag**
+	* Implementation of a bag
 * **BloomFilter**
+	* Implementation of a Bloom filter
 * **BPlusTree**
 * **BST**
 	* BST is an implementation of a Binary Search Tree.
 * **BTree**
 * **DoublyLinkedList**
+	* Implementation of a doubly-linked list
 * **EdgeList**
+	* Edge List object for graphs
 * **GameTree**
 * **HashTableChain**
 	* An implementation of a hash table using a doubly linked list
@@ -147,22 +159,25 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **Indexer**
 	* Find a word in a file, and get the surrounding context of that word in each file in which it appears
 * **IntervalTree**
-	* An implementation of an Interval Search Tree
 * **KDTree**
-	* An implementation of a K-dimensional tree
 * **LRUCache**
 * **LinkedListNode**
 	* A node used for linked lists
 * **PriorityQueue**
+	* Implementation of a priority queue
 * **Queue**
+	* Implementation of a good 'ol queue
 * **RBTree**
 	* RBTree is an implementation of a Left-Leaning Red-Black Tree.
 * **RWayTrie**
 	* Implementation of an R-Way-Trie using integer values.
 * **Schedule**
+	* Implementation of a task scheduler
 * **Set**
+	* Implementation of a set
 * **SplayTree**
 * **Stack**
+	* Implementation of a stack
 * **StringBuffer**
 	* Concatenates all strings together at once instead of using Theta(n) running time to concatenate strings with
 	.= or the like.
