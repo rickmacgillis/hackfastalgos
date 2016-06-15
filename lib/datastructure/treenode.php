@@ -67,4 +67,29 @@ class TreeNode
 	{
 		return $this->color === static::RED;
 	}
+
+	public function disownMe()
+	{
+		if ($this->parent === null) {
+			return;
+		}
+
+		if ($this->isLeftChild()) {
+			$this->parent->leftChild = null;
+		}
+
+		if ($this->isRightChild()) {
+			$this->parent->rightChild = null;
+		}
+	}
+
+	public function isLeftChild() : bool
+	{
+		return $this->parent->leftChild === $this;
+	}
+
+	public function isRightChild() : bool
+	{
+		return $this->parent->rightChild === $this;
+	}
 }

@@ -168,4 +168,34 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$treeNode->color = TreeNode::RED;
 		$this->assertTrue($treeNode->isRed());
 	}
+
+	public function testCanMakeParentDisownItsLeftChild()
+	{
+		$parent = new TreeNode();
+		$leftChild = new TreeNode();
+		$rightChild = new TreeNode();
+
+		$parent->attachLeftChild($leftChild);
+		$parent->attachRightChild($rightChild);
+
+		$this->assertSame($leftChild, $parent->leftChild);
+
+		$leftChild->disownMe();
+		$this->assertSame(null, $parent->leftChild);
+	}
+
+	public function testCanMakeParentDisownItsRightChild()
+	{
+		$parent = new TreeNode();
+		$leftChild = new TreeNode();
+		$rightChild = new TreeNode();
+
+		$parent->attachLeftChild($leftChild);
+		$parent->attachRightChild($rightChild);
+
+		$this->assertSame($rightChild, $parent->rightChild);
+
+		$rightChild->disownMe();
+		$this->assertSame(null, $parent->rightChild);
+	}
 }

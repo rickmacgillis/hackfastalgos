@@ -17,49 +17,182 @@
 
 namespace HackFastAlgos\DataStructure;
 
-class RBTree
-{
-	public function get(string $key) : ?int
-	{
+class RBTreeIsEmptyException extends \Exception{}
+class RBTreeKeyNotFoundException extends \Exception{}
+class RBTreeKeyIsEmptyStringException extends \Exception{}
 
+class RBTree<T>
+{
+	private ?TreeNode $root = null;
+
+	public function get(string $key) : T
+	{
+		$this->throwIfEmptyTree();
+		$node = $this->getNodeForKey($key, $this->root);
+		$this->throwIfKeyIsNullNode($key, $node);
+
+		return $node->value;
 	}
 
 	public function contains(string $key) : bool
 	{
-		return $this->get($key) !== null;
+		try {
+			$value = $this->get($key);
+		} catch (\Exception $e) {
+			return false;
+		}
+
+		return true;
 	}
 
-	public function put(string $key, int $value)
+	public function put(string $key, T $value)
 	{
+		$this->throwIfEmptyKey($key);
+		$newNode = $this->makeNode($key, $value);
 
+		if ($this->root === null) {
+			$this->root = $newNode;
+		} else {
+			$this->addNodeToTree($newNode, $this->root);
+		}
+
+		$this->root->color = TreeNode::BLACK;
 	}
 
 	public function delete(string $key)
 	{
+		if ($this->root === null || $this->contains($key) === false) {
+			return;
+		}
 
+		if (!$this->isRed($this->root->leftChild) && !$this->isRed($this->root->rightChild)) {
+			$this->root->color = TreeNode::RED;
+		}
+
+		$this->root = $this->deleteKeyAfterNode($key, $this->root);
+		if ($this->root !== null) {
+			$this->root->color = TreeNode::BLACK;
+		}
 	}
 
-	public function deleteMin()
+	public function getMin() : T
 	{
-
+		$node = $this->getFurthestChild('leftChild');
+		return $node->value;
 	}
 
-	public function deleteMax()
+	public function getMax() : T
 	{
-
+		$node = $this->getFurthestChild('rightChild');
+		return $node->value;
 	}
 
-	public function getMin()
+	private function throwIfEmptyTree()
 	{
-
+		if ($this->root === null) {
+			throw new RBTreeIsEmptyException();
+		}
 	}
 
-	public function getMax()
+	/**
+	 * Operates in O(log N)
+	 */
+	private function getNodeForKey(string $key, ?TreeNode $node) : ?TreeNode
 	{
+		if ($node === null) {
+			return null;
+		}
 
+		$compare = $this->compare($key, $node->key);
+		if ($compare < 0) {
+			return $this->getNodeForKey($key, $node->leftChild);
+		} elseif ($compare > 0) {
+			return $this->getNodeForKey($key, $node->rightChild);
+		}
+
+		return $node;
 	}
 
-	private function rotateLeft(TreeNode $topNode)
+	private function compare(string $key1, string $key2)
+	{
+		return strcmp($key1, $key2);
+	}
+
+	private function throwIfKeyIsNullNode(string $key, ?TreeNode $node)
+	{
+		if ($node === null) {
+			throw new RBTreeKeyNotFoundException($key);
+		}
+	}
+
+	private function throwIfEmptyKey(string $key)
+	{
+		if ($key === '') {
+			throw new RBTreeKeyIsEmptyStringException();
+		}
+	}
+
+	private function makeNode(string $key, T $value)
+	{
+		$newNode = new TreeNode();
+		$newNode->key = $key;
+		$newNode->value = $value;
+
+		return $newNode;
+	}
+
+	/**
+	 * Operates in O(log N) or Omega(1) time
+	 */
+	private function addNodeToTree(TreeNode $newNode, ?TreeNode $node) : TreeNode
+	{
+		if ($node === null) {
+			return $newNode;
+		}
+
+		$compare = $this->compare($newNode->key, $node->key);
+		if ($compare < 0) {
+
+			$leftChild = $this->addNodeToTree($newNode, $node->leftChild);
+			$node->attachLeftChild($leftChild);
+
+		} elseif ($compare > 0) {
+
+			$rightChild = $this->addNodeToTree($newNode, $node->rightChild);
+			$node->attachRightChild($rightChild);
+
+		} else {
+			$node->value = $newNode->value;
+		}
+
+		$this->fixRightLeaningLinksAtNode($node);
+		return $node;
+	}
+
+	private function fixRightLeaningLinksAtNode(TreeNode $node)
+	{
+		$leftChild = $node->leftChild;
+		$rightChild = $node->rightChild;
+
+		if ($this->isRed($rightChild) && !$this->isRed($leftChild)) {
+			$node = $this->rotateLeft($node);
+		}
+
+		if ($this->isRed($leftChild) && $this->isRed($leftChild->leftChild)) {
+			$node = $this->rotateRight($node);
+		}
+
+		if ($this->isRed($leftChild) && $this->isRed($rightChild)) {
+			$this->flipColors($node);
+		}
+	}
+
+	private function isRed(?TreeNode $node) : bool
+	{
+		return $node === null ? false : $node->color;
+	}
+
+	private function rotateLeft(TreeNode $topNode) : TreeNode
 	{
 		// https://en.wikipedia.org/wiki/File:Tree_rotation_animation_250x250.gif
 		$rightChild = $topNode->rightChild;					// Hooks into B circle
@@ -73,7 +206,7 @@ class RBTree
 		return $rightChild;	// New root of this madness
 	}
 
-	private function rotateRight(TreeNode $topNode)
+	private function rotateRight(TreeNode $topNode) : TreeNode
 	{
 		// https://en.wikipedia.org/wiki/File:Tree_rotation_animation_250x250.gif
 		$leftChild = $topNode->leftChild;					// Hooks into A circle
@@ -94,13 +227,17 @@ class RBTree
 		$topNode->rightChild->color = !$topNode->rightChild->color;
 	}
 
-	private function isRed(?TreeNode $node) : bool
+	/**
+	 * Operates in O(log N) time
+	 */
+	private function getFurthestChild(string $childSide) : TreeNode
 	{
-		return $node === null ? false : $node->color;
-	}
+		$this->throwIfEmptyTree();
+		$node = $this->root;
+		while ($node->{$childSide} !== null) {
+			$node = $node->{$childSide};
+		}
 
-	private function balance()
-	{
-
+		return $node;
 	}
 }
