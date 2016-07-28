@@ -69,6 +69,8 @@ algorithms defined in that class.
 	* Huffman decode
 * **Kosaraju**
 	* Implementation of Kosaraju's Strongly Connected Components algorithm
+* **KSum**
+	* Implementation of 2-Sum and 3-Sum solvers
 * **LZW**
 * **Math**
 * **MatrixMultiply**
