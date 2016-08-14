@@ -77,13 +77,15 @@ class RBTree<T>
 
 	public function getMin() : T
 	{
-		$node = $this->getFurthestChild('leftChild');
+		$this->throwIfEmptyTree();
+		$node = $this->getMinAt($this->root);
 		return $node->value;
 	}
 
 	public function getMax() : T
 	{
-		$node = $this->getFurthestChild('rightChild');
+		$this->throwIfEmptyTree();
+		$node = $this->getMaxAt($this->root);
 		return $node->value;
 	}
 
@@ -92,6 +94,16 @@ class RBTree<T>
 		if ($this->root === null) {
 			throw new RBTreeIsEmptyException();
 		}
+	}
+
+	private function getMinAt(TreeNode $node)
+	{
+		return $node->leftChild === null ? $node : $this->getMinAt($node->leftChild);
+	}
+
+	private function getMaxAt(TreeNode $node)
+	{
+		return $node->rightChild === null ? $node : $this->getMaxAt($node->rightChild);
 	}
 
 	/**
@@ -227,15 +239,115 @@ class RBTree<T>
 		$topNode->rightChild->color = !$topNode->rightChild->color;
 	}
 
-	/**
-	 * Operates in O(log N) time
-	 */
-	private function getFurthestChild(string $childSide) : TreeNode
+	private function deleteKeyAfterNode(string $key, TreeNode $node) : ?TreeNode
 	{
-		$this->throwIfEmptyTree();
-		$node = $this->root;
-		while ($node->{$childSide} !== null) {
-			$node = $node->{$childSide};
+		if ($this->compare($key, $node->key) < 0) {
+
+			if ($this->hasBlackLeftChildAndGrandchild($node)){
+				$node = $this->moveRedLeft($node);
+			}
+
+			$this->deleteKeyAfterNode($key, $node->leftChild);
+
+		} else {
+
+			if ($this->isRed($node->leftChild)) {
+				$node = $this->rotateRight($node);
+			}
+
+			if ($this->compare($key, $node->key) === 0 && $node->rightChild === null) {
+				return null;
+			}
+
+			if ($this->hasBlackRightChildAndRightLeftChild($node)) {
+				$node = $this->moveRedRight($node);
+			}
+
+			if ($this->compare($key, $node->key) === 0) {
+
+					$minRightNode = $this->getMinAt($node->rightChild);
+					$node->key = $minRightNode->key;
+					$node->value = $minRightNode->value;
+					$node->rightChild = $this->deleteMinAt($node->rightChild);
+
+			} else {
+				$node->rightChild = $this->deleteKeyAfterNode($key, $node->rightChild);
+			}
+
+		}
+
+		return $this->balanceAt($node);
+	}
+
+	private function hasBlackLeftChildAndGrandchild(TreeNode $node) : bool
+	{
+		$leftChildIsBlack = $this->isRed($node->leftChild) === false;
+		$leftGrandchildIsBlack = $this->isRed($node->leftChild->leftChild) === false;
+
+		return $leftChildIsBlack && $leftGrandchildIsBlack;
+	}
+
+	private function moveRedLeft(TreeNode $node) : TreeNode
+	{
+		$this->flipColors($node);
+		if ($this->isRed($node->rightChild->leftChild)) {
+
+			$node->rightChild = $this->rotateRight($node->rightChild);
+			$node = $this->rotateLeft($node);
+			$this->flipColors($node);
+
+		}
+
+		return $node;
+	}
+
+	private function hasBlackRightChildAndRightLeftChild(TreeNode $node) : bool
+	{
+		$rightChildIsBlack = $this->isRed($node->rightChild) === false;
+		$rightLeftChildIsBlack = $this->isRed($node->rightChild->leftChild) === false;
+
+		return $rightChildIsBlack && $rightLeftChildIsBlack;
+	}
+
+	private function moveRedRight(TreeNode $node) : TreeNode
+	{
+		$this->flipColors($node);
+		if ($this->isRed($node->leftChild->leftChild)) {
+
+			$node = $this->rotateRight($node);
+			$this->flipColors($node);
+
+		}
+
+		return $node;
+	}
+
+	private function deleteMinAt(TreeNode $node) : TreeNode
+	{
+		if ($node->leftChild === null) {
+			return null;
+		}
+
+		if ($this->hasBlackLeftChildAndGrandchild($node)) {
+			$node = $this->moveRedLeft($node);
+		}
+
+		$node->leftChild = $this->deleteMinAt($node->leftChild);
+		return $this->balanceAt($node);
+	}
+
+	private function balanceAt(TreeNode $node) : TreeNode
+	{
+		if ($this->isRed($node->rightChild)) {
+			$node = $this->rotateLeft($node);
+		}
+
+		if ($this->isRed($node->leftChild) && $this->isRed($node->leftChild->leftChild)) {
+			$node = $this->rotateRight($node);
+		}
+
+		if ($this->isRed($node->leftChild) && $this->isRed($node->rightChild)) {
+			$this->flipColors($node);
 		}
 
 		return $node;

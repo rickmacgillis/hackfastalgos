@@ -126,4 +126,20 @@ class RBTreeTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame(5, $rbTree->getMax());
 	}
+
+	public function testCanDeleteItemsFromTheTreeWithoutDataLoss()
+	{
+		$rbTree = new RBTree<int>();
+
+		$rbTree->put('test', 0);
+		$rbTree->put('try', 1);
+		$rbTree->put('te', 2);
+		$rbTree->put('testing', 3);
+		$rbTree->put('apple', 4);
+		$rbTree->put('zebra', 5);
+		$rbTree->put('ali-zebu', 6);
+
+		$rbTree->delete('te');$rbTree->delete('te');
+		$this->assertFalse($rbTree->contains('te'));
+	}
 }
