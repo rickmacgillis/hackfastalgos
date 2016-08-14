@@ -98,6 +98,9 @@ algorithms defined in that class.
 	* This Quick Select implementation is used to select the kth-smallest item in a vector.
 * **QuickSort**
 	* Quick Sort sorting algorithm
+* **RabinKarp**
+	* Implementation of the Rabin-Karp substring search algorithm
+	* Implementation of Rabin Fingerprint hashing
 * **RadixSort**
 	* Implementations for both LSD and MSD
 * **RegEx**
