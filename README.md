@@ -58,6 +58,7 @@ algorithms defined in that class.
 * **Cryptography**
 	* Algorithm to generate a secure random number
 * **DFS**
+	* Implementations of various DFS-based algorithms
 * **FordFulkerson**
 	* Max Flow algorithm based on Min-Cut
 * **Geometry**
@@ -129,6 +130,8 @@ algorithms defined in that class.
 	* KMP [Knuth-Morris-Pratt]
 	* KMP Improved
 	* Boyer-Moore
+* **TopSort**
+	* Implementation of Topological Sort
 
 List of Data Structures
 -----------------------
@@ -155,6 +158,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **EdgeList**
 	* Edge List object for graphs
 * **GameTree**
+* **GraphNode**
+	* A node for use in graph algorithms
 * **HashTableChain**
 	* An implementation of a hash table using a doubly linked list
 * **HashTableOA**

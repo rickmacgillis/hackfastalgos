@@ -53,7 +53,7 @@ class DFS
 
 		$this->incrementComponentSizeForId($componentId);
 		$this->componentIds[$source] = $componentId;
-		
+
 		if ($this->adjList->containsKey($source) === false) {
 			return;
 		}
@@ -146,13 +146,6 @@ class DFS
 	public function isBipartite() : bool
 	{
 		return $this->isBipartite;
-	}
-
-	public function topSort(AdjList $adjList, Node $sourceNode) : Vector<Node>
-	{
-		$this->throwIfHasCycles();
-
-		// https://en.wikipedia.org/wiki/Topological_sorting
 	}
 
 	private function resetDFS()
