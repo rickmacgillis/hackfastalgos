@@ -10,8 +10,6 @@ use \HackFastAlgos\DataStructure as DataStructure;
 
 namespace HackFastAlgos;
 
-class ShortestPathHasNegativeedgeLengthsException extends \Exception{}
-
 type Node = int;
 type ShortestPath = Vector<shape (
 
@@ -23,15 +21,6 @@ type ShortestPath = Vector<shape (
 class ShortestPath
 {
 	public function __construct(private DataStructure\AdjList $adjList) {}
-
-	public function findDijkstrasShortestPath(Node $sourceNode) : ShortestPath
-	{
-		// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
-		// http://algs4.cs.princeton.edu/44sp/DijkstraSP.java.html
-		// Mention that Dijkstra's algorithm uses BFS
-		// If the list contains a negative length...
-			throw new ShortestPathHasNegativeedgeLengthsException();
-	}
 
 	public function findBellmanFordShortestPath(Vector<int> $vertices, Node $sourceNode, int $maxEdges = 0) : ShortestPath
 	{

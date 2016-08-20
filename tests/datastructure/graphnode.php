@@ -14,12 +14,6 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase
     $this->assertSame(1, $node->inboundEdgeCount);
   }
 
-  public function testCanConstructGraphNode()
-  {
-    $node = new GraphNode(1);
-    $this->assertSame(1, $node->inboundEdgeCount);
-  }
-
   public function testCanAddEdgeToNode()
   {
     $node1 = new GraphNode();
@@ -27,9 +21,5 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase
 
     $node1->addEdgeTo($node2);
     $this->assertSame([$node2], $node1->outbound);
-
-    $node1 = new GraphNode();
-    $node2 = new GraphNode(0, [$node1]);
-    $this->assertSame([$node1], $node2->outbound);
   }
 }

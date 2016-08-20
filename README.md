@@ -29,7 +29,7 @@ This library's main purpose is to aid web developers in their conquest of learni
 structures. If you intend to use the library as a learning or teaching tool, be advised that there are often multiple
 ways to write the algorithm concepts. For instance, MergeSort does not need to run its recursion asynchronously, and
 certain programming languages do not support asynchronous work-flows. The anthem of any good algorithm designer is,
-"Can we make it better (faster/more memory efficient/more memory focused)?"
+"Can we make it better [faster/more memory efficient/more memory focused]?"
 
 Companies rely on speed and space-efficient code to keep their websites and projects running smoothly. You'll find
 that some of these algorithms are only either efficient on large data sets (Ex. Lots of array elements) or require

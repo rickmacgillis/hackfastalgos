@@ -12,7 +12,7 @@ namespace HackFastAlgos;
 
 use HackFastAlgos\DataStructure\GraphNode as GraphNode;
 
-class TopSortHasCyclesException extends \Exception{};
+class TopSortHasCyclesException extends \Exception{}
 
 class TopSort
 {

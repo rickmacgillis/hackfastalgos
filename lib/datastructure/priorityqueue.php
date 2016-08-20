@@ -10,9 +10,11 @@ namespace HackFastAlgos\DataStructure;
 
 class PriorityQueue extends Heap
 {
-	public function __construct()
+	public function __construct(String $heap = 'max')
 	{
-		parent::__construct(static::MAX_HEAP);
+		$heapType = $heap === 'max' ? static::MAX_HEAP : static::MIN_HEAP;
+
+		parent::__construct($heapType);
 	}
 
 	/**
@@ -41,11 +43,11 @@ class PriorityQueue extends Heap
 	<<override>>protected function compare<T>(T $item1, T $item2) : int
 	{
 		if ($item1[0] < $item2[0]) {
-			return 1;
+			return ($this->heapType === static::MIN_HEAP) ? -1 : 1;
 		}
 
 		if ($item1[0] > $item2[0]) {
-			return -1;
+			return ($this->heapType === static::MIN_HEAP) ? 1 : -1;
 		}
 
 		return 0;
