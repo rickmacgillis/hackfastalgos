@@ -59,6 +59,8 @@ algorithms defined in that class.
 	* Algorithm to generate a secure random number
 * **DFS**
 	* Implementations of various DFS-based algorithms
+* **DijkstrasAlgorithm**
+	* Implementation of Dijkstra's Algorithm using a min priority queue
 * **FordFulkerson**
 	* Max Flow algorithm based on Min-Cut
 * **Geometry**
