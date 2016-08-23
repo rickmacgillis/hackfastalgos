@@ -13,8 +13,10 @@ class TreeNode
 	const bool BLACK = false;
 
 	public ?T $value = null;
-	public string $key;
+	public T $key = null;
 	public bool $color = TreeNode::BLACK;
+	public int $height = 0;
+	public int $size = 0;
 
 	public ?TreeNode $parent = null;
 

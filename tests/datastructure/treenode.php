@@ -198,4 +198,24 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$rightChild->disownMe();
 		$this->assertSame(null, $parent->rightChild);
 	}
+
+	public function testCanChangeHeight()
+	{
+		$node = new TreeNode();
+
+		$this->assertSame(0, $node->height);
+
+		$node->height = 1;
+		$this->assertSame(1, $node->height);
+	}
+
+	public function testCanChangeSize()
+	{
+		$node = new TreeNode();
+
+		$this->assertSame(0, $node->size);
+
+		$node->size = 1;
+		$this->assertSame(1, $node->size);
+	}
 }

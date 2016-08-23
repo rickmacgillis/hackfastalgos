@@ -147,6 +147,7 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **AdjMatrix**
 	* Adjacency matrix object for graphs
 * **AVLTree**
+	* Implementation of an AVL Tree
 * **Bag**
 	* Implementation of a bag
 * **BloomFilter**
