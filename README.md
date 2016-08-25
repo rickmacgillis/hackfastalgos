@@ -173,9 +173,11 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 	* Find a word in a file, and get the surrounding context of that word in each file in which it appears
 * **IntervalTree**
 * **KDTree**
-* **LRUCache**
 * **LinkedListNode**
 	* A node used for linked lists
+* **LRUCache**
+	* An implementation of a Least Recently Used Cache which **deletes** the least recently used item when the
+    cache is full and we're adding a new item.
 * **PriorityQueue**
 	* Implementation of a priority queue
 * **Queue**

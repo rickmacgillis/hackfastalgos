@@ -59,4 +59,15 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('first node', $node->getValue());
 		$this->assertSame('test', $node->getPrev()->getValue());
 	}
+
+	public function testCanGetAndSetKey()
+	{
+		$node = new LinkedListNode();
+
+		$node->setKey(1);
+		$this->assertSame(1, $node->getKey());
+
+		$node->setKey(2);
+		$this->assertSame(2, $node->getKey());
+	}
 }
