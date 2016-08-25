@@ -12,7 +12,7 @@ namespace HackFastAlgos\DataStructure;
 
 class AVLTree<T>
 {
-  private TreeNode $root = null;
+  protected TreeNode $root = null;
 
   public function isEmpty() : bool
   {
@@ -52,17 +52,12 @@ class AVLTree<T>
     $this->fixRootHeight();
   }
 
-  private function getSizeAt(?TreeNode $node) : int
+  protected function getSizeAt(?TreeNode $node) : int
   {
     return $node === null ? 0 : $node->size;
   }
 
-  private function getHeightAt(?TreeNode $node) : int
-  {
-    return $node === null ? 0 : $node->height;
-  }
-
-  private function getNodeForKeyStartingAt(int $key, ?TreeNode $node) : ?TreeNode
+  protected function getNodeForKeyStartingAt(int $key, ?TreeNode $node) : ?TreeNode
   {
     if ($node === null) {
       return null;
@@ -79,6 +74,11 @@ class AVLTree<T>
     }
 
     return $node;
+  }
+
+  private function getHeightAt(?TreeNode $node) : int
+  {
+    return $node === null ? 0 : $node->height;
   }
 
   private function fixRootHeight()
@@ -110,9 +110,15 @@ class AVLTree<T>
     $compare = $this->compare($key, $node->key);
 
     if ($compare < 0) {
+
       $node->leftChild = $this->putValueAtKeyAndGetRoot($value, $key, $node->leftChild);
+      $node->leftChild->parent = $node;
+
     } else if ($compare > 0) {
+
       $node->rightChild = $this->putValueAtKeyAndGetRoot($value, $key, $node->rightChild);
+      $node->rightChild->parent = $node;
+
     } else {
 
       $node->value = $value;
@@ -159,7 +165,10 @@ class AVLTree<T>
     if ($balanceFactor < -1) {
 
       if ($this->getBalanceFactorAtNode($node->rightChild) > 0) {
+
         $node->rightChild = $this->rotateRightAndGetRoot($node->rightChild);
+        $node->rightChild->parent = $node;
+
       }
 
       $node = $this->rotateLeftAndGetRoot($node);
@@ -169,7 +178,10 @@ class AVLTree<T>
     if ($balanceFactor > 1) {
 
       if ($this->getBalanceFactorAtNode($node->leftChild) < 0) {
+
         $node->leftChild = $this->rotateLeftAndGetRoot($node->leftChild);
+        $node->leftChild->parent = $node;
+
       }
 
       $node = $this->rotateRightAndGetRoot($node);
@@ -187,8 +199,9 @@ class AVLTree<T>
   private function rotateRightAndGetRoot(TreeNode $node) : TreeNode
   {
     $leftChild = $node->leftChild;
-    $node->leftChild = $leftChild->rightChild;
-    $leftChild->rightChild = $node;
+    $node->attachLeftChild($leftChild->rightChild);
+    $leftChild->parent = $node->parent;
+    $leftChild->attachRightChild($node);
 
     $leftChild->size = $node->size;
     $node->size = $this->getSizeForNode($node);
@@ -201,8 +214,9 @@ class AVLTree<T>
   private function rotateLeftAndGetRoot(TreeNode $node) : TreeNode
   {
     $rightChild = $node->rightChild;
-    $node->rightChild = $rightChild->leftChild;
-    $rightChild->leftChild = $node;
+    $node->attachRightChild($rightChild->leftChild);
+    $rightChild->parent = $node->parent;
+    $rightChild->attachLeftChild($node);
 
     $rightChild->size = $node->size;
     $node->size = $this->getSizeForNode($node);

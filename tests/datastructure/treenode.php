@@ -65,9 +65,11 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$treeNodeLeftChild = new TreeNode();
 
 		$treeNode->attachLeftChild($treeNodeLeftChild);
+		$treeNodeLeftChild->attachLeftChild(null);
 
 		$this->assertSame($treeNodeLeftChild, $treeNode->leftChild);
 		$this->assertSame($treeNode, $treeNodeLeftChild->parent);
+		$this->assertSame(null, $treeNodeLeftChild->leftChild);
 	}
 
 	public function testCanAttachMiddleChild()
@@ -76,9 +78,11 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$treeNodeMiddleChild = new TreeNode();
 
 		$treeNode->attachMiddleChild($treeNodeMiddleChild);
+		$treeNodeMiddleChild->attachMiddleChild(null);
 
 		$this->assertSame($treeNodeMiddleChild, $treeNode->middleChild);
 		$this->assertSame($treeNode, $treeNodeMiddleChild->parent);
+		$this->assertSame(null, $treeNodeMiddleChild->middleChild);
 	}
 
 	public function testCanAttachRightChild()
@@ -87,9 +91,11 @@ class TreeNodeTest extends \PHPUnit_Framework_TestCase
 		$treeNodeRightChild = new TreeNode();
 
 		$treeNode->attachRightChild($treeNodeRightChild);
+		$treeNodeRightChild->attachRightChild(null);
 
 		$this->assertSame($treeNodeRightChild, $treeNode->rightChild);
 		$this->assertSame($treeNode, $treeNodeRightChild->parent);
+		$this->assertSame(null, $treeNodeRightChild->rightChild);
 	}
 
 	public function testCanAttachSelfAsLeftChild()

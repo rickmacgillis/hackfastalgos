@@ -24,22 +24,31 @@ class TreeNode
 	public ?TreeNode $middleChild = null;
 	public ?TreeNode $rightChild = null;
 
-	public function attachLeftChild(TreeNode $leftChild)
+	public function attachLeftChild(?TreeNode $leftChild)
 	{
 		$this->leftChild = $leftChild;
-		$leftChild->parent = $this;
+
+		if ($leftChild !== null) {
+			$leftChild->parent = $this;
+		}
 	}
 
-	public function attachMiddleChild(TreeNode $middleChild)
+	public function attachMiddleChild(?TreeNode $middleChild)
 	{
 		$this->middleChild = $middleChild;
-		$middleChild->parent = $this;
+
+		if ($middleChild !== null) {
+			$middleChild->parent = $this;
+		}
 	}
 
-	public function attachRightChild(TreeNode $rightChild)
+	public function attachRightChild(?TreeNode $rightChild)
 	{
 		$this->rightChild = $rightChild;
-		$rightChild->parent = $this;
+
+		if ($rightChild !== null) {
+			$rightChild->parent = $this;
+		}
 	}
 
 	public function attachAsLeftChildOf(TreeNode $parent)

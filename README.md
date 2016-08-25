@@ -178,6 +178,8 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **LRUCache**
 	* An implementation of a Least Recently Used Cache which **deletes** the least recently used item when the
     cache is full and we're adding a new item.
+* **OrderStatisticTree**
+	* Implementation of an Order Statistic Tree based on `AVLTree` with `select()` and `getRank()` functionality.
 * **PriorityQueue**
 	* Implementation of a priority queue
 * **Queue**
