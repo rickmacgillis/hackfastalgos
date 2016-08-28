@@ -9,7 +9,6 @@
 
 namespace HackFastAlgos\DataStructure;
 
-
 class DoublyLinkedListIsEmptyException extends \Exception{}
 
 class DoublyLinkedList implements \Iterator, \Countable

@@ -155,7 +155,6 @@ the capabilities of that data structure. All data uses the generic type `T` for 
 * **BPlusTree**
 * **BST**
 	* BST is an implementation of a Binary Search Tree.
-* **BTree**
 * **DoublyLinkedList**
 	* Implementation of a doubly-linked list
 * **EdgeList**
