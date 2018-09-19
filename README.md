@@ -5,7 +5,7 @@ Hack Fast Algos
 [![Code Climate](https://codeclimate.com/github/cozylife/hackfastalgos/badges/gpa.svg)](https://codeclimate.com/github/cozylife/hackfastalgos)
 [![Stories in Ready](https://badge.waffle.io/cozylife/hackfastalgos.png?label=ready&title=Ready)](https://waffle.io/cozylife/hackfastalgos)
 
-**STATUS:** IN DEVELOPMENT
+**STATUS:** DISCONTINUED
 
 Hack Fast Algos brings all of the most popular speed and space-efficient algorithms together in one library. The files
 are completely written in Hack, so they'll work with your HHVM installation with Hack enabled.
